@@ -9,6 +9,7 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'PaymentPlugins\\WooCommerce\\PPCP\\Tests\\' => 38,
             'PaymentPlugins\\WooCommerce\\PPCP\\' => 32,
             'PaymentPlugins\\PayPalSDK\\' => 25,
             'PaymentPlugins\\PPCP\\WooCommerceShipStation\\' => 43,
@@ -16,6 +17,7 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
             'PaymentPlugins\\PPCP\\WooCommerceGermanized\\' => 42,
             'PaymentPlugins\\PPCP\\WooCommerceExtraProductOptions\\' => 51,
             'PaymentPlugins\\PPCP\\Stripe\\' => 27,
+            'PaymentPlugins\\PPCP\\SW_WAPF\\' => 28,
             'PaymentPlugins\\PPCP\\MondialRelay\\' => 33,
             'PaymentPlugins\\PPCP\\FunnelKit\\' => 30,
             'PaymentPlugins\\PPCP\\Elementor\\' => 30,
@@ -25,6 +27,10 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
     );
 
     public static $prefixDirsPsr4 = array (
+        'PaymentPlugins\\WooCommerce\\PPCP\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
         'PaymentPlugins\\WooCommerce\\PPCP\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
@@ -52,6 +58,10 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
         'PaymentPlugins\\PPCP\\Stripe\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/stripe/src',
+        ),
+        'PaymentPlugins\\PPCP\\SW_WAPF\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/advanced-product-fields-for-woocommerce/src',
         ),
         'PaymentPlugins\\PPCP\\MondialRelay\\' => 
         array (
@@ -138,6 +148,7 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
         'PaymentPlugins\\PayPalSDK\\Service\\PaymentCaptureService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentCaptureService.php',
         'PaymentPlugins\\PayPalSDK\\Service\\PaymentService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentService.php',
         'PaymentPlugins\\PayPalSDK\\Service\\PaymentTokenService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentTokenService.php',
+        'PaymentPlugins\\PayPalSDK\\Service\\PaymentTokenServiceV3' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentTokenServiceV3.php',
         'PaymentPlugins\\PayPalSDK\\Service\\TrackingService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/TrackingService.php',
         'PaymentPlugins\\PayPalSDK\\Service\\WebhookService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/WebhookService.php',
         'PaymentPlugins\\PayPalSDK\\Shipping' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Shipping.php',

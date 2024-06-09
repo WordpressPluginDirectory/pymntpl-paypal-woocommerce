@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PaymentPlugins\\WooCommerce\\PPCP\\Tests\\' => array($baseDir . '/tests'),
     'PaymentPlugins\\WooCommerce\\PPCP\\' => array($baseDir . '/src'),
     'PaymentPlugins\\PayPalSDK\\' => array($vendorDir . '/paymentplugins/paypal-php-sdk/src'),
     'PaymentPlugins\\PPCP\\WooCommerceShipStation\\' => array($baseDir . '/packages/woocommerce-shipstation/src'),
@@ -13,6 +14,7 @@ return array(
     'PaymentPlugins\\PPCP\\WooCommerceGermanized\\' => array($baseDir . '/packages/woocommerce-germanized/src'),
     'PaymentPlugins\\PPCP\\WooCommerceExtraProductOptions\\' => array($baseDir . '/packages/woocommerce-tm-extra-product-options/src'),
     'PaymentPlugins\\PPCP\\Stripe\\' => array($baseDir . '/packages/stripe/src'),
+    'PaymentPlugins\\PPCP\\SW_WAPF\\' => array($baseDir . '/packages/advanced-product-fields-for-woocommerce/src'),
     'PaymentPlugins\\PPCP\\MondialRelay\\' => array($baseDir . '/packages/mondial-relay/src'),
     'PaymentPlugins\\PPCP\\FunnelKit\\' => array($baseDir . '/packages/funnelkit/src'),
     'PaymentPlugins\\PPCP\\Elementor\\' => array($baseDir . '/packages/elementor/src'),
