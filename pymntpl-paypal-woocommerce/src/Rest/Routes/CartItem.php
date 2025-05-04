@@ -45,8 +45,15 @@ class CartItem extends AbstractCart {
 		try {
 			// add item to the cart
 			if ( WC()->cart->add_to_cart( ...$cart_params ) === false ) {
-				throw new \Exception( __( 'Error adding product to cart.', 'pymntpl-paypal-woocommerce' ) );
+				throw new \Exception( $this->get_wc_notice( 'error', __( 'Error adding product to cart.', 'pymntpl-paypal-woocommerce' ) ) );
 			}
+
+			if ( $request->get_param( 'needs_setup_token' ) === true ) {
+				return [
+					'code' => null
+				];
+			}
+
 			$setting = new ProductSettings( $product_id );
 			$order   = $this->get_order_from_cart( $request );
 			$order->setIntent( $setting->get_option( 'intent' ) );
@@ -63,10 +70,12 @@ class CartItem extends AbstractCart {
 
 			$this->logger->info( sprintf( 'PayPal order %s created via %s', $result->id, __METHOD__ ), 'payment' );
 
-			$this->cache->set( Constants::PAYPAL_ORDER_ID, $result->id );
+			$this->cache->set( sprintf( '%s_%s', 'ppcp', Constants::PAYPAL_ORDER_ID ), $result->id );
 
 			return $result->id;
 		} catch ( \Exception $e ) {
+			$this->logger->info( sprintf( 'Error adding product to cart. Reason: %s. Cart args: %s', $e->getMessage(), print_r( $cart_params, true ) ) );
+
 			return new \WP_Error( 'add-to-cart-error', $e->getMessage(), [ 'status' => 200 ] );
 		}
 	}

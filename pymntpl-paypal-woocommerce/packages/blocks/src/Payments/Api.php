@@ -7,6 +7,8 @@ namespace PaymentPlugins\PPCP\Blocks\Payments;
 use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
 use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 use PaymentPlugins\PPCP\Blocks\Package;
+use PaymentPlugins\PPCP\Blocks\Payments\Gateways\CreditCardGateway;
+use PaymentPlugins\PPCP\Blocks\Payments\Gateways\FastlaneGateway;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\PayPalExpressGateway;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\PayPalGateway;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\APISettings;
@@ -36,7 +38,6 @@ class Api {
 		add_filter( 'woocommerce_blocks_payment_method_type_registration', [ $this, 'register_payment_gateways' ] );
 		add_action( 'woocommerce_blocks_checkout_enqueue_data', [ $this, 'add_checkout_payment_method_data' ] );
 		add_action( 'woocommerce_blocks_cart_enqueue_data', [ $this, 'add_cart_payment_method_data' ] );
-		add_action( 'woocommerce_blocks_enqueue_checkout_block_scripts_after', [ $this, 'enqueue_assets' ] );
 		add_action( 'woocommerce_blocks_enqueue_cart_block_scripts_after', [ $this, 'dequeue_cart_scripts' ] );
 		add_action( 'woocommerce_blocks_enqueue_checkout_block_scripts_before', [ $this, 'dequeue_cart_scripts' ] );
 		add_filter( 'woocommerce_payment_gateways', [ $this, 'add_payment_gateways' ] );
@@ -46,6 +47,8 @@ class Api {
 
 	public function register_payment_gateways( PaymentMethodRegistry $registry ) {
 		$registry->register( $this->container->get( PayPalGateway::class ) );
+		$registry->register( $this->container->get( CreditCardGateway::class ) );
+		$registry->register( $this->container->get( FastlaneGateway::class ) );
 	}
 
 	public function add_cart_payment_method_data() {
@@ -67,12 +70,6 @@ class Api {
 				'i18n'          => wc_ppcp_get_container()->get( Messages::class )->get_messages()
 			];
 			$this->data_api->add( 'ppcpGeneralData', $this->rest_controller->add_asset_data( $data ) );
-		}
-	}
-
-	public function enqueue_assets() {
-		if ( wp_script_is( 'wc-ppcp-blocks-commons', 'registered' ) ) {
-			$this->container->get( Package::ASSETS_API )->enqueue_style( 'wc-ppcp-blocks-styles', 'build/styles.css' );
 		}
 	}
 

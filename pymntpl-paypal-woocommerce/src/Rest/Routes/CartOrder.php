@@ -86,13 +86,21 @@ class CartOrder extends AbstractCart {
 				}
 				throw new \Exception( $result->get_error_message() );
 			}
-			$this->cache->set( Constants::PAYPAL_ORDER_ID, $result->id );
+			$this->cache->set( sprintf( '%s_%s', 'ppcp', Constants::PAYPAL_ORDER_ID ), $result->id );
 			$this->cache->set( Constants::SHIPPING_PREFERENCE, $order->getApplicationContext()->getShippingPreference() );
 
 			$this->logger->info(
 				sprintf( 'PayPal order created via %s. Args: %s', __METHOD__, print_r( $result->toArray(), true ) ),
 				'payment'
 			);
+
+			/**
+			 * @param $result  PaymentPlugins\PayPalSDK\Order
+			 * @param $request \WP_REST_Request
+			 *
+			 * @since 1.0.55
+			 */
+			do_action( 'wc_ppcp_cart_order_created', $result, $request );
 
 
 			return $result->id;
@@ -102,6 +110,11 @@ class CartOrder extends AbstractCart {
 		}
 	}
 
+	/**
+	 * @param $error
+	 *
+	 * @return mixed|void|\WP_Error
+	 */
 	public function get_error_response( $error ) {
 		if ( $error instanceof \Exception && $this->validator->has_errors() ) {
 			return $this->validator->get_failure_response();
