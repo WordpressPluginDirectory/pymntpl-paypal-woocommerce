@@ -113,9 +113,21 @@ class PaymentHandler extends LegacyPaymentHandler {
 						$result->initialize( $paypal_order );
 						$this->payment_complete( $order, $result );
 					} else {
-						$order->update_status( 'failed' );
-						$order->add_order_note( sprintf( __( 'Error processing payment. Reason: %s', 'pymntpl-paypal-woocommerce' ),
-							$result->get_error_message() ) );
+						if ( $result->is_wp_error() ) {
+							$order->update_status(
+								'failed',
+								sprintf( __( 'Error processing payment. Reason: %s', 'pymntpl-paypal-woocommerce' ),
+									$result->get_error_message()
+								)
+							);
+						} else {
+							$order->update_status(
+								'failed',
+								sprintf( __( 'Error processing payment. Reason: %s', 'pymntpl-paypal-woocommerce' ),
+									$result->get_error_message()
+								)
+							);
+						}
 					}
 				}
 			}
@@ -141,7 +153,7 @@ class PaymentHandler extends LegacyPaymentHandler {
 		if ( $result->is_captured() ) {
 			PayPalFee::add_fee_to_order( $order, $result->get_capture()->getSellerReceivableBreakdown(), false );
 			$capture = $result->get_capture();
-			if ( $capture->getStatus() === Capture::PENDING ) {
+			if ( $capture->isPending() ) {
 				$order->update_meta_data( Constants::CAPTURE_STATUS, Capture::PENDING );
 				$order->set_transaction_id( $capture->getId() );
 				$order->update_status( apply_filters( 'wc_ppcp_capture_pending_order_status', 'on-hold', $order, $result ),
@@ -165,9 +177,9 @@ class PaymentHandler extends LegacyPaymentHandler {
 	public function save_order_meta_data( \WC_Order $order, Order $paypal_order ) {
 		try {
 			$token = $this->get_payment_method_token_from_paypal_order( $paypal_order );
-			$token->set_environment( wc_ppcp_get_order_mode( $order ) );
+			$token->set_environment( $paypal_order->getEnvironment() );
 			$order->set_payment_method_title( $token->get_payment_method_title() );
-			$order->update_meta_data( Constants::ORDER_ID, $paypal_order->id );
+			$order->update_meta_data( Constants::ORDER_ID, $paypal_order->getId() );
 			$order->update_meta_data( Constants::PPCP_ENVIRONMENT, $this->client->getEnvironment() );
 
 			do_action( 'wc_ppcp_save_order_meta_data', $order, $paypal_order, $this->payment_method, $token );
