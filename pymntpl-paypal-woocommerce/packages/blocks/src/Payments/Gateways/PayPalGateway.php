@@ -3,6 +3,7 @@
 
 namespace PaymentPlugins\PPCP\Blocks\Payments\Gateways;
 
+use PaymentPlugins\PPCP\Blocks\Utils\ActionUtils;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\AdvancedSettings;
 
 /**
@@ -96,14 +97,17 @@ class PayPalGateway extends AbstractGateway {
 			}
 		}
 
-		return array_merge( parent::get_payment_method_data(), $data );
+		return ActionUtils::apply_payment_data_filter(
+			array_merge( parent::get_payment_method_data(), $data ),
+			$this
+		);
 	}
 
 	public function get_payment_method_icons() {
 		return [
 			[
 				'id'  => 'paypal',
-				'src' => $this->assets_api->assets_url( '../../assets/img/paypal_logo.svg' ),
+				'src' => $this->assets_api->assets_url( "../../assets/img/{$this->get_setting('icon', 'paypal_logo')}.svg" ),
 				'alt' => 'PayPal'
 			],
 			[
