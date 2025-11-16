@@ -55,6 +55,9 @@ class SubscriptionController {
 		add_filter( 'wc_ppcp_payment_method_save_required', [ $this, 'get_payment_method_save_required' ], 10, 2 );
 		add_filter( 'wc_ppcp_checkout_payment_method_save_required', [ $this, 'get_checkout_payment_method_save_required' ], 10, 3 );
 		add_filter( 'woocommerce_subscription_note_new_payment_method_title', [ $this, 'update_new_payment_method_title' ], 10, 3 );
+		add_filter( 'wc_ppcp_product_payment_gateways', [ $this, 'filter_product_payment_gateways' ], 10, 2 );
+		add_filter( 'wc_ppcp_express_checkout_payment_gateways', [ $this, 'filter_express_payment_gateways' ] );
+		add_filter( 'wc_ppcp_cart_payment_gateways', [ $this, 'filter_cart_payment_gateways' ] );
 
 		/**
 		 * Filter called when cart or checkout block is enabled.
@@ -336,7 +339,7 @@ class SubscriptionController {
 			} elseif ( $context->is_order_pay() ) {
 				// @todo - add code for order pay
 			} else {
-				if ( \WC_Subscriptions_Cart::cart_contains_free_trial() && WC()->cart->total == 0 ) {
+				if ( \WC_Subscriptions_Cart::cart_contains_free_trial() && WC()->cart->get_total( 'edit' ) == 0 ) {
 					$data['needsSetupToken'] = true;
 				}
 			}
@@ -385,6 +388,42 @@ class SubscriptionController {
 		}
 
 		return $data;
+	}
+
+	public function filter_product_payment_gateways( $payment_gateways, $product ) {
+		if ( \WC_Subscriptions_Product::is_subscription( $product ) ) {
+			foreach ( $payment_gateways as $gateway ) {
+				if ( ! $gateway->supports( 'subscriptions' ) ) {
+					unset( $payment_gateways[ $gateway->id ] );
+				}
+			}
+		}
+
+		return $payment_gateways;
+	}
+
+	public function filter_express_payment_gateways( $payment_gateways ) {
+		if ( \WC_Subscriptions_Cart::cart_contains_subscription() ) {
+			foreach ( $payment_gateways as $gateway ) {
+				if ( ! $gateway->supports( 'subscriptions' ) ) {
+					unset( $payment_gateways[ $gateway->id ] );
+				}
+			}
+		}
+
+		return $payment_gateways;
+	}
+
+	public function filter_cart_payment_gateways( $payment_gateways ) {
+		if ( \WC_Subscriptions_Cart::cart_contains_subscription() ) {
+			foreach ( $payment_gateways as $gateway ) {
+				if ( ! $gateway->supports( 'subscriptions' ) ) {
+					unset( $payment_gateways[ $gateway->id ] );
+				}
+			}
+		}
+
+		return $payment_gateways;
 	}
 
 	/**

@@ -3,6 +3,7 @@
 namespace PaymentPlugins\PPCP\CheckoutWC;
 
 use PaymentPlugins\WooCommerce\PPCP\Assets\AssetsApi;
+use PaymentPlugins\WooCommerce\PPCP\Config;
 use PaymentPlugins\WooCommerce\PPCP\Package\AbstractPackage;
 use PaymentPlugins\WooCommerce\PPCP\Payments\PaymentGateways;
 
@@ -11,7 +12,9 @@ class Package extends AbstractPackage {
 	public $id = 'checkoutwc';
 
 	public function initialize() {
-		$this->container->get( PayPalPaymentGateway::class );
+		$this->container->get( FrontendAssets::class )->initialize();
+		$this->container->get( PaymentGatewaysController::class );
+		//$this->container->get( PayPalPaymentGateway::class );
 	}
 
 	public function is_active() {
@@ -19,6 +22,21 @@ class Package extends AbstractPackage {
 	}
 
 	public function register_dependencies() {
+		$this->container->register( FrontendAssets::class, function () {
+			return new FrontendAssets(
+				new AssetsApi(
+					new Config( $this->version, dirname( __FILE__ )
+					)
+				)
+			);
+		} );
+		$this->container->register( PaymentGatewaysController::class, function ( $container ) {
+			$instance = PaymentGatewaysController::instance();
+			$instance->set_payment_gateways( $container->get( PaymentGateways::class ) );
+			$instance->init();
+
+			return $instance;
+		} );
 		$this->container->register( PayPalPaymentGateway::class, function ( $container ) {
 			$instance = PayPalPaymentGateway::instance();
 			$instance->set_assets_api( $container->get( AssetsApi::class ) );

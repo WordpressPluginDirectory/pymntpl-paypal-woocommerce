@@ -53,7 +53,8 @@ class PaymentHandler extends LegacyPaymentHandler {
 				$paypal_order_id = $this->cache->get( sprintf( '%s_%s', $this->payment_method->id, Constants::PAYPAL_ORDER_ID ) );
 
 				// If there isn't an existing PayPal order ID, create a PayPal order.
-				if ( ! $paypal_order_id ) {
+				// If the order ID came from the cache, but the customer is now using a saved payment method, create a new order.
+				if ( ! $paypal_order_id || ( $this->payment_method->supports( 'vault' ) && $this->payment_method->should_use_saved_payment_method() ) ) {
 					$args = $this->get_create_order_params( $order );
 
 					$this->payment_method->logger->info(
@@ -97,7 +98,7 @@ class PaymentHandler extends LegacyPaymentHandler {
 						$paypal_order = $this->client->orders->capture( $paypal_order->getId() );
 					} else {
 						$this->payment_method->logger->info( sprintf( 'Authorizing payment for PayPal order %s via %s. Order ID: %s', $paypal_order->getId(), __METHOD__, $order->get_id() ), 'payment' );
-						$paypal_order = $this->client->orders->authorize( $paypal_order->getId(), );
+						$paypal_order = $this->client->orders->authorize( $paypal_order->getId() );
 					}
 				}
 			}
@@ -156,7 +157,7 @@ class PaymentHandler extends LegacyPaymentHandler {
 	}
 
 	/**
-	 * @param \WC_Order     $order
+	 * @param \WC_Order $order
 	 * @param PaymentResult $result
 	 */
 	public function payment_complete( \WC_Order $order, PaymentResult $result ) {
@@ -254,6 +255,7 @@ class PaymentHandler extends LegacyPaymentHandler {
 	protected function get_update_order_params( \WC_Order $order, Order $paypal_order ) {
 		$this->factories->initialize( $order );
 		$patches = [];
+
 		/**
 		 * @var PurchaseUnit $pu
 		 */
@@ -262,21 +264,26 @@ class PaymentHandler extends LegacyPaymentHandler {
 		 * @var PurchaseUnit $purchase_unit
 		 */
 		foreach ( $paypal_order->purchase_units as $purchase_unit ) {
-			if ( $purchase_unit->getReferenceId() ) {
-				$pu->setReferenceId( $purchase_unit->getReferenceId() );
-			} else {
-				$pu->setReferenceId( 'default' );
-			}
-			$pu->patch();
-			$pu->addPatchRequest( '', PatchRequest::REPLACE );
+			$purchase_unit->setAmount( $pu->getAmount() );
+			$purchase_unit->setInvoiceId( $pu->getInvoiceId() );
+			$purchase_unit->setCustomId( $pu->getCustomId() );
+			$purchase_unit->setItems( $pu->getItems() );
+			$purchase_unit->setDescription( $pu->getDescription() );
 
-			$patches = array_merge( $patches, $pu->getPatchRequests() );
+			$purchase_unit->setShipping( $pu->getShipping() );
+
+			$purchase_unit->patch();
+			$purchase_unit->addPatchRequest( '', PatchRequest::REPLACE );
+
+			$patches = array_merge( $patches, $purchase_unit->getPatchRequests() );
+
+			//$this->payment_method->logger->info( 'PayPal Patches: ' . print_r( $patches, true ) );
 		}
 
 		/**
-		 * @param array                                           $patches
-		 * @param \WC_Order                                       $order
-		 * @param Order                                           $paypal_order
+		 * @param array $patches
+		 * @param \WC_Order $order
+		 * @param Order $paypal_order
 		 * @param \PaymentPlugins\WooCommerce\PPCP\PaymentHandler $this
 		 */
 		return apply_filters( 'wc_ppcp_get_update_order_params', $patches, $order, $paypal_order, $this );
@@ -289,7 +296,7 @@ class PaymentHandler extends LegacyPaymentHandler {
 	/**
 	 * @param \WC_Order $order
 	 * @param           $amount
-	 * @param string    $reason
+	 * @param string $reason
 	 */
 	public function process_refund( \WC_Order $order, $amount, $reason = '' ) {
 		$id = $order->get_transaction_id();
@@ -353,7 +360,7 @@ class PaymentHandler extends LegacyPaymentHandler {
 	 * Void an authorized payment
 	 *
 	 * @param \WC_Order $order
-	 * @param bool      $manual
+	 * @param bool $manual
 	 */
 	public function process_void( \WC_Order $order, $manual = false ) {
 		try {
@@ -391,9 +398,9 @@ class PaymentHandler extends LegacyPaymentHandler {
 	/**
 	 * @param \WC_Order $order
 	 *
-	 * @since 1.0.22
 	 * @return void
 	 * @throws \Exception
+	 * @since 1.0.22
 	 */
 	public function process_order_cancellation( \WC_Order $order ) {
 		$txn_id      = $order->get_transaction_id();
@@ -448,9 +455,10 @@ class PaymentHandler extends LegacyPaymentHandler {
 
 	/**
 	 * @param \WP_Error|Order $paypal_order
-	 * @param \WC_Order       $order
+	 * @param \WC_Order $order
 	 *
 	 * @return void
+	 * @throws \Exception
 	 */
 	private function validate_paypal_order( $paypal_order, $order ) {
 		// Only validate orders with a CREATED status because that means they haven't been approved yet.

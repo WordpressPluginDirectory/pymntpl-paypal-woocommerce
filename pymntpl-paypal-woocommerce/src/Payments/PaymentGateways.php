@@ -14,6 +14,7 @@ use PaymentPlugins\WooCommerce\PPCP\Messages;
 use PaymentPlugins\WooCommerce\PPCP\PaymentMethodRegistry;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\AbstractGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\CreditCardGateway;
+use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\GooglePayGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\PayPal;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\PayPalGateway;
 use PaymentPlugins\WooCommerce\PPCP\Container\Container;
@@ -34,6 +35,8 @@ class PaymentGateways {
 	 */
 	private $context_handler;
 
+	private $enqueued_handles = [];
+
 	public function __construct( PaymentMethodRegistry $payment_method_registry, AssetsApi $assets, AssetDataApi $asset_data, APISettings $api_settings ) {
 		$this->payment_method_registry = $payment_method_registry;
 		$this->assets                  = $assets;
@@ -41,11 +44,15 @@ class PaymentGateways {
 		$this->api_settings            = $api_settings;
 		add_action( 'woocommerce_ppcp_payment_methods_registration', [ $this, 'register_payment_methods' ], 10, 2 );
 		add_filter( 'wc_ppcp_admin_script_dependencies', [ $this, 'add_admin_script_dependencies' ], 10, 2 );
-		add_action( 'wp_enqueue_scripts', [ $this, 'load_scripts' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_payment_scripts' ] );
+		add_action( 'wc_ppcp_add_script_data', [ $this, 'add_script_data' ] );
 		add_action( 'wp_print_scripts', [ $this, 'add_minicart_scripts' ] );
 		add_filter( 'woocommerce_available_payment_gateways', [ $this, 'get_available_payment_gateways' ] );
 		add_action( 'woocommerce_before_mini_cart', [ $this, 'add_minicart_scripts' ] );
 		add_action( 'wc_ppcp_admin_add_script_data', [ $this, 'add_admin_script_data' ] );
+		add_filter( 'wc_ppcp_update_order_review_data', [ $this, 'add_payment_method_data_to_fragments' ] );
+		add_filter( 'wc_ppcp_post_cart/refresh', [ $this, 'get_cart_refresh_data' ] );
+		add_filter( 'wc_ppcp_cart_refresh_data', [ $this, 'add_cart_refresh_data' ] );
 
 		$this->payment_method_registry->initialize();
 	}
@@ -57,6 +64,7 @@ class PaymentGateways {
 	public function register_payment_methods( PaymentMethodRegistry $registry, Container $container ) {
 		$this->payment_method_registry->register( $container->get( PayPalGateway::class ) );
 		$this->payment_method_registry->register( $container->get( CreditCardGateway::class ) );
+		$this->payment_method_registry->register( $container->get( GooglePayGateway::class ) );
 	}
 
 	public function initialize_gateways( $gateways = [] ) {
@@ -103,8 +111,8 @@ class PaymentGateways {
 	/**
 	 * @param $payment_methods
 	 *
-	 * @since 1.0.16
 	 * @return array
+	 * @since 1.0.16
 	 */
 	public function filter_by_available( $payment_methods ) {
 		$available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
@@ -131,19 +139,29 @@ class PaymentGateways {
 		}
 	}
 
-	public function load_scripts() {
+	public function enqueue_payment_scripts() {
 		$handles = [];
 
 		if ( $this->payment_method_registry->is_empty() ) {
 			$this->payment_method_registry->initialize();
 		}
 
-		if ( $this->context_handler->has_context( [ 'checkout', 'add_payment_method', 'order_pay' ] ) || apply_filters( 'wc_ppcp_checkout_scripts', false ) ) {
+		$this->context_handler->initialize();
+
+		if ( $this->context_handler->has_context( [
+				'checkout',
+				'add_payment_method',
+				'order_pay'
+			] ) || apply_filters( 'wc_ppcp_checkout_scripts', false ) ) {
 			if ( $this->context_handler->is_checkout_block() ) {
 				return;
 			}
-			$handles = $this->payment_method_registry->add_checkout_script_dependencies();
-			$handles = array_merge( $handles, $this->payment_method_registry->add_express_checkout_script_dependencies() );
+			if ( $this->context_handler->is_add_payment_method() ) {
+				$handles = $this->payment_method_registry->add_payment_method_script_dependencies();
+			} else {
+				$handles = $this->payment_method_registry->add_checkout_script_dependencies();
+				$handles = array_merge( $handles, $this->payment_method_registry->add_express_checkout_script_dependencies() );
+			}
 		} elseif ( $this->context_handler->is_cart() ) {
 			$handles = $this->payment_method_registry->add_cart_script_dependencies();
 		} elseif ( $this->context_handler->is_product() ) {
@@ -151,42 +169,38 @@ class PaymentGateways {
 		} elseif ( $this->context_handler->is_shop() ) {
 			$handles = $this->payment_method_registry->add_shop_script_dependencies();
 		}
-		$this->add_scripts( $handles );
+		$this->enqueue_scripts( $handles );
 	}
 
-	/**
-	 * Adds all required scripts and data that are required for payment buttons to function
-	 * on a product page.
-	 *
-	 * @throws \Exception
-	 */
-	public function add_product_scripts() {
-		$handles = $this->payment_method_registry->add_product_script_dependencies();
-		$this->add_scripts( $handles );
-	}
-
-	public function add_scripts( $handles ) {
+	private function enqueue_scripts( $handles ) {
 		if ( ! is_admin() && ( $handles = apply_filters( 'wc_ppcp_script_dependencies', $handles, $this->assets, $this->context_handler, $this ) ) ) {
 			// enqueue required script here
 			foreach ( $handles as $handle ) {
 				wp_enqueue_script( $handle );
+				$this->enqueued_handles[] = $handle;
 			}
-
 			wp_enqueue_style( 'wc-ppcp-style' );
-
-			//$this->assets->enqueue_script( 'wc-ppcp-frontend-commons', 'build/js/frontend-commons.js', $handles );
-			//$this->assets->enqueue_style( 'wc-ppcp-style', 'build/css/styles.css' );
-
-
-			$this->asset_data->add( 'version', wc_ppcp_get_container()->get( 'VERSION' ) );
-			$this->asset_data->add( 'generalData', $this->get_general_asset_data() );
-			$this->asset_data->add( 'errorMessages', wc_ppcp_get_container()->get( Messages::class )->get_messages() );
-			$this->asset_data->add( 'i18n', [
-				'locale'        => wp_json_encode( WC()->countries->get_country_locale() ),
-				'locale_fields' => wp_json_encode( WC()->countries->get_country_locale_field_selectors() )
-			] );
-			$this->payment_method_registry->add_payment_method_data( $this->asset_data, $this->context_handler );
 		}
+	}
+
+	/**
+	 * @param AssetDataApi $asset_data
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
+	public function add_script_data( $asset_data ) {
+		if ( empty( $this->enqueued_handles ) && ! $asset_data->has_data() ) {
+			return;
+		}
+		$asset_data->add( 'version', wc_ppcp_get_container()->get( 'VERSION' ) );
+		$asset_data->add( 'generalData', $this->get_general_asset_data() );
+		$asset_data->add( 'errorMessages', wc_ppcp_get_container()->get( Messages::class )->get_messages() );
+		$asset_data->add( 'i18n', [
+			'locale'        => wp_json_encode( WC()->countries->get_country_locale() ),
+			'locale_fields' => wp_json_encode( WC()->countries->get_country_locale_field_selectors() )
+		] );
+		$this->payment_method_registry->add_payment_method_data( $asset_data, $this->context_handler );
 	}
 
 	private function get_general_asset_data() {
@@ -243,12 +257,8 @@ class PaymentGateways {
 		if ( $this->context_handler ) {
 			if ( ! $this->context_handler->is_checkout() && ! $this->context_handler->is_cart() && ! $this->context_handler->is_order_pay() && ! $this->context_handler->is_order_received() ) {
 				$handles = $this->payment_method_registry->add_minicart_script_dependencies();
-				if ( wp_script_is( 'wc-ppcp-frontend-commons' ) ) {
-					foreach ( $handles as $handle ) {
-						wp_enqueue_script( $handle );
-					}
-				} else {
-					$this->add_scripts( $handles );
+				if ( ! empty( $handles ) ) {
+					$this->enqueue_scripts( $handles );
 				}
 			}
 		}
@@ -259,6 +269,43 @@ class PaymentGateways {
 	 */
 	public function get_api_settings() {
 		return $this->api_settings;
+	}
+
+	/**
+	 * Add payment method data to AJAX fragments for checkout updates
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 */
+	public function add_payment_method_data_to_fragments( $data ) {
+		if ( ! $this->context_handler ) {
+			return $data;
+		}
+
+		if ( $this->payment_method_registry->is_empty() ) {
+			$this->payment_method_registry->initialize();
+		}
+
+		// Get fresh payment method data for each active gateway
+		$data = array_merge( $data, $this->payment_method_registry->get_payment_method_data( $this->context_handler ) );
+
+		return $data;
+	}
+
+	public function get_cart_refresh_data( $data ) {
+		return array_merge( $data, $this->payment_method_registry->get_payment_method_data( $this->context_handler ) );
+	}
+
+	/**
+	 * @param AssetDataApi $data
+	 *
+	 * @return void
+	 */
+	public function add_cart_refresh_data( $data ) {
+		foreach ( $this->payment_method_registry->get_payment_method_data( $this->context_handler ) as $key => $payment_data ) {
+			$data->add( $key, $payment_data );
+		}
 	}
 
 }

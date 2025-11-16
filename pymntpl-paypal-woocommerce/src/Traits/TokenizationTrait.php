@@ -49,7 +49,7 @@ trait TokenizationTrait {
 	/**
 	 * Return true if the customer is using a saved payment method.
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function should_use_saved_payment_method() {
 		$key = 'wc-' . $this->id . '-payment-token';

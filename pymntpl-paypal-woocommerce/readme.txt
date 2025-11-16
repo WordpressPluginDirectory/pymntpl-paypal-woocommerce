@@ -4,7 +4,7 @@ Tags: paypal, paylater, venmo, credit cards
 Requires at least: 4.7
 Tested up to: 6.8
 Requires PHP: 7.1
-Stable tag: 1.1.13
+Stable tag: 2.0.0
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,7 @@ In order to process payments online, you will need a PayPal Business Account.
 = Supports =
 - Fastlane
 - Advanced Credit and Debit Card Payments (ACDC)
+- Google Pay
 - WooCommerce Subscriptions
 - WooCommerce Pre-Orders
 - WooCommerce Blocks
@@ -49,6 +50,27 @@ Our documentation has a step-by-step guide on how to connect the plugin to your 
 Payment Plugins is the team behind several of the highest reviewed and installed Payment integrations for WooCommerce.
 
 == Changelog ==
+= 2.0.0 - 11/15/25 =
+* Added - Google Pay integration. Settings are located via the "PayPal Google Pay Settings" page. /wp-admin/admin.php?page=wc-settings&tab=checkout&section=ppcp_googlepay
+* Added - Option on WordPress Admin > Products page where product level PayPal options can be removed in bulk.
+* Updated - Modified templates/checkout/credit-card.php. wc-ppcp-card-payment-method__container" renamed to wc-ppcp_card-payment-method__container"
+* Updated - Javascript events like "foundVariation" converted to use camel case so "found_variation".
+* Updated - JS event wc_ppcp_button_created renamed to wc_ppcp_payment_element_ready.
+* Updated - Add validation for payment_method property in case invalid payment gateway ID is used. [https://wordpress.org/support/topic/fatal-errors-113/](https://wordpress.org/support/topic/fatal-errors-113/)
+* Updated - Improvements to Elementor widgets and overall support for Elementor.
+* Updated - Ensure order attribution data is captured when express payment buttons used on product and cart page.
+* Updated - Reduced average Javascript file size by 40% for improved load performance
+* Updated - Moved 3DS settings from Credit Card Settings page to Advanced Settings page.
+= 1.1.15 - 11/04/25 =
+* Updated - WooCommerce tested up to: 10.3
+* Updated - When express payment is made on product and cart page, ensure attribution data is included in the request.
+* Added - Action wc_ppcp_before_cart_payment_methods to the templates/cart/payment-methods.php file
+* Added - Action wc_ppcp_before_product_payment_methods to the templates/product/payment-methods.php file
+* Next Release - Support for Google Pay
+= 1.1.14 - 10/01/25 =
+* Added - [Immediate Payment Only](https://paymentplugins.com/documentation/paypal/paypal-settings/#immediate-payment-only) option which allows merchants to disable eChecks or any payment method that doesn't settle immediately.
+* Updated - WooCommerce tested up to: 10.2
+* Updated - Improved error handling when "Validate Checkout Fields" option is enabled. The "woocommerce-invalid" class is now added to invalid fields. [https://wordpress.org/support/topic/checkout-errors-scroll/](https://wordpress.org/support/topic/checkout-errors-scroll/)
 = 1.1.13 - 09/13/25 =
 * Fixed - Issue on cart and checkout block if "Vault" option was not enabled in the Advanced Settings page. This triggered a "rest_invalid_param" error for PayPal in express checkout.
 = 1.1.12 - 09/09/25 =

@@ -1,3 +1,4410 @@
-/*! For license information please see blocks-commons.js.LICENSE.txt */
-(self.webpackChunkwcPPCP=self.webpackChunkwcPPCP||[]).push([[107],{270:(t,e,r)=>{"use strict";r.r(e);var n=r(554);const o=JSON.parse('{"apiVersion":2,"name":"wc-ppcp/checkout-block","version":"2.0.0","title":"PayPal checkout block","category":"woocommerce","description":"Adds an invisible block to the checkout page.","supports":{"html":false,"align":false,"multiple":false,"reusable":false},"parent":["woocommerce/checkout-fields-block"],"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}}},"textdomain":"pymntpl-paypal-woocommerce"}');var a=r(307),i=r(818),c=r(801),u=r(617);(0,n.registerCheckoutBlock)({metadata:o,component:function(t){t.checkoutExtensionData,t.extensions;var e=(0,i.dispatch)("core/notices").createErrorNotice,r=(0,i.dispatch)(c.PAYMENT_STORE_KEY).__internalSetActivePaymentMethod,n=(0,u.getSetting)("ppcp_data");return(0,a.useEffect)((function(){r&&n.errorMessage&&(e(n.errorMessage,{context:"wc/checkout"}),r("ppcp"))}),[]),null}})},311:(t,e,r)=>{"use strict";r.r(e);var n=r(554);const o=JSON.parse('{"apiVersion":2,"name":"wc-ppcp/fastlane-block","version":"2.0.0","title":"PayPal Fastlane block","category":"woocommerce","description":"Adds an invisible Fastlane block to the checkout page.","supports":{"html":false,"align":false,"multiple":false,"reusable":false},"parent":["woocommerce/checkout-fields-block"],"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}}},"textdomain":"pymntpl-paypal-woocommerce"}');var a=r(307),i=r(818),c=r(801),u=r(617),l=r(483),s=r(16),f=r(762);function p(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function d(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function h(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}(0,n.registerCheckoutBlock)({metadata:o,component:function(t){t.checkoutExtensionData;var e,r,n=t.extensions,o=(0,a.useRef)(!0),y=(0,a.useRef)({}),v=(0,u.getSetting)("paypalQueryParams"),m=n.wc_ppcp.fastlane,g=(0,i.useSelect)((function(t){var e=t(c.CART_STORE_KEY);return function(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?d(Object(r),!0).forEach((function(e){h(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):d(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}({needsShipping:e.getNeedsShipping()},e.getCustomerData())})),b=g.needsShipping,w=g.billingAddress,E=(0,i.useDispatch)(c.CART_STORE_KEY).setShippingAddress,O=w.email,S=(e=(0,a.useState)(O),r=2,function(t){if(Array.isArray(t))return t}(e)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(e,r)||function(t,e){if(t){if("string"==typeof t)return p(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?p(t,e):void 0}}(e,r)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()),_=S[0],x=S[1],j=(0,s.VD)(v),P=(0,f.H)({paypal:j}),k=(0,a.useCallback)((function(){}),[]),L=(0,a.useMemo)((function(){return{needsShipping:b,setShippingAddress:E}}),[b,E]),C=(0,f.D)({i18n:m.i18n,email:O,onError:k,fastlane:P,shippingData:L,openFastlaneModal:function(){return null}}),A=C.emails,R=C.isCustomerFound,N=C.triggerAuthentication;return(0,a.useEffect)((function(){y.current={fastlane:P,emails:A,isCustomerFound:R}}),[A,P,R]),(0,a.useEffect)((function(){var t=setTimeout((function(){x(O)}),500);return function(){return clearTimeout(t)}}),[O]),(0,a.useEffect)((function(){var t=y.current,e=t.emails,r=t.isCustomerFound;if(!e.includes(_)&&!r&&P&&N&&(0,l.isEmail)(_))return o.current?(o.current=!1,void(m.fastlane_pageload&&N(_,!1))):void(m.emailDetectionEnabled&&N(_,!1))}),[P,_,N]),(0,a.useEffect)((function(){var t=y.current.fastlane;if(t&&m.iconEnabled){var e=document.getElementById("email");if(e){var r=document.getElementById("wc-ppcp-watermark-container");if(r)return;(r=document.createElement("div")).id="wc-ppcp-watermark-container",t.FastlaneWatermarkComponent({includeAdditionalInfo:!0}).then((function(t){e.parentElement.append(r),t.render("#wc-ppcp-watermark-container")}))}}})),null}})},128:(t,e,r)=>{"use strict";function n(){return React.createElement("svg",{className:"card-cvc-icon",width:"24",height:"24",viewBox:"0 0 24 24",xmlns:"http://www.w3.org/2000/svg",fill:"var(--colorIconCardCvc)",role:"img"},React.createElement("path",{opacity:".2",fillRule:"evenodd",clipRule:"evenodd",d:"M15.337 4A5.493 5.493 0 0013 8.5c0 1.33.472 2.55 1.257 3.5H4a1 1 0 00-1 1v1a1 1 0 001 1h16a1 1 0 001-1v-.6a5.526 5.526 0 002-1.737V18a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2h12.337zm6.707.293c.239.202.46.424.662.663a2.01 2.01 0 00-.662-.663z"}),React.createElement("path",{opacity:".4",fillRule:"evenodd",clipRule:"evenodd",d:"M13.6 6a5.477 5.477 0 00-.578 3H1V6h12.6z"}),React.createElement("path",{fillRule:"evenodd",clipRule:"evenodd",d:"M18.5 14a5.5 5.5 0 110-11 5.5 5.5 0 010 11zm-2.184-7.779h-.621l-1.516.77v.786l1.202-.628v3.63h.943V6.22h-.008zm1.807.629c.448 0 .762.251.762.613 0 .393-.37.668-.904.668h-.235v.668h.283c.565 0 .95.282.95.691 0 .393-.377.66-.911.66-.393 0-.786-.126-1.194-.37v.786c.44.189.88.291 1.312.291 1.029 0 1.736-.526 1.736-1.288 0-.535-.33-.967-.88-1.14.472-.157.778-.573.778-1.045 0-.738-.652-1.241-1.595-1.241a3.143 3.143 0 00-1.234.267v.77c.378-.212.763-.33 1.132-.33zm3.394 1.713c.574 0 .974.338.974.778 0 .463-.4.785-.974.785-.346 0-.707-.11-1.076-.337v.809c.385.173.778.26 1.163.26.204 0 .392-.032.573-.08a4.313 4.313 0 00.644-2.262l-.015-.33a1.807 1.807 0 00-.967-.252 3 3 0 00-.448.032V6.944h1.132a4.423 4.423 0 00-.362-.723h-1.587v2.475a3.9 3.9 0 01.943-.133z"}))}r.d(e,{Z:()=>n})},59:(t,e,r)=>{"use strict";r.d(e,{I:()=>n});var n=function(t){var e,r,n,o=t.label,a=t.icon,i=t.description,c=t.onCancel;return React.createElement("div",{className:"wc-ppcp-components-payment-card__container"},React.createElement("div",{className:"wc-ppcp-components-payment-card__card"},React.createElement("img",{className:"wc-ppcp-components-payment-card__icon",alt:a.alt,src:a.src}),React.createElement("div",{className:"wc-ppcp-components-payment-card__description"},React.createElement("span",null,i))),React.createElement("div",{className:"wc-ppcp-components-payment-card-cancel__container"},React.createElement("span",(n=c,(r="onClick")in(e={className:"wc-ppcp-components-payment-card-cancel__label",onClick:c})?Object.defineProperty(e,r,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[r]=n,e),o)))}},521:(t,e,r)=>{"use strict";function n(t){var e=t.description;return e?React.createElement("p",{className:"wc-ppcp-payment-method__description"},e):null}r.d(e,{Z:()=>n})},263:(t,e,r)=>{"use strict";r.d(e,{w:()=>n});var n=function(t){var e=t.components,r=t.title,n=t.icons,o=t.id;Array.isArray(n)||(n=[n]);var a=e.PaymentMethodLabel,i=e.PaymentMethodIcons;return React.createElement("div",{className:"wc-ppcp-blocks-payment-method__label ".concat(o)},React.createElement(a,{text:r}),React.createElement(i,{icons:n}))}},430:(t,e,r)=>{"use strict";r.d(e,{B:()=>n});var n=function(t){var e=t.onClick,r=t.text,n=t.logo;return React.createElement("div",{className:"fastlane-signup-link-container",onClick:e},React.createElement("span",null,r),React.createElement("img",{className:"fastlane-signup-img",src:n}))}},21:(t,e,r)=>{"use strict";if(r.d(e,{Ac:()=>a.Z,BC:()=>i.B,qJ:()=>g,IH:()=>n.I,p8:()=>b.Z,wJ:()=>o.w}),862==r.j)var n=r(59);if(4!=r.j)var o=r(263);if(70==r.j)var a=r(128);if(70==r.j)var i=r(430);var c=r(307),u=r(967),l=r.n(u);function s(t){return s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},s(t)}function f(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function p(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?f(Object(r),!0).forEach((function(e){d(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):f(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function d(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function h(){h=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof p?e:p,a=Object.create(o.prototype),i=new x(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=O(i,r);if(c){if(c===f)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===f)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var f={};function p(){}function d(){}function y(){}var v={};c(v,o,(function(){return this}));var m=Object.getPrototypeOf,g=m&&m(m(j([])));g&&g!==e&&r.call(g,o)&&(v=g);var b=y.prototype=p.prototype=Object.create(v);function w(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function E(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var f=u.arg,p=f.value;return p&&"object"==s(p)&&r.call(p,"__await")?e.resolve(p.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(p).then((function(t){f.value=t,i(f)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function O(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,O(t,e),"throw"===e.method))return f;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return f}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,f;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,f):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,f)}function S(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function _(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function x(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(S,this),this.reset(!0)}function j(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:P}}function P(){return{value:void 0,done:!0}}return d.prototype=y,c(b,"constructor",y),c(y,"constructor",d),d.displayName=c(y,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===d||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,y):(t.__proto__=y,c(t,i,"GeneratorFunction")),t.prototype=Object.create(b),t},t.awrap=function(t){return{__await:t}},w(E.prototype),c(E.prototype,a,(function(){return this})),t.AsyncIterator=E,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new E(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},w(b),c(b,i,"Generator"),c(b,o,(function(){return this})),c(b,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=j,x.prototype={constructor:x,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(_),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,f):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),f},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),_(r),f}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;_(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:j(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),f}},t}function y(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}function v(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){y(a,n,o,i,c,"next",t)}function c(t){y(a,n,o,i,c,"throw",t)}i(void 0)}))}}function m(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var g=function(t){var e,r,n=t.i18n,o=t.open,a=t.onClose,i=t.fastlane,u=t.onTokenize,s=t.shippingData,f=(e=(0,c.useState)(!1),r=2,function(t){if(Array.isArray(t))return t}(e)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(e,r)||function(t,e){if(t){if("string"==typeof t)return m(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?m(t,e):void 0}}(e,r)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()),d=f[0],y=f[1],g=(0,c.useRef)({fastlane:i,shippingData:s}),b=(0,c.useCallback)(function(){var t=v(h().mark((function t(e){var r,n;return h().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return e.preventDefault(),t.prev=1,r=g.current.paymentComponent,t.next=5,r.getPaymentToken();case 5:n=t.sent,u(n),a(!0),y(!1),t.next=14;break;case 11:t.prev=11,t.t0=t.catch(1),console.log("Error tokenizing payment method. ",t.t0);case 14:case"end":return t.stop()}}),t,null,[[1,11]])})));return function(e){return t.apply(this,arguments)}}(),[]);return(0,c.useEffect)((function(){g.current=p(p({},g.current),{},{fastlane:i,shippingData:s})}),[i,s]),(0,c.useEffect)((function(){if(o){var t=g.current,e=t.fastlane,r=t.shippingData,n=r.needsShipping,a=r.shippingAddress,i=p({},n&&{shippingAddress:{firstName:a.first_name||"",lastName:a.last_name||"",streetAddress:a.address_1||"",extendedAddress:a.address_2||"",locality:a.city||"",region:a.state||"",postalCode:a.postcode||"",countryCodeAlpha2:a.country||"",phoneNumber:a.phone||""}});e.FastlanePaymentComponent(i).then(function(){var t=v(h().mark((function t(e){return h().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return g.current.paymentComponent=e,t.next=3,e.render(".wc-ppcp-fastlane-modal-body");case 3:document.body.classList.add("fastlane-modal-open"),setTimeout((function(){y(!0)}),250);case 5:case"end":return t.stop()}}),t)})));return function(e){return t.apply(this,arguments)}}())}else document.body.classList.remove("fastlane-modal-open");return function(){return document.body.classList.remove("fastlane-modal-open")}}),[o]),React.createElement("div",{className:l()("wc-ppcp-fastlane-overlay",{active:d})},React.createElement("div",{className:"wc-ppcp-fastlane-modal"},React.createElement("div",{className:"wc-ppcp-fastlane-modal-body"}),React.createElement("div",{className:"wc-ppcp-fastlane-modal-buttons"},React.createElement("button",{className:"wc-ppcp-fastlane-tokenize",onClick:b},n.continue),React.createElement("a",{className:"wc-ppcp-fastlane-cancel",onClick:function(){y(!1),a()}},n.cancel))))};if(4!=r.j)var b=r(521)},229:(t,e,r)=>{"use strict";r.d(e,{a:()=>n});var n={SET_FASTLANE:"SET_FASTLANE",SET_PAYMENT_TOKEN:"SET_PAYMENT_TOKEN",SET_CUSTOMER_CONTEXT:"SET_CUSTOMER_CONTEXT",ADD_CANCELED_EMAIL:"ADD_CANCELED_EMAIL"}},369:(t,e,r)=>{"use strict";r.r(e),r.d(e,{addCanceledEmail:()=>c,setCustomerContextId:()=>i,setFastlane:()=>a,setPaymentToken:()=>o});var n=r(229),o=function(t){return{type:n.a.SET_PAYMENT_TOKEN,token:t}},a=function(t){return{type:n.a.SET_FASTLANE,fastlane:t}},i=function(t){return{type:n.a.SET_CUSTOMER_CONTEXT,id:t}},c=function(t){return{type:n.a.ADD_CANCELED_EMAIL,email:t}}},782:(t,e,r)=>{"use strict";r.r(e),r.d(e,{STORE_KEY:()=>a,store:()=>b});var n={};r.r(n),r.d(n,{getCanceledEmails:()=>m,getFastlane:()=>y,getPaymentToken:()=>h,isCustomerFound:()=>v});var o=r(818),a=(r(418),"wc-ppcp/store/checkout"),i=r(369),c=r(229);function u(t){return function(t){if(Array.isArray(t))return l(t)}(t)||function(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}(t)||function(t,e){if(t){if("string"==typeof t)return l(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?l(t,e):void 0}}(t)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function l(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function s(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function f(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?s(Object(r),!0).forEach((function(e){p(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):s(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function p(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}var d={token:null,fastlane:null,canceledEmails:[],customerContextId:null},h=function(t){return t.token},y=function(t){return t.fastlane},v=function(t){return!!t.customerContextId},m=function(t){return t.canceledEmails},g={reducer:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:d,e=arguments.length>1?arguments[1]:void 0,r=t;switch(e.type){case c.a.SET_FASTLANE:r=f(f({},t),{},{fastlane:e.fastlane});break;case c.a.SET_PAYMENT_TOKEN:r=f(f({},t),{},{token:e.token});break;case c.a.SET_CUSTOMER_CONTEXT:r=f(f({},t),{},{customerContextId:e.id});break;case c.a.ADD_CANCELED_EMAIL:r=f(f({},t),{},{canceledEmails:[].concat(u(t.canceledEmails),[e.email])})}return r},selectors:n,actions:i},b=(0,o.createReduxStore)(a,g);(0,o.register)(b)},16:(t,e,r)=>{"use strict";r.d(e,{It:()=>O,nz:()=>s,VD:()=>i,sC:()=>c});var n=r(307),o=r(907);function a(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var i=function(t){var e,r,i=(e=(0,n.useState)(null),r=2,function(t){if(Array.isArray(t))return t}(e)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(e,r)||function(t,e){if(t){if("string"==typeof t)return a(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?a(t,e):void 0}}(e,r)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()),c=i[0],u=i[1];return(0,n.useEffect)((function(){c||(0,o.loadPayPalSdk)(t).then((function(t){return u(t)}))}),[c]),c},c=function(t){var e=t.event,r=t.responseTypes,o=t.messageContext,a=void 0===o?null:o,i=t.setPaymentData;(0,n.useEffect)((function(){var t=e((function(t){var e,n;if(null!=t&&null!==(e=t.processingResponse)&&void 0!==e&&null!==(n=e.paymentDetails)&&void 0!==n&&n.ppcpErrorMessage){i(null);var o=t.processingResponse.paymentDetails.ppcpErrorMessage;return{type:r.ERROR,retry:!0,message:o,messageContext:a}}return null}));return function(){t()}}),[e])};function u(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(t,e)||function(t,e){if(t){if("string"==typeof t)return l(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?l(t,e):void 0}}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function l(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var s=function(t){var e=t.width,r=t.node,o=t.className,a=void 0===o?"wc-ppcp-sm__container":o,i=u((0,n.useState)(window.innerWidth),2),c=i[0],l=i[1],s=u((0,n.useState)(r),2),f=s[0],p=s[1];(0,n.useEffect)((function(){var t;r&&p(null==r||null===(t=r.parentElement)||void 0===t?void 0:t.parentElement),p(r)}),[r]),(0,n.useEffect)((function(){var t=function(){return l(window.innerWidth)};return window.addEventListener("resize",t),function(){return window.removeEventListener("resize",t)}}),[]),(0,n.useEffect)((function(){f&&(f.clientWidth<=e?f.classList.add(a):f.classList.remove(a))}),[c,e,f])},f=r(989),p=r.n(f),d=r(622);function h(t){return h="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},h(t)}function y(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function v(){v=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof f?e:f,a=Object.create(o.prototype),i=new x(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=O(i,r);if(c){if(c===s)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===s)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var s={};function f(){}function p(){}function d(){}var y={};c(y,o,(function(){return this}));var m=Object.getPrototypeOf,g=m&&m(m(j([])));g&&g!==e&&r.call(g,o)&&(y=g);var b=d.prototype=f.prototype=Object.create(y);function w(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function E(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"==h(f)&&r.call(f,"__await")?e.resolve(f.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(f).then((function(t){s.value=t,i(s)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function O(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,O(t,e),"throw"===e.method))return s;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return s}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,s;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,s):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,s)}function S(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function _(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function x(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(S,this),this.reset(!0)}function j(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:P}}function P(){return{value:void 0,done:!0}}return p.prototype=d,c(b,"constructor",d),c(d,"constructor",p),p.displayName=c(d,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===p||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,d):(t.__proto__=d,c(t,i,"GeneratorFunction")),t.prototype=Object.create(b),t},t.awrap=function(t){return{__await:t}},w(E.prototype),c(E.prototype,a,(function(){return this})),t.AsyncIterator=E,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new E(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},w(b),c(b,i,"Generator"),c(b,o,(function(){return this})),c(b,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=j,x.prototype={constructor:x,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(_),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,s):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),s},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),_(r),s}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;_(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:j(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),s}},t}function m(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function g(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?m(Object(r),!0).forEach((function(e){b(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):m(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function b(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function w(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}function E(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){w(a,n,o,i,c,"next",t)}function c(t){w(a,n,o,i,c,"throw",t)}i(void 0)}))}}var O=function(t){var e=t.isExpress,r=void 0!==e&&e,a=t.paymentMethod,i=(0,n.useCallback)(function(){var t=E(v().mark((function t(e){var n,o,i,c,u,l,s,f,h;return v().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return n=e.billing,o=e.shipping,i=e.shouldSavePayment,c=void 0!==i&&i,u=o.needsShipping,l=o.shippingAddress,s=n.billingAddress,t.prev=3,t.next=6,p()({method:"POST",url:(0,d.q$)("wc-ppcp/v1/cart/order"),data:g(g((f={payment_method:a},b(f,"".concat(a,"_save_payment"),c),b(f,"address_provided",!r&&u),b(f,"checkout_blocks",!0),b(f,"context",r?"express":"checkout"),f),u?{shipping_first_name:l.first_name,shipping_last_name:l.last_name,shipping_address_1:l.address_1,shipping_address_2:l.address_2,shipping_postcode:l.postcode,shipping_city:l.city,shipping_state:l.state,shipping_country:l.country}:null),{billing_first_name:s.first_name,billing_last_name:s.last_name,billing_address_1:s.address_1,billing_address_2:s.address_2,billing_postcode:s.postcode,billing_city:s.city,billing_state:s.state,billing_country:s.country,billing_email:s.email,billing_phone:s.phone,billing_company:s.company})});case 6:return h=t.sent,t.abrupt("return",h);case 10:throw t.prev=10,t.t0=t.catch(3),t.t0;case 13:case"end":return t.stop()}}),t,null,[[3,10]])})));return function(e){return t.apply(this,arguments)}}(),[r,a]),c=(0,n.useCallback)(E(v().mark((function t(){return v().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.abrupt("return",p()({method:"POST",url:(0,d.q$)("/wc-ppcp/v1/vault/setup-tokens"),data:{context:"checkout",payment_method:a}}).then((function(t){return t.id})).catch((function(t){throw console.info("Error creating setup token. ",t),t})));case 1:case"end":return t.stop()}}),t)}))),[a]),u=(0,n.useCallback)((function(t,e,r){var n,i=r.shipping.setSelectedRates,c=(0,o.convertPayPalAddressToCart)((null==t?void 0:t.shipping_address)||{},!0),u=(null==t||null===(n=t.selected_shipping_option)||void 0===n?void 0:n.id)||"";return p()({method:"POST",url:(0,d.q$)("wc-ppcp/v1/cart/shipping"),data:{order_id:t.orderID,address:c,shipping_method:(0,o.extractShippingMethod)(u),payment_method:a}}).then((function(t){return t.code?e.reject():e.resolve()})).catch((function(t){return e.reject()})).finally((function(){var t;u&&i.apply(void 0,function(t){if(Array.isArray(t))return y(t)}(t=(0,d.K6)(u))||function(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}(t)||function(t,e){if(t){if("string"==typeof t)return y(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?y(t,e):void 0}}(t)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}())}))}),[a]),l=(0,n.useCallback)((function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};return p()({method:"POST",path:"/wc-ppcp/v1/vault/payment-tokens",data:g({setup_token:t},e)})}),[]);return{createOrder:i,onShippingChange:u,createPaymentToken:l,createVaultSetupToken:c}}},719:(t,e,r)=>{"use strict";r.r(e);var n=r(307),o=r(554),a=r(817),i=r(617),c=r(16);function u(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function l(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}var s=(0,i.getSetting)("paylaterParams"),f=function(t){var e=t.cart,r=(t.extensions,t.context,s.enabled),a=(0,n.useRef)(null),f=e.cartTotals,p=f.currency_code,d=f.total_price,h=(0,c.VD)((0,i.getSetting)("paypalQueryParams")),y=(0,n.useMemo)((function(){return function(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?u(Object(r),!0).forEach((function(e){l(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):u(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}({amount:d/Math.pow(10,f.currency_minor_unit),currency:p,placement:"payment"},s.options)}));return(0,n.useEffect)((function(){h&&r&&h.Messages(y).render(a.current)}),[h,y,r]),r?React.createElement(o.TotalsWrapper,null,React.createElement("div",{className:"wc-block-components-totals-item"},React.createElement("div",{ref:a,className:"wc-ppcp-paylater-msg__container"}))):null};(0,a.registerPlugin)("wc-ppcp",{render:function(){return React.createElement(o.ExperimentalOrderMeta,null,React.createElement(f,null))},scope:"woocommerce-checkout"})},692:(t,e,r)=>{"use strict";r.r(e);var n=r(307),o=r(818),a=r(613),i=r(617),c=r(546),u=r(554),l=r(622),s=r(16),f=r(21);function p(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function d(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?p(Object(r),!0).forEach((function(e){h(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):p(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function h(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function y(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(t,e)||function(t,e){if(t){if("string"==typeof t)return v(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?v(t,e):void 0}}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function v(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var m=(0,n.createContext)(null),g=function(t){var e=t.data,r=t.children,o=y((0,n.useState)({}),2),a=o[0],i=o[1],c=y((0,n.useState)({}),2),u=c[0],l=c[1],s=y((0,n.useState)(!0),2),f=s[0],p=s[1],v=(0,n.useRef)({paymentMethodData:u}),g=y((0,n.useState)({cvv:{isValid:!1,isEmpty:!0,isRequired:!0},expiry:{isValid:!1,isEmpty:!0,isRequired:!0},number:{isValid:!1,isEmpty:!0,isRequired:!0},name:{isValid:!1,isEmpty:!0,isRequired:!!e.cardNameRequired}}),2),w=g[0],E=g[1],O=y((0,n.useState)(null),2),S=O[0],_=O[1],x=y((0,n.useState)({}),2),j=x[0],P=x[1],k=(0,n.useRef)({}),L=(0,n.useCallback)((function(t){l((function(e){return d(d({},e),t)})),v.current.paymentMethodData=d(d({},v.current.paymentMethodData),t)}),[]),C=(0,n.useCallback)((function(){return v.current.paymentMethodData}),[]),A=(0,n.useCallback)((function(t){return function(e){e&&(k.current=d(d({},k.current),{},h({},t,e)))}}),[]),R=(0,n.useCallback)((function(t){i((function(e){return d(d({},e),{},h({},t,b(t)))}))}),[]),N=(0,n.useCallback)((function(t){i((function(e){return delete e[t],d({},e)}))}),[]),T=(0,n.useCallback)((function(t,e){E((function(r){return d(d({},r),{},h({},t,d(d({},r[t]),e)))}))}),[]),I=D({setValidatedField:T,onError:R,onRemoveError:N,cardFields:j,cardFieldRefs:k.current}).events,F={i18n:e.i18n,events:I,errors:a,onFieldError:R,cardFields:j,cardFieldRef:A,cardFieldRefs:k,cardElement:S,setCardFields:P,setCardElement:_,validatedFields:w,isEligible:f,setIsEligible:p,paymentMethodData:u,addPaymentMethodData:L,getPaymentMethodData:C};return React.createElement(m.Provider,{value:F},r)},b=function(t){var e;switch(t){case"name":e="INVALID_NAME";break;case"number":e="INVALID_NUMBER";break;case"expiry":e="INVALID_EXPIRY";break;case"cvv":e="INVALID_CVV"}return e},w=function(){return(0,n.useContext)(m)};function E(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function O(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?E(Object(r),!0).forEach((function(e){S(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):E(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function S(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function _(t){return _="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},_(t)}function x(){x=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof f?e:f,a=Object.create(o.prototype),i=new S(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=w(i,r);if(c){if(c===s)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===s)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var s={};function f(){}function p(){}function d(){}var h={};c(h,o,(function(){return this}));var y=Object.getPrototypeOf,v=y&&y(y(j([])));v&&v!==e&&r.call(v,o)&&(h=v);var m=d.prototype=f.prototype=Object.create(h);function g(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function b(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"==_(f)&&r.call(f,"__await")?e.resolve(f.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(f).then((function(t){s.value=t,i(s)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function w(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,w(t,e),"throw"===e.method))return s;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return s}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,s;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,s):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,s)}function E(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function O(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function S(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(E,this),this.reset(!0)}function j(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:P}}function P(){return{value:void 0,done:!0}}return p.prototype=d,c(m,"constructor",d),c(d,"constructor",p),p.displayName=c(d,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===p||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,d):(t.__proto__=d,c(t,i,"GeneratorFunction")),t.prototype=Object.create(m),t},t.awrap=function(t){return{__await:t}},g(b.prototype),c(b.prototype,a,(function(){return this})),t.AsyncIterator=b,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new b(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},g(m),c(m,i,"Generator"),c(m,o,(function(){return this})),c(m,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=j,S.prototype={constructor:S,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(O),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,s):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),s},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),O(r),s}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;O(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:j(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),s}},t}function j(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function P(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?j(Object(r),!0).forEach((function(e){k(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):j(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function k(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function L(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}function C(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){L(a,n,o,i,c,"next",t)}function c(t){L(a,n,o,i,c,"throw",t)}i(void 0)}))}}var A=["data","paypal"];var R=function(t){var e,r=t.data,o=t.paypal,a=function(t,e){if(null==t)return{};var r,n,o=function(t,e){if(null==t)return{};var r,n,o={},a=Object.keys(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||(o[r]=t[r]);return o}(t,e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||Object.prototype.propertyIsEnumerable.call(t,r)&&(o[r]=t[r])}return o}(t,A),i=a.billing,c=a.cartData,u=a.shippingData,l=a.emitResponse,f=a.eventRegistration,p=a.shouldSavePayment,d=c.extensions,h=(null==d||null===(e=d.wc_ppcp)||void 0===e?void 0:e.needsSetupToken)||!1,y=f.onPaymentSetup,v=(f.onCheckoutValidation,function(t){var e=t.data,r=t.billing,o=t.shippingData,a=t.needsSetupToken,i=t.shouldSavePayment,c=(0,n.useRef)({billing:r,shipping:o,shouldSavePayment:i});(0,n.useEffect)((function(){c.current={billing:r,shipping:o,shouldSavePayment:i}}),[r,o,i]);var u=(0,s.It)({paymentMethod:"ppcp_card"}),l=u.createOrder,f=u.createPaymentToken,p=u.createVaultSetupToken,d=w(),h=d.events,y=d.addPaymentMethodData,v=(0,n.useMemo)((function(){var t=O(O({fundingSource:"card",style:e.styles,inputEvents:h,onApprove:function(t){if(t.vaultSetupToken)return f(t.vaultSetupToken).then((function(e){y({orderId:t.orderID||"",paymentTokenId:e.id})}));y({orderId:t.orderID||"",paymentTokenId:""})},createOrder:function(){return l(c.current)}},a&&{createOrder:null,createVaultSetupToken:function(){return p.apply(void 0,arguments)}}),{},{onError:function(t){}});return t}),[h,a,y]);return{options:v}}({data:r,billing:i,shippingData:u,needsSetupToken:h,shouldSavePayment:p}));!function(t){var e=t.data,r=t.paypal,o=t.options,a=w(),i=a.cardFields,c=a.cardFieldRefs,u=a.setCardElement,l=a.setCardFields,s=a.setIsEligible;(0,n.useEffect)((function(){if(r&&o){var t=r.CardFields(o);if(t.isEligible()){var n=t.NameField(e.fields.name),a=t.NumberField(e.fields.number),i=t.ExpiryField(e.fields.expiry),c=t.CVVField(e.fields.cvv);u(t),l({name:n,number:a,expiry:i,cvv:c})}else s(!1)}}),[r,o]),(0,n.useEffect)((function(){Object.keys(i).map((function(t){var e=i[t];c.current[t]&&e.render(c.current[t])}))}),[i,c])}({data:r,paypal:o,options:v.options}),function(t){var e=t.billing,r=t.emitResponse,o=t.onPaymentSetup,a=t.needsSetupToken,i=(0,n.useRef)({}),c=w(),u=c.i18n,l=c.onFieldError,s=c.cardElement,f=c.cardFields,p=c.validatedFields,d=c.paymentMethodData,h=c.getPaymentMethodData;(0,n.useEffect)((function(){i.current={billing:e,cardFields:f,cardElement:s,emitResponse:r,validatedFields:p,paymentMethodData:d}}),[e,s,f,r,p,d]);var y=(0,n.useCallback)((function(){var t=i.current,e=t.cardFields,r=t.validatedFields;if(!Object.keys(r).length)throw Object.keys(e).forEach((function(t){r[t].isRequired&&(l(t),e[t].addClass("invalid"))})),new Error(u.incomplete_form);var n=!0;if(Object.keys(r).forEach((function(t){var o=r[t],a=o.isValid,i=o.isEmpty;!o.isRequired||a&&!i||(l(t),e[t].addClass("invalid"),n=!1)})),!n)throw new Error(u.incomplete_form)}),[]);(0,n.useEffect)((function(){var t=o(C(x().mark((function t(){var e,r,n,o,c,l,s,f,p,d,v;return x().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return e=i.current,r=e.billing,n=e.cardElement,o=e.emitResponse,c=r.billingAddress,t.prev=2,t.next=5,y();case 5:return t.next=7,n.submit(P({},!a&&{billingAddress:{addressLine1:c.address_1||"",addressLine2:c.address_2||"",adminArea1:c.state||"",adminArea2:c.city||"",postalCode:c.postcode||"",countryCode:c.country||""}}));case 7:return l=h(),s=l.orderId,f=void 0===s?"":s,p=l.paymentTokenId,d=void 0===p?"":p,t.abrupt("return",{type:o.responseTypes.SUCCESS,meta:{paymentMethodData:{ppcp_card_payment_token:d,ppcp_card_paypal_order_id:f}}});case 11:return t.prev=11,t.t0=t.catch(2),v=(null===t.t0||void 0===t.t0?void 0:t.t0.message)||"",null!==t.t0&&void 0!==t.t0&&t.t0.message&&["INVALID_NUMBER","INVALID_EXPIRY","INVALID_CVV"].includes(t.t0.message)&&(v=u.incomplete_form),t.abrupt("return",{type:o.responseTypes.ERROR,message:v,messageContext:o.noticeContexts.PAYMENTS});case 16:case"end":return t.stop()}}),t,null,[[2,11]])}))));return t}),[u,o,a,h,y])}({billing:i,emitResponse:l,onPaymentSetup:y,needsSetupToken:h})};function N(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(t,e)||function(t,e){if(t){if("string"==typeof t)return T(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?T(t,e):void 0}}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function T(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var D=function(t){var e=t.onError,r=t.onRemoveError,o=t.setValidatedField,a=t.cardFields,i=t.cardFieldRefs,c=(0,n.useRef)({cardFields:a,cardFieldRefs:i});(0,n.useEffect)((function(){c.current={cardFields:a,cardFieldRefs:i}}),[a,i]);var u=(0,n.useCallback)((function(t){var n=c.current,a=n.cardFields,i=n.cardFieldRefs,u=t.fields,l=t.emittedBy;o(l,I(l,u)),a[l].removeClass("focused"),i[l].classList.remove("card-field--focused");var s=I(l,u),f=s.isValid;s.isEmpty?(i[l].classList.remove("card-field--invalid"),a[l].removeClass("invalid"),r(l)):f||(i[l].classList.remove("card-field--valid"),i[l].classList.add("card-field--invalid"),e(l))}),[e,r]),l=(0,n.useCallback)((function(t){var e=t.fields,r=t.emittedBy,n=c.current,a=n.cardFields,i=n.cardFieldRefs;o(r,I(r,e)),Object.keys(a).forEach((function(t){a[t].removeClass("focused")})),Object.keys(i).forEach((function(t){i[t].classList.remove("card-field--focused")})),i[r].classList.add("card-field--focused"),a[r].addClass("focused")}),[e,r]),s=(0,n.useCallback)((function(t){var e=t.fields,n=t.emittedBy,a=c.current.cardFieldRefs,i=I(n,e),u=(i.isEmpty,i.isValid),l=void 0!==u&&u;o(n,I(n,e)),r(n),l?a[n].classList.add("card-field--valid"):a[n].classList.remove("card-field--valid")}),[e,r]);return{events:(0,n.useMemo)((function(){return{onBlur:u,onFocus:l,onChange:s}}),[u,l,s])}},I=function(t,e){return e[Object.keys(e).find((function(e){return e.toLowerCase().indexOf(t)>-1}))]};function F(t){return F="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},F(t)}function M(){M=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof f?e:f,a=Object.create(o.prototype),i=new S(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=w(i,r);if(c){if(c===s)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===s)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var s={};function f(){}function p(){}function d(){}var h={};c(h,o,(function(){return this}));var y=Object.getPrototypeOf,v=y&&y(y(_([])));v&&v!==e&&r.call(v,o)&&(h=v);var m=d.prototype=f.prototype=Object.create(h);function g(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function b(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"==F(f)&&r.call(f,"__await")?e.resolve(f.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(f).then((function(t){s.value=t,i(s)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function w(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,w(t,e),"throw"===e.method))return s;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return s}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,s;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,s):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,s)}function E(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function O(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function S(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(E,this),this.reset(!0)}function _(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:x}}function x(){return{value:void 0,done:!0}}return p.prototype=d,c(m,"constructor",d),c(d,"constructor",p),p.displayName=c(d,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===p||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,d):(t.__proto__=d,c(t,i,"GeneratorFunction")),t.prototype=Object.create(m),t},t.awrap=function(t){return{__await:t}},g(b.prototype),c(b.prototype,a,(function(){return this})),t.AsyncIterator=b,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new b(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},g(m),c(m,i,"Generator"),c(m,o,(function(){return this})),c(m,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=_,S.prototype={constructor:S,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(O),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,s):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),s},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),O(r),s}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;O(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:_(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),s}},t}function G(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}function Y(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){G(a,n,o,i,c,"next",t)}function c(t){G(a,n,o,i,c,"throw",t)}i(void 0)}))}}var V=r(801),U=r(907);function z(t){return z="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},z(t)}function B(){B=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof f?e:f,a=Object.create(o.prototype),i=new S(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=w(i,r);if(c){if(c===s)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===s)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var s={};function f(){}function p(){}function d(){}var h={};c(h,o,(function(){return this}));var y=Object.getPrototypeOf,v=y&&y(y(_([])));v&&v!==e&&r.call(v,o)&&(h=v);var m=d.prototype=f.prototype=Object.create(h);function g(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function b(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"==z(f)&&r.call(f,"__await")?e.resolve(f.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(f).then((function(t){s.value=t,i(s)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function w(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,w(t,e),"throw"===e.method))return s;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return s}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,s;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,s):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,s)}function E(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function O(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function S(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(E,this),this.reset(!0)}function _(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:x}}function x(){return{value:void 0,done:!0}}return p.prototype=d,c(m,"constructor",d),c(d,"constructor",p),p.displayName=c(d,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===p||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,d):(t.__proto__=d,c(t,i,"GeneratorFunction")),t.prototype=Object.create(m),t},t.awrap=function(t){return{__await:t}},g(b.prototype),c(b.prototype,a,(function(){return this})),t.AsyncIterator=b,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new b(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},g(m),c(m,i,"Generator"),c(m,o,(function(){return this})),c(m,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=_,S.prototype={constructor:S,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(O),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,s):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),s},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),O(r),s}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;O(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:_(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),s}},t}function K(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}function $(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){K(a,n,o,i,c,"next",t)}function c(t){K(a,n,o,i,c,"throw",t)}i(void 0)}))}}r(369);var H=r(967),q=r.n(H),J=["data","token","fastlane","customerFound"];function Z(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function X(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?Z(Object(r),!0).forEach((function(e){W(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):Z(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function W(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function Q(t){var e,r=t.data,a=t.token,i=t.fastlane,u=t.customerFound,l=function(t,e){if(null==t)return{};var r,n,o=function(t,e){if(null==t)return{};var r,n,o={},a=Object.keys(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||(o[r]=t[r]);return o}(t,e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||Object.prototype.propertyIsEnumerable.call(t,r)&&(o[r]=t[r])}return o}(t,J),f=r.i18n,p=r.icons,d=r.payment_format,h=l.cartData,y=l.emitResponse,v=l.eventRegistration,m=l.shouldSavePayment,g=v.onPaymentSetup,b=h.extensions,w=(null==b||null===(e=b.wc_ppcp)||void 0===e?void 0:e.needsSetupToken)||!1,E=a.paymentSource.card;E=X(X({},E),{},{brand:E.brand,last4:E.lastDigits,expiry:E.expiry}),function(t){var e=t.token,r=t.emitResponse,o=t.onPaymentSetup,a=t.needsSetupToken,i=t.shouldSavePayment,c=(0,n.useRef)({token:e}),u=(0,s.It)({paymentMethod:"ppcp_card"}).createPaymentToken;(0,n.useEffect)((function(){c.current={token:e,emitResponse:r,shouldSavePayment:i}}),[e,r,i]),(0,n.useEffect)((function(){var t=o(Y(M().mark((function t(){var e,r,n,o;return M().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(e=c.current,r=e.token,n=e.emitResponse,o=e.shouldSavePayment,t.prev=1,!a){t.next=6;break}return t.next=5,u(r.id,{fastlane:!0});case 5:r=t.sent;case 6:return t.abrupt("return",{type:n.responseTypes.SUCCESS,meta:{paymentMethodData:{ppcp_card_payment_token:r.id,ppcp_card_paypal_order_id:"",ppcp_card_save_payment:o}}});case 9:return t.prev=9,t.t0=t.catch(1),t.abrupt("return",{type:n.responseTypes.ERROR,message:null===t.t0||void 0===t.t0?void 0:t.t0.message,messageContext:n.noticeContexts.PAYMENTS});case 12:case"end":return t.stop()}}),t,null,[[1,9]])}))));return t}),[o,a,u])}({token:a,emitResponse:y,onPaymentSetup:g,needsSetupToken:w,shouldSavePayment:m});var O=function(t){var e=t.fastlane,r=(0,o.useDispatch)(c.STORE_KEY),a=r.setPaymentToken,i=r.setCustomerContextId,u=(0,o.useDispatch)(V.CART_STORE_KEY).setBillingAddress,l=(0,o.useDispatch)("core/notices").createErrorNotice;return{onCancel:(0,n.useCallback)((function(){a(null),i(null)}),[]),onChangePaymentMethod:(0,n.useCallback)($(B().mark((function t(){var r,n,o,i,c,s,f,p,d,h,y;return B().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.prev=0,t.next=3,e.profile.showCardSelector();case 3:r=t.sent,n=r.selectedCard,o=r.selectionChanged,n&&o&&(a(n),null!=n&&null!==(i=n.paymentSource)&&void 0!==i&&null!==(c=i.card)&&void 0!==c&&c.billingAddress&&(s=n.paymentSource.card,f=s.name,p=void 0===f?"":f,d=s.billingAddress,h=d,y=(0,U.extractFullName)(p),u({first_name:y[0],last_name:y[1],address_1:null==h?void 0:h.addressLine1,address_2:null==h?void 0:h.addressLine2,city:(null==h?void 0:h.adminArea2)||"",state:(null==h?void 0:h.adminArea1)||"",postcode:(null==h?void 0:h.postalCode)||"",country:(null==h?void 0:h.countryCode)||""}))),t.next=12;break;case 9:t.prev=9,t.t0=t.catch(0),l(t.t0.message,{id:"wc-ppcp-tokenize-error",context:"wc/checkout/payments"});case 12:case"end":return t.stop()}}),t,null,[[0,9]])}))),[e])}}({fastlane:i}),S=O.onCancel,_=O.onChangePaymentMethod;return React.createElement("div",{className:q()("wc-ppcp-tokenized-card",{"has-customer-context":u})},React.createElement(tt,{icons:p,brand:E.brand.toLowerCase()}),React.createElement("div",{className:"wc-ppcp-tokenized-card-format"},(0,U.formatPaymentMethod)(d,E)),React.createElement("div",{className:"wc-ppcp-tokenized-card-actions"},React.createElement("a",{className:"wc-ppcp-tokenized-card-cancel",onClick:S},f.cancel),u&&React.createElement("a",{className:"wc-ppcp-tokenized-card-change",onClick:_},f.change)))}var tt=function(t){var e=t.icons,r=t.brand,n="";return e[r]&&(n=e[r]),React.createElement("div",{className:"wc-ppcp-tokenized-card-icon-container"},React.createElement("img",{src:n}))},et=["data","paypal"];function rt(t){return rt="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},rt(t)}function nt(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function ot(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function at(){return at=Object.assign?Object.assign.bind():function(t){for(var e=1;e<arguments.length;e++){var r=arguments[e];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(t[n]=r[n])}return t},at.apply(this,arguments)}function it(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var ct=(0,i.getSetting)("ppcp_card_data"),ut=function(t){var e,r,a=(e=(0,n.useState)(!1),r=2,function(t){if(Array.isArray(t))return t}(e)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(e,r)||function(t,e){if(t){if("string"==typeof t)return it(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?it(t,e):void 0}}(e,r)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()),u=a[0],l=a[1],p=(0,i.getSetting)("paypalQueryParams"),d=t.billing,h=t.shippingData,y=d.billingAddress.email,v=(0,s.VD)(p),m=(0,o.useDispatch)(c.STORE_KEY).setPaymentToken,b=(0,o.useSelect)((function(t){var e=t(c.STORE_KEY);return{emails:e.getCanceledEmails(),fastlane:e.getFastlane(),paymentToken:e.getPaymentToken(),customerFound:e.isCustomerFound()}})),w=b.emails,E=b.fastlane,O=b.paymentToken,S=b.customerFound,_=(0,n.useCallback)((function(t){m(t)}),[]),x=ct.showSignup&&!w.includes(y);return O?React.createElement(Q,at({data:ct,token:O,fastlane:E,customerFound:S},t)):React.createElement(React.Fragment,null,x&&E&&React.createElement(f.BC,{text:ct.i18n.fastlane_signup,logo:ct.fastlane_logo,onClick:function(){return l(!0)}}),E&&React.createElement(f.qJ,{i18n:ct.i18n,open:u,onClose:function(){return l(!1)},fastlane:E,shippingData:h,onTokenize:_}),React.createElement(f.p8,{description:ct.description}),React.createElement(g,{data:ct},React.createElement(lt,at({data:ct,paypal:v},t))))},lt=function(t){var e=t.data,r=t.paypal,o=function(t,e){if(null==t)return{};var r,n,o=function(t,e){if(null==t)return{};var r,n,o={},a=Object.keys(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||(o[r]=t[r]);return o}(t,e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||Object.prototype.propertyIsEnumerable.call(t,r)&&(o[r]=t[r])}return o}(t,et),a=e.i18n,i=e.cardHolderNameEnabled,c=w(),s=c.errors,p=c.isEligible,d=function(){var t={xs:[0,600],sm:[600,900],md:[900,1200],lg:[1200,1/0]},e=N((0,n.useState)(null),2),r=e[0],o=e[1];return(0,n.useEffect)((function(){if(r){var e=new ResizeObserver((function(e){var r=e[0],n=r.contentRect.width;Object.keys(t).forEach((function(t){r.target.classList.remove("card-field-container--".concat(t))}));var o=Object.keys(t).find((function(e){var r=N(t[e],2),o=r[0],a=r[1];return o<n&&a>n}));o&&r.target.classList.add("card-field-container--".concat(o))}));return e.observe(r),function(){e.disconnect()}}}),[r]),{setCardContainerRef:o}}(),h=d.setCardContainerRef;return R(function(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?nt(Object(r),!0).forEach((function(e){ot(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):nt(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}({data:e,paypal:r},o)),p?React.createElement("div",{className:"wc-ppcp-card-payment-method__container wc-payment-form",ref:h},i&&React.createElement("div",{className:"ppcp-card-fields--container card-name-field"},React.createElement("div",{className:"ppcp-card-field--container card-name-field"},React.createElement(st,{id:"ppcp-card-name",name:"name",label:a.cardHolderLabel}),React.createElement(ft,{name:"name",errors:s}))),React.createElement("div",{className:"ppcp-card-fields--container"},React.createElement("div",{className:"ppcp-card-field--container card-number-field"},React.createElement(st,{id:"ppcp-card-number",name:"number",label:a.cardNumberLabel}),React.createElement(ft,{name:"number",errors:s})),React.createElement("div",{className:"ppcp-card-field--container card-exp-field"},React.createElement(st,{id:"ppcp-card-exp",name:"expiry",label:a.cardExpiryLabel}),React.createElement(ft,{name:"expiry",errors:s})),React.createElement("div",{className:"ppcp-card-field--container card-cvv-field"},React.createElement(st,{id:"ppcp-card-cvv",name:"cvv",label:a.cardCvvLabel},React.createElement("div",{className:"ppcp-card-cvv-icon"},React.createElement(f.Ac,null))),React.createElement(ft,{name:"cvv",errors:s})))):React.createElement(u.StoreNotice,{status:"warning",isDismissible:!1},(0,l.i5)()?a.cardsNotAvailableAdmin:a.cardsNotAvailable)},st=function(t){var e=t.id,r=t.name,n=t.label,o=t.children,a=w(),i=a.errors,c=a.cardFieldRef;return React.createElement(React.Fragment,null,React.createElement("label",{className:"ppcp-card-field--label"},n),React.createElement("div",{id:e,ref:c(r),className:q()({"card-field--invalid":function(t,e){return"object"===rt(e)&&e.hasOwnProperty(t)}(r,i)})},o))},ft=function(t){var e=t.name,r=t.errors;return null!=r&&r[e]?React.createElement("div",{className:"ppcp-card-field-error","data-parent":"ppcp-card-exp"},ct.i18n.error_codes[r[e]]):null};(0,a.registerPaymentMethod)({name:"ppcp_card",ariaLabel:"Credit/Debit Cards",label:React.createElement(f.wJ,{id:"ppcp_card",title:ct.title,icons:ct.icon}),canMakePayment:function(){return!(0,l.kC)()},content:React.createElement(ut,{data:ct}),edit:React.createElement(ut,{data:ct}),placeOrderButtonLabel:ct.i18n.buttonLabel,supports:{showSavedCards:!0,showSaveOption:ct.showSaveOption,features:ct.features}})},762:(t,e,r)=>{"use strict";r.d(e,{H:()=>i,D:()=>b});var n=r(307),o=r(818),a=r(546),i=function(t){var e=t.paypal,r=(0,o.useSelect)((function(t){return t(a.STORE_KEY).getFastlane()})),i=(0,o.useDispatch)(a.STORE_KEY).setFastlane;return(0,n.useEffect)((function(){e&&e.Fastlane&&e.Fastlane().then((function(t){i(t)}))}),[e]),(0,n.useEffect)((function(){i(r)}),[]),r},c=r(483),u=r(801),l=r(907);function s(t){return s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},s(t)}function f(){f=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof d?e:d,a=Object.create(o.prototype),i=new x(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=O(i,r);if(c){if(c===p)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===p)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var p={};function d(){}function h(){}function y(){}var v={};c(v,o,(function(){return this}));var m=Object.getPrototypeOf,g=m&&m(m(j([])));g&&g!==e&&r.call(g,o)&&(v=g);var b=y.prototype=d.prototype=Object.create(v);function w(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function E(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var f=u.arg,p=f.value;return p&&"object"==s(p)&&r.call(p,"__await")?e.resolve(p.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(p).then((function(t){f.value=t,i(f)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function O(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,O(t,e),"throw"===e.method))return p;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return p}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,p;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,p):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,p)}function S(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function _(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function x(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(S,this),this.reset(!0)}function j(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:P}}function P(){return{value:void 0,done:!0}}return h.prototype=y,c(b,"constructor",y),c(y,"constructor",h),h.displayName=c(y,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===h||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,y):(t.__proto__=y,c(t,i,"GeneratorFunction")),t.prototype=Object.create(b),t},t.awrap=function(t){return{__await:t}},w(E.prototype),c(E.prototype,a,(function(){return this})),t.AsyncIterator=E,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new E(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},w(b),c(b,i,"Generator"),c(b,o,(function(){return this})),c(b,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=j,x.prototype={constructor:x,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(_),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,p):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),p},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),_(r),p}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;_(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:j(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),p}},t}function p(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}function d(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){p(a,n,o,i,c,"next",t)}function c(t){p(a,n,o,i,c,"throw",t)}i(void 0)}))}}function h(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function y(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?h(Object(r),!0).forEach((function(e){v(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):h(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function v(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function m(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(t,e)||function(t,e){if(t){if("string"==typeof t)return g(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?g(t,e):void 0}}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function g(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var b=function(t){var e=t.i18n,r=t.email,i=t.onError,s=t.fastlane,p=t.buttonRef,h=t.shippingData,v=t.openFastlaneModal,g=m((0,n.useState)(!1),2),b=g[0],w=g[1],E=(0,n.useRef)({email:r,fastlane:s,buttonRef:p,onError:i,shippingData:h}),O=(0,o.useSelect)((function(t){var e=t(a.STORE_KEY);return{emails:e.getCanceledEmails(),isCustomerFound:e.isCustomerFound()}})),S=O.emails,_=O.isCustomerFound,x=(0,o.useDispatch)(u.CART_STORE_KEY).setBillingAddress,j=(0,o.useDispatch)(a.STORE_KEY),P=j.setPaymentToken,k=j.addCanceledEmail,L=j.setCustomerContextId,C=(0,o.useDispatch)(u.PAYMENT_STORE_KEY).__internalSetActivePaymentMethod;(0,n.useEffect)((function(){E.current=y(y({},E.current),{},{email:r,onError:i,fastlane:s,buttonRef:p,shippingData:h})}),[r,i,s,p,h]);var A=function(t){return Object.fromEntries(Object.entries(t).filter((function(t){var e=m(t,2),r=(e[0],e[1]);return null!=r&&""!==r})))},R=(0,n.useCallback)((function(t){(0,E.current.shippingData.setShippingAddress)(A({first_name:(null==t?void 0:t.firstName)||"",last_name:null==t?void 0:t.lastName,address_1:null==t?void 0:t.addressLine1,address_2:null==t?void 0:t.addressLine2,city:(null==t?void 0:t.adminArea2)||"",state:(null==t?void 0:t.adminArea1)||"",postcode:(null==t?void 0:t.postalCode)||"",country:(null==t?void 0:t.countryCode)||"",phone:(null==t?void 0:t.phoneNumber)||""}))}),[]),N=(0,n.useCallback)((function(t){x(A({first_name:(null==t?void 0:t.firstName)||"",last_name:null==t?void 0:t.lastName,address_1:null==t?void 0:t.addressLine1,address_2:null==t?void 0:t.addressLine2,city:(null==t?void 0:t.adminArea2)||"",state:(null==t?void 0:t.adminArea1)||"",postcode:(null==t?void 0:t.postalCode)||"",country:(null==t?void 0:t.countryCode)||"",phone:(null==t?void 0:t.phoneNumber)||""}))}),[x]),T=(0,n.useCallback)((function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:100,r=document.querySelector(t);if(r){var n=r.getBoundingClientRect(),o=n.top+window.scrollY-e;window.scrollTo({behavior:"smooth",left:0,top:o})}}),[]),D=(0,n.useCallback)(function(){var t=d(f().mark((function t(e){var r,n,o,a,i,c,u,s,p,d,h,m,g,b,O,S,_,x,j,A,D,I,F,M,G,Y,V,U=arguments;return f().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return r=!(U.length>1&&void 0!==U[1])||U[1],n=E.current,o=n.fastlane,a=n.shippingData,i=a.needsShipping,c=o.profile,u=o.identity,t.prev=4,w(!0),t.next=8,u.lookupCustomerByEmail(e);case 8:if(s=t.sent,!(p=s.customerContextId)){t.next=41;break}return t.next=13,u.triggerAuthenticationFlow(p);case 13:if(d=t.sent,h=d.profileData,"canceled"!==(m=d.authenticationState)){t.next=21;break}k(e),L(null),t.next=39;break;case 21:if("succeeded"!==m){t.next=39;break}if(O=h.name,S=h.card,_=h.shippingAddress,L(p),!i){t.next=35;break}return t.next=27,c.showShippingAddressSelector();case 27:if(j=t.sent,A=j.selectedAddress){t.next=33;break}return k(e),L(null),t.abrupt("return");case 33:_=y(y(y({},A.name),A.address),(null==A||null===(x=A.phoneNumber)||void 0===x?void 0:x.nationalNumber)&&{phoneNumber:A.phoneNumber.nationalNumber}),R(_);case 35:null!=S&&null!==(g=S.paymentSource)&&void 0!==g&&null!==(b=g.card)&&void 0!==b&&b.billingAddress&&N(y(y(y({},O),S.paymentSource.card.billingAddress),{},{phoneNumber:(null===(D=_)||void 0===D?void 0:D.phoneNumber)||null})),P(S),C("ppcp_card"),T("#radio-control-wc-payment-method-options-ppcp_card");case 39:t.next=47;break;case 41:if(!r){t.next=47;break}return L(null),t.next=45,v();case 45:(I=t.sent)&&(null!=I&&null!==(F=I.paymentSource)&&void 0!==F&&null!==(M=F.card)&&void 0!==M&&M.billingAddress&&(G=I.paymentSource.card.billingAddress,Y=(0,l.extractFullName)(I.paymentSource.card.name||""),I.paymentSource.card.billingAddress.toPpSdkType?G=y({firstName:Y[0],lastName:Y[1]},I.paymentSource.card.billingAddress.toPpSdkType()):(V=I.paymentSource.card.billingAddress,G=y({firstName:Y[0],lastName:Y[1]},{addressLine1:V.streetAddress,addressLine2:V.extendedAddress,postalCode:V.postalCode,adminArea2:V.locality,adminArea1:V.region,countryCode:V.countryCodeAlpha2}),i&&R(G)),N(G)),P(I),C("ppcp_card"),T("#radio-control-wc-payment-method-options-ppcp_card"));case 47:t.next=52;break;case 49:t.prev=49,t.t0=t.catch(4),console.info(t.t0);case 52:return t.prev=52,w(!1),t.finish(52);case 55:case"end":return t.stop()}}),t,null,[[4,49,52,55]])})));return function(e){return t.apply(this,arguments)}}(),[]),I=(0,n.useCallback)(function(){var t=d(f().mark((function t(r){var n,o,a;return f().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(r.preventDefault(),n=E.current,o=n.email,a=n.onError,o){t.next=4;break}return t.abrupt("return",a(e.email_empty));case 4:if((0,c.isEmail)(o)){t.next=6;break}return t.abrupt("return",a(e.email_invalid));case 6:return t.next=8,D(o);case 8:case"end":return t.stop()}}),t)})));return function(e){return t.apply(this,arguments)}}(),[T,v,N,R,D]);return{emails:S,onClick:I,processing:b,isCustomerFound:_,triggerAuthentication:D}}},534:(t,e,r)=>{"use strict";r.r(e);var n=r(613),o=r(617),a=r(307),i=r(16),c=r(762),u=r(21),l=["data"];function s(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(t,e)||function(t,e){if(t){if("string"==typeof t)return f(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?f(t,e):void 0}}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function f(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function p(t){var e=t.data,r=function(t,e){if(null==t)return{};var r,n,o=function(t,e){if(null==t)return{};var r,n,o={},a=Object.keys(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||(o[r]=t[r]);return o}(t,e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||Object.prototype.propertyIsEnumerable.call(t,r)&&(o[r]=t[r])}return o}(t,l),n=r.billing,f=(r.cartData,r.shippingData),p=r.setExpressPaymentError,d=n.billingAddress.email,h=s((0,a.useState)(null),2),y=(h[0],h[1]),v=s((0,a.useState)(!1),2),m=v[0],g=v[1],b=(0,a.useRef)(null),w=(0,a.useRef)(null),E=(0,o.getSetting)("paypalQueryParams"),O=(0,a.useCallback)((function(){return w.current=new Promise((function(t){b.current=t})),g(!0),w.current}),[]),S=(0,a.useCallback)((function(){var t=arguments.length>0&&void 0!==arguments[0]&&arguments[0];g(!1),t||b.current(null)}),[]),_=(0,a.useCallback)((function(t){b.current(t)}),[]),x=(0,i.VD)(E),j=(0,c.H)({paypal:x}),P=(0,c.D)({i18n:e.i18n,email:d,onError:p,fastlane:j,shippingData:f,openFastlaneModal:O}),k=P.onClick,L=P.processing;return React.createElement(React.Fragment,null,React.createElement(r.components.LoadingMask,{isLoading:L},React.createElement("button",{id:"wc-ppcp-fastlane-checkout",className:"wc-ppcp-fastlane-button",ref:y,disabled:m||L,onClick:k},React.createElement("img",{className:"wc-ppcp-fastlane-icon",src:e.icon_url}))),React.createElement(u.qJ,{i18n:e.i18n,open:m,onClose:S,fastlane:j,onTokenize:_,shippingData:f}))}var d=r(622);function h(t){return h="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},h(t)}function y(){y=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof f?e:f,a=Object.create(o.prototype),i=new x(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=O(i,r);if(c){if(c===s)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===s)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var s={};function f(){}function p(){}function d(){}var v={};c(v,o,(function(){return this}));var m=Object.getPrototypeOf,g=m&&m(m(j([])));g&&g!==e&&r.call(g,o)&&(v=g);var b=d.prototype=f.prototype=Object.create(v);function w(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function E(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"==h(f)&&r.call(f,"__await")?e.resolve(f.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(f).then((function(t){s.value=t,i(s)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function O(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,O(t,e),"throw"===e.method))return s;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return s}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,s;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,s):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,s)}function S(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function _(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function x(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(S,this),this.reset(!0)}function j(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:P}}function P(){return{value:void 0,done:!0}}return p.prototype=d,c(b,"constructor",d),c(d,"constructor",p),p.displayName=c(d,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===p||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,d):(t.__proto__=d,c(t,i,"GeneratorFunction")),t.prototype=Object.create(b),t},t.awrap=function(t){return{__await:t}},w(E.prototype),c(E.prototype,a,(function(){return this})),t.AsyncIterator=E,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new E(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},w(b),c(b,i,"Generator"),c(b,o,(function(){return this})),c(b,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=j,x.prototype={constructor:x,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(_),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,s):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),s},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),_(r),s}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;_(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:j(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),s}},t}function v(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}var m,g,b=(0,o.getSetting)("ppcp_fastlane_data");(0,n.registerExpressPaymentMethod)({name:"ppcp_fastlane",canMakePayment:(m=y().mark((function t(){return y().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.abrupt("return",!(0,d.kC)()&&(0,d.jv)());case 1:case"end":return t.stop()}}),t)})),g=function(){var t=this,e=arguments;return new Promise((function(r,n){var o=m.apply(t,e);function a(t){v(o,r,n,a,i,"next",t)}function i(t){v(o,r,n,a,i,"throw",t)}a(void 0)}))},function(){return g.apply(this,arguments)}),content:React.createElement(p,{data:b}),edit:React.createElement(p,{data:b}),supports:{features:b.features}})},489:(t,e,r)=>{"use strict";r.r(e);var n=r(307),o=r(613),a=r(617),i=r(818),c=r(21),u=r(622),l=r(16),s=["data","eventRegistration","activePaymentMethod","emitResponse"];function f(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function p(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function d(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var h=(0,a.getSetting)("ppcp_data"),y=function(t){var e,r,o=t.data,a=t.eventRegistration,i=t.activePaymentMethod,h=t.emitResponse,y=(function(t,e){if(null==t)return{};var r,n,o=function(t,e){if(null==t)return{};var r,n,o={},a=Object.keys(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||(o[r]=t[r]);return o}(t,e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||Object.prototype.propertyIsEnumerable.call(t,r)&&(o[r]=t[r])}}(t,s),a.onPaymentSetup),v=a.onCheckoutFail,m=h.responseTypes,g=h.noticeContexts,b=(e=(0,n.useState)(o("paymentData")),r=2,function(t){if(Array.isArray(t))return t}(e)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(e,r)||function(t,e){if(t){if("string"==typeof t)return d(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?d(t,e):void 0}}(e,r)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()),w=b[0],E=b[1],O=(0,n.useCallback)((function(){E(null)}),[]);return(0,l.sC)({event:v,responseTypes:m,messageContext:g.CHECKOUT,setPaymentData:E}),(0,n.useEffect)((function(){if("ppcp"===i&&w){var t=y((function(){var t=w.orderId,e=void 0===t?"":t,r=w.billingToken,n={meta:{paymentMethodData:{ppcp_paypal_order_id:e,ppcp_billing_token:void 0===r?"":r}}};return function(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?f(Object(r),!0).forEach((function(e){p(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):f(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}({type:m.SUCCESS},n)}));return t}}),[w,m,y,i]),w&&null!=w&&w.order?w.billingTokenData?React.createElement(c.IH,{description:w.billingTokenData.payer_info.email,icon:o("icons").find((function(t){return"paypal_simple"===t.id})),label:u.ag.cancel,onCancel:O}):React.createElement(c.IH,{description:w.order.payer.email_address,icon:o("icons").find((function(t){return"paypal_simple"===t.id})),label:u.ag.cancel,onCancel:O}):React.createElement("div",{className:"wc-ppcp-popup__container"},React.createElement("img",{src:o("redirectIcon")}),React.createElement("p",{dangerouslySetInnerHTML:{__html:o("i18n").redirectText}}))};const v=function(t){return React.createElement(React.Fragment,null,React.createElement(c.p8,{description:h.description}),React.createElement(y,t))};r(989);var m=r(907);function g(t){return g="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},g(t)}function b(){b=function(){return t};var t={},e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",a=n.asyncIterator||"@@asyncIterator",i=n.toStringTag||"@@toStringTag";function c(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{c({},"")}catch(t){c=function(t,e,r){return t[e]=r}}function u(t,e,r,n){var o=e&&e.prototype instanceof f?e:f,a=Object.create(o.prototype),i=new x(n||[]);return a._invoke=function(t,e,r){var n="suspendedStart";return function(o,a){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw a;return{value:void 0,done:!0}}for(r.method=o,r.arg=a;;){var i=r.delegate;if(i){var c=O(i,r);if(c){if(c===s)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var u=l(t,e,r);if("normal"===u.type){if(n=r.done?"completed":"suspendedYield",u.arg===s)continue;return{value:u.arg,done:r.done}}"throw"===u.type&&(n="completed",r.method="throw",r.arg=u.arg)}}}(t,r,i),a}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=u;var s={};function f(){}function p(){}function d(){}var h={};c(h,o,(function(){return this}));var y=Object.getPrototypeOf,v=y&&y(y(j([])));v&&v!==e&&r.call(v,o)&&(h=v);var m=d.prototype=f.prototype=Object.create(h);function w(t){["next","throw","return"].forEach((function(e){c(t,e,(function(t){return this._invoke(e,t)}))}))}function E(t,e){function n(o,a,i,c){var u=l(t[o],t,a);if("throw"!==u.type){var s=u.arg,f=s.value;return f&&"object"==g(f)&&r.call(f,"__await")?e.resolve(f.__await).then((function(t){n("next",t,i,c)}),(function(t){n("throw",t,i,c)})):e.resolve(f).then((function(t){s.value=t,i(s)}),(function(t){return n("throw",t,i,c)}))}c(u.arg)}var o;this._invoke=function(t,r){function a(){return new e((function(e,o){n(t,r,e,o)}))}return o=o?o.then(a,a):a()}}function O(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,O(t,e),"throw"===e.method))return s;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return s}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,s;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,s):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,s)}function S(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function _(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function x(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(S,this),this.reset(!0)}function j(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,a=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return a.next=a}}return{next:P}}function P(){return{value:void 0,done:!0}}return p.prototype=d,c(m,"constructor",d),c(d,"constructor",p),p.displayName=c(d,i,"GeneratorFunction"),t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===p||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,d):(t.__proto__=d,c(t,i,"GeneratorFunction")),t.prototype=Object.create(m),t},t.awrap=function(t){return{__await:t}},w(E.prototype),c(E.prototype,a,(function(){return this})),t.AsyncIterator=E,t.async=function(e,r,n,o,a){void 0===a&&(a=Promise);var i=new E(u(e,r,n,o),a);return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},w(m),c(m,i,"Generator"),c(m,o,(function(){return this})),c(m,"toString",(function(){return"[object Generator]"})),t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=j,x.prototype={constructor:x,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(_),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return i.type="throw",i.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],i=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=r.call(a,"catchLoc"),u=r.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var a=o;break}}a&&("break"===t||"continue"===t)&&a.tryLoc<=e&&e<=a.finallyLoc&&(a=null);var i=a?a.completion:{};return i.type=t,i.arg=e,a?(this.method="next",this.next=a.finallyLoc,s):this.complete(i)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),s},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),_(r),s}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;_(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:j(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),s}},t}function w(t,e,r,n,o,a,i){try{var c=t[a](i),u=c.value}catch(t){return void r(t)}c.done?e(u):Promise.resolve(u).then(n,o)}function E(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function O(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?E(Object(r),!0).forEach((function(e){S(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):E(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function S(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function _(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var x=r(819);function j(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function P(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?j(Object(r),!0).forEach((function(e){k(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):j(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function k(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function L(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(t,e)||function(t,e){if(t){if("string"==typeof t)return C(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?C(t,e):void 0}}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function C(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}var A=["context"];function R(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}function N(){return N=Object.assign?Object.assign.bind():function(t){for(var e=1;e<arguments.length;e++){var r=arguments[e];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(t[n]=r[n])}return t},N.apply(this,arguments)}var T=function(t){var e=(0,a.getSetting)("ppcp_data");return function(t){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return e.hasOwnProperty(t)||(e[t]=r),e[t]}}(),D=function(t){var e=t.context,r=void 0===e?"express_checkout":e,n=function(t,e){if(null==t)return{};var r,n,o=function(t,e){if(null==t)return{};var r,n,o={},a=Object.keys(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||(o[r]=t[r]);return o}(t,e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(n=0;n<a.length;n++)r=a[n],e.indexOf(r)>=0||Object.prototype.propertyIsEnumerable.call(t,r)&&(o[r]=t[r])}return o}(t,A);return React.createElement(I,N({context:r,isExpress:!0,paymentMethodId:"paymentplugins_ppcp_express"},n))},I=function(t){var e,r,o,s=t.isExpress,f=void 0!==s&&s,p=t.context,d=t.billing,h=t.shippingData,y=t.eventRegistration,v=t.emitResponse,g=t.onError,E=t.onClick,S=t.onClose,j=t.onSubmit,k=t.activePaymentMethod,C=t.paymentMethodId,A=t.cartData,N=(0,a.getSetting)("paypalQueryParams"),D="true"===N.vault,I=d.billingAddress,F=y.onPaymentSetup,M=y.onCheckoutFail,G=y.onCheckoutValidation,Y=v.responseTypes,V=v.noticeContexts,U=A.extensions,z=(r=(0,n.useState)(),o=2,function(t){if(Array.isArray(t))return t}(r)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(r,o)||function(t,e){if(t){if("string"==typeof t)return R(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?R(t,e):void 0}}(r,o)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()),B=z[0],K=z[1],$=(0,i.dispatch)("core/notices").createErrorNotice;(0,l.nz)({width:375,node:B}),f||(g=(0,n.useCallback)((function(t){$(null!=t&&t.message?t.message:t,{context:V.PAYMENTS})}),[]));var H=(0,n.useCallback)((function(t){K(t)}),[]),q=function(t){var e=t.isExpress,r=t.onSubmit,o=t.billingAddress,a=t.shippingData,i=t.onPaymentSetup,c=t.responseTypes,l=t.activePaymentMethod,s=t.paymentMethodId,f=L((0,n.useState)(null),2),p=f[0],d=f[1],h=(0,n.useRef)(null),y=(0,n.useRef)(null),v=(0,n.useRef)(null),g=(0,n.useCallback)((function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1];d(null===t||""===t?null:P(P({},t),{},{submit:e}))}),[]),b=(0,n.useCallback)((function(){d(null)}),[]);(0,n.useEffect)((function(){h.current=p,y.current=o,v.current=a})),(0,n.useEffect)((function(){!(0,x.isEmpty)(p)&&p.submit&&r()}),[p,r]);var w=(0,n.useCallback)((function(t){var r,n,o,a,i,c,u,l,s,f=v.current.needsShipping,p={};if((0,x.isEmpty)(null==t||null===(r=t.payer)||void 0===r||null===(n=r.address)||void 0===n?void 0:n.address_line_1)){if(f&&!(0,x.isEmpty)(null==t||null===(o=t.purchase_units)||void 0===o||null===(a=o[0])||void 0===a?void 0:a.shipping)){var d=t.purchase_units[0].shipping;p=(0,m.convertPayPalAddressToCart)(d.address)}}else p=(0,m.convertPayPalAddressToCart)(t.payer.address);return null!=t&&null!==(i=t.payer)&&void 0!==i&&i.name&&(p=P(P({},p),O(t.payer.name))),null!=t&&null!==(c=t.payer)&&void 0!==c&&c.email_address&&e&&(p=P(P({},p),{},{email:t.payer.email_address})),null!=t&&null!==(u=t.payer)&&void 0!==u&&null!==(l=u.phone)&&void 0!==l&&null!==(s=l.phone_number)&&void 0!==s&&s.national_number&&(p=P(P({},p),{},{phone:t.payer.phone.phone_number.national_number})),p}),[]),E=(0,n.useCallback)((function(t){var r,n,o,a,i,c,u,l=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"billing",s={},f=t.payment_source.paypal,p=v.current.needsShipping;if("billing"===l&&(null!=f&&null!==(a=f.name)&&void 0!==a&&a.given_name&&(s=P(P({},s),{},{first_name:f.name.given_name})),null!=f&&null!==(i=f.name)&&void 0!==i&&i.surname&&(s=P(P({},s),{},{last_name:f.name.surname}))),p&&null!==(r=f.shipping)&&void 0!==r&&r.address&&(s=P(P({},s),(0,m.convertPayPalAddressToCart)(f.shipping.address)),"shipping"===l&&null!==(c=f.shipping)&&void 0!==c&&null!==(u=c.name)&&void 0!==u&&u.full_name)){var d=(0,m.extractFullName)(f.shipping.name.full_name);s=P(P({},s),O(d))}return null!=f&&f.email_address&&e&&(s=P(P({},s),{},{email:f.email_address})),null!=f&&null!==(n=f.phone)&&void 0!==n&&null!==(o=n.phone_number)&&void 0!==o&&o.national_number&&(s=P(P({},s),{},{phone:f.phone.phone_number.national_number})),s}),[]),O=(0,n.useCallback)((function(t){var e,r;if(Array.isArray(t)){var n=L(t,2);e=n[0],r=n[1]}else e=t.given_name,r=t.surname;return{first_name:e,last_name:r}}),[]),S=(0,n.useCallback)((function(t){var e,r,n={};if(null!=t&&null!==(e=t.purchase_units)&&void 0!==e&&null!==(r=e[0])&&void 0!==r&&r.shipping){var o,a=t.purchase_units[0].shipping;if(n=(0,m.convertPayPalAddressToCart)(a.address),null!=a&&null!==(o=a.name)&&void 0!==o&&o.full_name){var i=(0,m.extractFullName)(a.name.full_name);n=P(P({},n),O(i))}}return n}),[]);return(0,n.useEffect)((function(){if(l===s){var t=i((function(){var t=y.current,r=v.current,n=r.shippingAddress,o=r.needsShipping,a=h.current,i=a.orderId,l=a.paymentToken,s=void 0===l?null:l,f=a.order,p=void 0===f?{}:f,d={meta:P({paymentMethodData:{ppcp_paypal_order_id:i,ppcp_payment_token:(null==s?void 0:s.id)||""}},e&&{billingAddress:P(P(P(P({},u.cZ),t),w(p)),s&&E(s))})};return o&&e&&(d.meta.shippingAddress=P(P(P(P({},u.e0),n),S(p)),s&&E(s,"shipping"))),P({type:c.SUCCESS},d)}));return function(){return t()}}}),[e,i,l]),{paymentData:p,setPaymentData:g,clearPaymentData:b}}({isExpress:f,onSubmit:j,billingAddress:I,shippingData:h,onPaymentSetup:F,responseTypes:Y,activePaymentMethod:k,paymentMethodId:C}),J=q.paymentData,Z=q.setPaymentData,X=q.clearPaymentData;(0,l.sC)({event:M,responseTypes:Y,messageContext:V.PAYMENTS,setPaymentData:Z}),function(t){var e=t.isExpress,r=t.paymentData,o=t.emitResponse,a=t.onCheckoutValidation;(0,n.useEffect)((function(){if(!e)return a((function(){return!!(null!=r&&r.orderId||null!=r&&r.paymentToken)||{type:o.responseTypes.FAIL,errorMessage:u.ag.order_button_click}}))}),[e,r])}({isExpress:f,emitResponse:v,paymentData:J,onCheckoutValidation:G});var W,Q,tt,et=(0,l.VD)(N),rt=function(t){var e=t.isExpress,r=t.paypal,o=t.needsSetupToken,a=t.buttonStyles,i=t.shippingData,c=t.billing,s=t.setError,f=t.setPaymentData,p=t.onClick,d=t.onClose,h=t.buttonsContainer,y=(0,n.useRef)(i),v=(0,n.useRef)(c),m=(0,n.useRef)({onClick:p,onClose:d,buttonState:!0,actions:{},error:null,billing:c,shipping:i,buttonsContainer:h}),g=(0,l.It)({isExpress:e,paymentMethod:"ppcp"}),E=g.createOrder,S=g.onShippingChange,_=g.createPaymentToken,x=g.createVaultSetupToken;(0,n.useEffect)((function(){y.current=i,v.current=c,m.current=O(O({},m.current),{},{shipping:i,billing:c,onClick:p,onClose:d,buttonsContainer:h})}));var j=(0,n.useCallback)((function(t){var e={};switch(t){case r.FUNDING.PAYPAL:e=a.paypal;break;case r.FUNDING.PAYLATER:e=a.paylater;break;case r.FUNDING.CREDIT:var n=["black","white"].includes(a.paylater.color)?a.paylater.color:"darkblue";e=O(O({},a.paylater),{},{color:n});break;case r.FUNDING.CARD:(e=a.card).tagline?(delete e.tagline,e.layout="vertical"):(e.layout="horizontal",delete e.tagline);break;case r.FUNDING.VENMO:e=a.venmo}return e}),[r,a]),P=(0,n.useCallback)(function(){var t,e=(t=b().mark((function t(e,r){var n;return b().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:n={order:{},orderId:e.orderID,vaultSetupToken:e.vaultSetupToken||""},e.vaultSetupToken?_(e.vaultSetupToken).then((function(t){f(O(O({},n),{},{paymentToken:t}))})).finally((function(){m.current.buttonsContainer.classList.remove("disabled")})):r.order.get().then((function(t){f(O(O({},n),{},{order:t}))})).catch((function(t){s(t)}));case 2:case"end":return t.stop()}}),t)})),function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function i(t){w(a,n,o,i,c,"next",t)}function c(t){w(a,n,o,i,c,"throw",t)}i(void 0)}))});return function(t,r){return e.apply(this,arguments)}}(),[s]),k=(0,n.useCallback)((function(t){var e,r=m.current.buttonsContainer;if(!((null==t||null===(e=t.message)||void 0===e?void 0:e.indexOf("Window is closed"))>-1)){var n;if(m.current.error)return"validation_errors"===(null===(n=m.current.error)||void 0===n?void 0:n.code)?s(m.current.error.data.errors[0]):s(m.current.error.message);"validation_errors"===(null==t?void 0:t.code)?s(t.data.errors[0]):s(t),r.classList.remove("disabled")}}),[s]),L=(0,n.useCallback)((function(t){var r=y.current.needsShipping,n={fundingSource:t,style:j(t),onApprove:P,onError:k};return e?(n.onClick=function(){return m.current.onClick()},n.onCancel=function(){return m.current.onClose()}):(n.onClick=function(){e||m.current.buttonState||s(r?u.ag.order_missing_address:u.ag.order_missing_billing_address)},n.onCancel=function(){m.current.buttonsContainer.classList.remove("disabled")}),n.onInit=function(r,n){e||(m.current.actions[t]=n)},o?n.createVaultSetupToken=function(){m.current.buttonsContainer.classList.add("disabled");for(var t=arguments.length,e=new Array(t),r=0;r<t;r++)e[r]=arguments[r];return x.apply(void 0,e.concat([m.current]))}:n.createOrder=function(t,e){return E(m.current)},e&&r&&"venmo"!==t&&(n.onShippingChange=function(){for(var t=arguments.length,e=new Array(t),r=0;r<t;r++)e[r]=arguments[r];return S.apply(void 0,e.concat([m.current]))}),n}),[r,e,E,x,P,k,E,S,o,s]);return{getOptions:L}}({isExpress:f,paypal:et,vault:D,intent:N.intent,buttonStyles:T("buttons"),billing:d,shippingData:h,eventRegistration:y,setError:g,setPaymentData:Z,onClick:E,onClose:S,needsSetupToken:(null==U||null===(e=U.wc_ppcp)||void 0===e?void 0:e.needsSetupToken)||!1,buttonsContainer:B}).getOptions,nt=function(t){var e=t.data,r=t.paypal,o=t.context,a=t.vault,i=void 0!==a&&a,c=function(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,a=[],i=!0,c=!1;try{for(r=r.call(t);!(i=(n=r.next()).done)&&(a.push(n.value),!e||a.length!==e);i=!0);}catch(t){c=!0,o=t}finally{try{i||null==r.return||r.return()}finally{if(c)throw o}}return a}}(t,e)||function(t,e){if(t){if("string"==typeof t)return _(t,e);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?_(t,e):void 0}}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}((0,n.useState)(!1),2),u=c[0],l=c[1];return(0,n.useEffect)((function(){if(r){var t=[],n=e("buttonOrder",[]);"express_checkout"===o?e("paypalSections",[]).includes(o)&&t.push(r.FUNDING.PAYPAL):t.push(r.FUNDING.PAYPAL),e("payLaterEnabled")&&e("payLaterSections",[]).includes(o)&&(i?t.push(r.FUNDING.CREDIT):t.push(r.FUNDING.PAYLATER)),e("cardEnabled")&&e("creditCardSections",[]).includes(o)&&t.push(r.FUNDING.CARD),e("venmoEnabled")&&e("venmoSections",[]).includes(o)&&t.push(r.FUNDING.VENMO),t.sort((function(t,e){return n.indexOf(t)<n.indexOf(e)?-1:1})),l([].concat(t))}}),[r]),u}({data:T,paypal:et,context:p,vault:D});return(0,n.useEffect)((function(){var t=T("paymentData");t&&t.order&&Z(t,!1)}),[]),(0,n.useEffect)((function(){et&&nt&&B&&nt.forEach((function(t){var e=et.Buttons(rt(t));e.isEligible()&&e.render(B)}))}),[et,nt,B]),!f&&J?J.paymentToken?React.createElement(c.IH,{description:null===(W=J.paymentToken)||void 0===W||null===(Q=W.payment_source)||void 0===Q||null===(tt=Q.paypal)||void 0===tt?void 0:tt.email_address,icon:T("icons").find((function(t){return"paypal_simple"===t.id})),label:u.ag.cancel,onCancel:X}):React.createElement(c.IH,{description:J.order.payer.email_address,icon:T("icons").find((function(t){return"paypal_simple"===t.id})),label:u.ag.cancel,onCancel:X}):React.createElement(React.Fragment,null,!f&&React.createElement(c.p8,{description:T("description")}),React.createElement("div",{className:"wc-ppcp-paypal__buttons",ref:H}))},F="express_checkout";(0,u.Zs)()&&(F="cart"),(0,o.registerExpressPaymentMethod)({name:"paymentplugins_ppcp_express",gatewayId:"ppcp",paymentMethodId:"ppcp",canMakePayment:function(){return!(0,u.kC)()&&((0,u.Zs)()&&T("paypalSections").includes("cart")||(0,u.jv)()&&function(){for(var t=0,e=["paypalSections","payLaterSections","creditCardSections","venmoSections"];t<e.length;t++)if(T(e[t],[]).includes("express_checkout"))return!0;return!1}())},content:React.createElement(D,{context:F}),edit:React.createElement(D,{context:F}),supports:{features:T("features")}}),T("placeOrderButtonEnabled")?(0,o.registerPaymentMethod)({name:"ppcp",label:React.createElement(c.wJ,{id:"ppcp",title:T("title"),icons:T("icons").find((function(t){return"paypal"===t.id}))}),ariaLabel:"PayPal",canMakePayment:function(){return!(0,u.kC)()&&(0,u.jv)()},content:React.createElement(v,{data:T}),edit:React.createElement(v,{data:T}),placeOrderButtonLabel:T("i18n").buttonLabel,supports:{showSavedCards:!1,showSaveOption:!1,features:T("features")}}):(0,o.registerPaymentMethod)({name:"ppcp",label:React.createElement(c.wJ,{id:"ppcp",title:T("title"),icons:T("icons").find((function(t){return"paypal"===t.id}))}),ariaLabel:"PayPal",canMakePayment:function(){return!(0,u.kC)()&&(0,u.jv)()},content:React.createElement(I,{context:"checkout",paymentMethodId:"ppcp"}),edit:React.createElement(I,{context:"checkout",paymentMethodId:"ppcp"}),supports:{showSavedCards:!1,showSaveOption:!1,features:T("features")}})},622:(t,e,r)=>{"use strict";r.d(e,{K6:()=>u,Zs:()=>f,ag:()=>v,cZ:()=>y,e0:()=>h,i5:()=>s,jv:()=>p,kC:()=>d,q$:()=>l});var n=r(907),o=r(617);function a(t,e){var r=Object.keys(t);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(t);e&&(n=n.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.push.apply(r,n)}return r}function i(t){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?a(Object(r),!0).forEach((function(e){c(t,e,r[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(r)):a(Object(r)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(r,e))}))}return t}function c(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}var u=function(t){var e=t.match(n.SHIPPING_OPTION_REGEX);if(e){var r=e[1];return[e[2],r]}return[]},l=function(t){var e,r;return t=t.replace(/^\//,""),null===(e=(0,o.getSetting)("ppcpGeneralData"))||void 0===e||null===(r=e.ajaxRestPath)||void 0===r?void 0:r.replace("%s",t)},s=function(){var t;return null===(t=(0,o.getSetting)("ppcpGeneralData"))||void 0===t?void 0:t.isAdmin},f=function(){return"cart"===(0,o.getSetting)("ppcpGeneralData").context},p=function(){return"checkout"===(0,o.getSetting)("ppcpGeneralData").context},d=function(){return!0===(0,o.getSetting)("ppcpGeneralData").adminOnly},h={first_name:"",last_name:"",company:"",address_1:"",address_2:"",city:"",state:"",postcode:"",country:"",phone:""},y=i(i({},h),{},{email:""}),v=(0,o.getSetting)("ppcpGeneralData").i18n},967:(t,e)=>{var r;!function(){"use strict";var n={}.hasOwnProperty;function o(){for(var t="",e=0;e<arguments.length;e++){var r=arguments[e];r&&(t=i(t,a(r)))}return t}function a(t){if("string"==typeof t||"number"==typeof t)return t;if("object"!=typeof t)return"";if(Array.isArray(t))return o.apply(null,t);if(t.toString!==Object.prototype.toString&&!t.toString.toString().includes("[native code]"))return t.toString();var e="";for(var r in t)n.call(t,r)&&t[r]&&(e=i(e,r));return e}function i(t,e){return e?t?t+" "+e:t+e:t}t.exports?(o.default=o,t.exports=o):void 0===(r=function(){return o}.apply(e,[]))||(t.exports=r)}()}}]);
+(self["webpackChunkwcPPCP"] = self["webpackChunkwcPPCP"] || []).push([["blocks-commons"],{
+
+/***/ "./packages/blocks/assets/js/blocks/checkout/block.js":
+/*!************************************************************!*\
+  !*** ./packages/blocks/assets/js/blocks/checkout/block.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Block": () => (/* binding */ Block)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @woocommerce/block-data */ "@woocommerce/block-data");
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var Block = function Block(_ref) {
+  var checkoutExtensionData = _ref.checkoutExtensionData,
+    extensions = _ref.extensions;
+  var _dispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.dispatch)('core/notices'),
+    createErrorNotice = _dispatch.createErrorNotice;
+  var _dispatch2 = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__.PAYMENT_STORE_KEY),
+    setActivePaymentMethod = _dispatch2.__internalSetActivePaymentMethod;
+  var data = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__.getSetting)('ppcp_data');
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (setActivePaymentMethod && data.errorMessage) {
+      createErrorNotice(data.errorMessage, {
+        context: 'wc/checkout'
+      });
+      setActivePaymentMethod('ppcp');
+    }
+  }, []);
+  return null;
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/blocks/checkout/frontend.js":
+/*!***************************************************************!*\
+  !*** ./packages/blocks/assets/js/blocks/checkout/frontend.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @woocommerce/blocks-checkout */ "@woocommerce/blocks-checkout");
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block.json */ "./packages/blocks/assets/js/blocks/checkout/block.json");
+/* harmony import */ var _block__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block */ "./packages/blocks/assets/js/blocks/checkout/block.js");
+
+
+
+(0,_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__.registerCheckoutBlock)({
+  metadata: _block_json__WEBPACK_IMPORTED_MODULE_1__,
+  component: _block__WEBPACK_IMPORTED_MODULE_2__.Block
+});
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/blocks/fastlane/block.js":
+/*!************************************************************!*\
+  !*** ./packages/blocks/assets/js/blocks/fastlane/block.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Block": () => (/* binding */ Block)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @woocommerce/block-data */ "@woocommerce/block-data");
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+/* harmony import */ var _payment_methods_fastlane_hooks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../payment-methods/fastlane/hooks */ "./packages/blocks/assets/js/payment-methods/fastlane/hooks/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+var Block = function Block(_ref) {
+  var checkoutExtensionData = _ref.checkoutExtensionData,
+    extensions = _ref.extensions;
+  var isInitialRender = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({});
+  var queryParams = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__.getSetting)('paypalQueryParams');
+  var data = extensions.wc_ppcp.fastlane;
+  var _useSelect = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(function (select) {
+      var store = select(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__.CART_STORE_KEY);
+      return _objectSpread({
+        needsShipping: store.getNeedsShipping()
+      }, store.getCustomerData());
+    }),
+    needsShipping = _useSelect.needsShipping,
+    billingAddress = _useSelect.billingAddress;
+  var _useDispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__.CART_STORE_KEY),
+    setShippingAddress = _useDispatch.setShippingAddress;
+  var email = billingAddress.email;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(email),
+    _useState2 = _slicedToArray(_useState, 2),
+    debouncedEmail = _useState2[0],
+    setDebouncedEmail = _useState2[1];
+  var paypal = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLoadPayPalScript)(queryParams);
+  var fastlane = (0,_payment_methods_fastlane_hooks__WEBPACK_IMPORTED_MODULE_6__.useCreateFastlane)({
+    paypal: paypal
+  });
+  var onError = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {}, []);
+  var shippingData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return {
+      needsShipping: needsShipping,
+      setShippingAddress: setShippingAddress
+    };
+  }, [needsShipping, setShippingAddress]);
+  var _useProcessFastlane = (0,_payment_methods_fastlane_hooks__WEBPACK_IMPORTED_MODULE_6__.useProcessFastlane)({
+      i18n: data.i18n,
+      email: email,
+      onError: onError,
+      fastlane: fastlane,
+      shippingData: shippingData,
+      openFastlaneModal: function openFastlaneModal() {
+        return null;
+      }
+    }),
+    emails = _useProcessFastlane.emails,
+    isCustomerFound = _useProcessFastlane.isCustomerFound,
+    triggerAuthentication = _useProcessFastlane.triggerAuthentication;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentData.current = {
+      fastlane: fastlane,
+      emails: emails,
+      isCustomerFound: isCustomerFound
+    };
+  }, [emails, fastlane, isCustomerFound]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Set a timer to update the debounced value after 500ms
+    var timer = setTimeout(function () {
+      setDebouncedEmail(email);
+    }, 500); // Adjust debounce time as needed (500ms is common)
+
+    // Clean up the timer if email changes before timeout completes
+    return function () {
+      return clearTimeout(timer);
+    };
+  }, [email]);
+
+  // Effect for handling email changes
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var _currentData$current = currentData.current,
+      emails = _currentData$current.emails,
+      isCustomerFound = _currentData$current.isCustomerFound;
+
+    // If customer cancelled, don't try to authenticate.
+    if (emails.includes(debouncedEmail) || isCustomerFound) {
+      return;
+    }
+    // Don't do anything if requirements aren't met
+    if (!fastlane || !triggerAuthentication || !(0,_wordpress_url__WEBPACK_IMPORTED_MODULE_4__.isEmail)(debouncedEmail)) {
+      return;
+    }
+
+    // Only trigger on first load if fastlane_pageload is true
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      if (data.fastlane_pageload) {
+        triggerAuthentication(debouncedEmail, false);
+      }
+      return;
+    }
+    if (data.emailDetectionEnabled) {
+      // If we get here, email has changed and is valid, so trigger authentication
+      triggerAuthentication(debouncedEmail, false);
+    }
+  }, [fastlane, debouncedEmail, triggerAuthentication]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var fastlane = currentData.current.fastlane;
+    if (!fastlane || !data.iconEnabled) {
+      return;
+    }
+    var el = document.getElementById('email');
+    if (el) {
+      var container = document.getElementById('wc-ppcp-watermark-container');
+      if (container) {
+        return;
+      }
+      container = document.createElement('div');
+      container.id = 'wc-ppcp-watermark-container';
+      fastlane.FastlaneWatermarkComponent({
+        includeAdditionalInfo: true
+      }).then(function (component) {
+        el.parentElement.append(container);
+        component.render('#wc-ppcp-watermark-container');
+      });
+    }
+  });
+  return null;
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/blocks/fastlane/frontend.js":
+/*!***************************************************************!*\
+  !*** ./packages/blocks/assets/js/blocks/fastlane/frontend.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @woocommerce/blocks-checkout */ "@woocommerce/blocks-checkout");
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block.json */ "./packages/blocks/assets/js/blocks/fastlane/block.json");
+/* harmony import */ var _block__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block */ "./packages/blocks/assets/js/blocks/fastlane/block.js");
+
+
+
+(0,_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__.registerCheckoutBlock)({
+  metadata: _block_json__WEBPACK_IMPORTED_MODULE_1__,
+  component: _block__WEBPACK_IMPORTED_MODULE_2__.Block
+});
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/components/CVVIcon.js":
+/*!*********************************************************!*\
+  !*** ./packages/blocks/assets/js/components/CVVIcon.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CvvIcon)
+/* harmony export */ });
+function CvvIcon() {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "card-cvc-icon",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "var(--colorIconCardCvc)",
+    role: "img"
+  }, /*#__PURE__*/React.createElement("path", {
+    opacity: ".2",
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M15.337 4A5.493 5.493 0 0013 8.5c0 1.33.472 2.55 1.257 3.5H4a1 1 0 00-1 1v1a1 1 0 001 1h16a1 1 0 001-1v-.6a5.526 5.526 0 002-1.737V18a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2h12.337zm6.707.293c.239.202.46.424.662.663a2.01 2.01 0 00-.662-.663z"
+  }), /*#__PURE__*/React.createElement("path", {
+    opacity: ".4",
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M13.6 6a5.477 5.477 0 00-.578 3H1V6h12.6z"
+  }), /*#__PURE__*/React.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M18.5 14a5.5 5.5 0 110-11 5.5 5.5 0 010 11zm-2.184-7.779h-.621l-1.516.77v.786l1.202-.628v3.63h.943V6.22h-.008zm1.807.629c.448 0 .762.251.762.613 0 .393-.37.668-.904.668h-.235v.668h.283c.565 0 .95.282.95.691 0 .393-.377.66-.911.66-.393 0-.786-.126-1.194-.37v.786c.44.189.88.291 1.312.291 1.029 0 1.736-.526 1.736-1.288 0-.535-.33-.967-.88-1.14.472-.157.778-.573.778-1.045 0-.738-.652-1.241-1.595-1.241a3.143 3.143 0 00-1.234.267v.77c.378-.212.763-.33 1.132-.33zm3.394 1.713c.574 0 .974.338.974.778 0 .463-.4.785-.974.785-.346 0-.707-.11-1.076-.337v.809c.385.173.778.26 1.163.26.204 0 .392-.032.573-.08a4.313 4.313 0 00.644-2.262l-.015-.33a1.807 1.807 0 00-.967-.252 3 3 0 00-.448.032V6.944h1.132a4.423 4.423 0 00-.362-.723h-1.587v2.475a3.9 3.9 0 01.943-.133z"
+  }));
+}
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/components/PaymentMethodCard.js":
+/*!*******************************************************************!*\
+  !*** ./packages/blocks/assets/js/components/PaymentMethodCard.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PaymentMethodCard": () => (/* binding */ PaymentMethodCard)
+/* harmony export */ });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var PaymentMethodCard = function PaymentMethodCard(_ref) {
+  var label = _ref.label,
+    icon = _ref.icon,
+    description = _ref.description,
+    onCancel = _ref.onCancel;
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'wc-ppcp-components-payment-card__container'
+  }, /*#__PURE__*/React.createElement("div", {
+    className: 'wc-ppcp-components-payment-card__card'
+  }, /*#__PURE__*/React.createElement("img", {
+    className: 'wc-ppcp-components-payment-card__icon',
+    alt: icon.alt,
+    src: icon.src
+  }), /*#__PURE__*/React.createElement("div", {
+    className: 'wc-ppcp-components-payment-card__description'
+  }, /*#__PURE__*/React.createElement("span", null, description))), /*#__PURE__*/React.createElement("div", {
+    className: 'wc-ppcp-components-payment-card-cancel__container'
+  }, /*#__PURE__*/React.createElement("span", _defineProperty({
+    className: 'wc-ppcp-components-payment-card-cancel__label',
+    onClick: onCancel
+  }, "onClick", onCancel), label)));
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/components/PaymentMethodDescription.js":
+/*!**************************************************************************!*\
+  !*** ./packages/blocks/assets/js/components/PaymentMethodDescription.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PaymentMethodDescription)
+/* harmony export */ });
+function PaymentMethodDescription(_ref) {
+  var description = _ref.description;
+  if (description) {
+    return /*#__PURE__*/React.createElement("p", {
+      className: 'wc-ppcp-payment-method__description'
+    }, description);
+  }
+  return null;
+}
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/components/PaymentMethodLabel.js":
+/*!********************************************************************!*\
+  !*** ./packages/blocks/assets/js/components/PaymentMethodLabel.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PaymentMethodLabel": () => (/* binding */ PaymentMethodLabel)
+/* harmony export */ });
+var PaymentMethodLabel = function PaymentMethodLabel(_ref) {
+  var components = _ref.components,
+    title = _ref.title,
+    icons = _ref.icons,
+    id = _ref.id;
+  if (!Array.isArray(icons)) {
+    icons = [icons];
+  }
+  var Label = components.PaymentMethodLabel,
+    PaymentMethodIcons = components.PaymentMethodIcons;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-blocks-payment-method__label ".concat(id)
+  }, /*#__PURE__*/React.createElement(Label, {
+    text: title
+  }), /*#__PURE__*/React.createElement(PaymentMethodIcons, {
+    icons: icons
+  }));
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/components/fastlane-link/index.js":
+/*!*********************************************************************!*\
+  !*** ./packages/blocks/assets/js/components/fastlane-link/index.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FastlaneLink": () => (/* binding */ FastlaneLink)
+/* harmony export */ });
+var FastlaneLink = function FastlaneLink(_ref) {
+  var onClick = _ref.onClick,
+    text = _ref.text,
+    logo = _ref.logo;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "fastlane-signup-link-container",
+    onClick: onClick
+  }, /*#__PURE__*/React.createElement("span", null, text), /*#__PURE__*/React.createElement("img", {
+    className: "fastlane-signup-img",
+    src: logo
+  }));
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/components/fastlane-modal/index.js":
+/*!**********************************************************************!*\
+  !*** ./packages/blocks/assets/js/components/fastlane-modal/index.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FastlaneModal": () => (/* binding */ FastlaneModal)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var FastlaneModal = function FastlaneModal(_ref) {
+  var i18n = _ref.i18n,
+    open = _ref.open,
+    onClose = _ref.onClose,
+    fastlane = _ref.fastlane,
+    onTokenize = _ref.onTokenize,
+    shippingData = _ref.shippingData;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    rendered = _useState2[0],
+    setRendered = _useState2[1];
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    fastlane: fastlane,
+    shippingData: shippingData
+  });
+  var onClick = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)( /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      var paymentComponent, response;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              e.preventDefault();
+              _context.prev = 1;
+              paymentComponent = currentData.current.paymentComponent;
+              _context.next = 5;
+              return paymentComponent.getPaymentToken();
+            case 5:
+              response = _context.sent;
+              // call onTokenize
+              onTokenize(response);
+
+              // close modal
+              onClose(true);
+              setRendered(false);
+              _context.next = 14;
+              break;
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](1);
+              console.log('Error tokenizing payment method. ', _context.t0);
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 11]]);
+    }));
+    return function (_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }(), []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentData.current = _objectSpread(_objectSpread({}, currentData.current), {}, {
+      fastlane: fastlane,
+      shippingData: shippingData
+    });
+  }, [fastlane, shippingData]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (open) {
+      var _currentData$current = currentData.current,
+        _fastlane = _currentData$current.fastlane,
+        _shippingData = _currentData$current.shippingData;
+      var needsShipping = _shippingData.needsShipping,
+        shippingAddress = _shippingData.shippingAddress;
+      var props = _objectSpread({}, needsShipping && {
+        shippingAddress: {
+          firstName: shippingAddress.first_name || '',
+          lastName: shippingAddress.last_name || '',
+          streetAddress: shippingAddress.address_1 || '',
+          extendedAddress: shippingAddress.address_2 || '',
+          locality: shippingAddress.city || '',
+          region: shippingAddress.state || '',
+          postalCode: shippingAddress.postcode || '',
+          countryCodeAlpha2: shippingAddress.country || '',
+          phoneNumber: shippingAddress.phone || ''
+        }
+      });
+      _fastlane.FastlanePaymentComponent(props).then( /*#__PURE__*/function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(instance) {
+          return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  currentData.current.paymentComponent = instance;
+                  _context2.next = 3;
+                  return instance.render('.wc-ppcp-fastlane-modal-body');
+                case 3:
+                  document.body.classList.add('fastlane-modal-open');
+                  setTimeout(function () {
+                    setRendered(true);
+                  }, 250);
+                case 5:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }));
+        return function (_x2) {
+          return _ref3.apply(this, arguments);
+        };
+      }());
+    } else {
+      document.body.classList.remove('fastlane-modal-open');
+    }
+    return function () {
+      return document.body.classList.remove('fastlane-modal-open');
+    };
+  }, [open]);
+  return /*#__PURE__*/React.createElement("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('wc-ppcp-fastlane-overlay', {
+      'active': rendered
+    })
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-fastlane-modal"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-fastlane-modal-body"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-fastlane-modal-buttons"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "wc-ppcp-fastlane-tokenize",
+    onClick: onClick
+  }, i18n.continue), /*#__PURE__*/React.createElement("a", {
+    className: "wc-ppcp-fastlane-cancel",
+    onClick: function onClick() {
+      setRendered(false);
+      onClose();
+    }
+  }, i18n.cancel))));
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/components/index.js":
+/*!*******************************************************!*\
+  !*** ./packages/blocks/assets/js/components/index.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CvvIcon": () => (/* reexport safe */ _CVVIcon__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "FastlaneLink": () => (/* reexport safe */ _fastlane_link__WEBPACK_IMPORTED_MODULE_3__.FastlaneLink),
+/* harmony export */   "FastlaneModal": () => (/* reexport safe */ _fastlane_modal__WEBPACK_IMPORTED_MODULE_4__.FastlaneModal),
+/* harmony export */   "PaymentMethodCard": () => (/* reexport safe */ _PaymentMethodCard__WEBPACK_IMPORTED_MODULE_0__.PaymentMethodCard),
+/* harmony export */   "PaymentMethodDescription": () => (/* reexport safe */ _PaymentMethodDescription__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "PaymentMethodLabel": () => (/* reexport safe */ _PaymentMethodLabel__WEBPACK_IMPORTED_MODULE_1__.PaymentMethodLabel)
+/* harmony export */ });
+/* harmony import */ var _PaymentMethodCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentMethodCard */ "./packages/blocks/assets/js/components/PaymentMethodCard.js");
+/* harmony import */ var _PaymentMethodLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentMethodLabel */ "./packages/blocks/assets/js/components/PaymentMethodLabel.js");
+/* harmony import */ var _CVVIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CVVIcon */ "./packages/blocks/assets/js/components/CVVIcon.js");
+/* harmony import */ var _fastlane_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fastlane-link */ "./packages/blocks/assets/js/components/fastlane-link/index.js");
+/* harmony import */ var _fastlane_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fastlane-modal */ "./packages/blocks/assets/js/components/fastlane-modal/index.js");
+/* harmony import */ var _PaymentMethodDescription__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PaymentMethodDescription */ "./packages/blocks/assets/js/components/PaymentMethodDescription.js");
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/data/checkout/action-types.js":
+/*!*****************************************************************!*\
+  !*** ./packages/blocks/assets/js/data/checkout/action-types.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ACTION_TYPES": () => (/* binding */ ACTION_TYPES)
+/* harmony export */ });
+var ACTION_TYPES = {
+  SET_FASTLANE: 'SET_FASTLANE',
+  SET_PAYMENT_TOKEN: 'SET_PAYMENT_TOKEN',
+  SET_CUSTOMER_CONTEXT: 'SET_CUSTOMER_CONTEXT',
+  ADD_CANCELED_EMAIL: 'ADD_CANCELED_EMAIL'
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/data/checkout/actions.js":
+/*!************************************************************!*\
+  !*** ./packages/blocks/assets/js/data/checkout/actions.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addCanceledEmail": () => (/* binding */ addCanceledEmail),
+/* harmony export */   "setCustomerContextId": () => (/* binding */ setCustomerContextId),
+/* harmony export */   "setFastlane": () => (/* binding */ setFastlane),
+/* harmony export */   "setPaymentToken": () => (/* binding */ setPaymentToken)
+/* harmony export */ });
+/* harmony import */ var _action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./action-types */ "./packages/blocks/assets/js/data/checkout/action-types.js");
+
+var setPaymentToken = function setPaymentToken(token) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.SET_PAYMENT_TOKEN,
+    token: token
+  };
+};
+var setFastlane = function setFastlane(fastlane) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.SET_FASTLANE,
+    fastlane: fastlane
+  };
+};
+var setCustomerContextId = function setCustomerContextId(id) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.SET_CUSTOMER_CONTEXT,
+    id: id
+  };
+};
+var addCanceledEmail = function addCanceledEmail(email) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.ADD_CANCELED_EMAIL,
+    email: email
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/data/checkout/constants.js":
+/*!**************************************************************!*\
+  !*** ./packages/blocks/assets/js/data/checkout/constants.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "STORE_KEY": () => (/* binding */ STORE_KEY)
+/* harmony export */ });
+var STORE_KEY = 'wc-ppcp/store/checkout';
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/data/checkout/index.js":
+/*!**********************************************************!*\
+  !*** ./packages/blocks/assets/js/data/checkout/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "STORE_KEY": () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_2__.STORE_KEY),
+/* harmony export */   "store": () => (/* binding */ store)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data-controls */ "@wordpress/data-controls");
+/* harmony import */ var _wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./packages/blocks/assets/js/data/checkout/constants.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./packages/blocks/assets/js/data/checkout/actions.js");
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reducers */ "./packages/blocks/assets/js/data/checkout/reducers.js");
+/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./selectors */ "./packages/blocks/assets/js/data/checkout/selectors.js");
+
+
+
+
+
+
+var config = {
+  reducer: _reducers__WEBPACK_IMPORTED_MODULE_4__["default"],
+  selectors: _selectors__WEBPACK_IMPORTED_MODULE_5__,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__
+};
+
+var store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.createReduxStore)(_constants__WEBPACK_IMPORTED_MODULE_2__.STORE_KEY, config);
+(0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.register)(store);
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/data/checkout/reducers.js":
+/*!*************************************************************!*\
+  !*** ./packages/blocks/assets/js/data/checkout/reducers.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ reducer)
+/* harmony export */ });
+/* harmony import */ var _action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./action-types */ "./packages/blocks/assets/js/data/checkout/action-types.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var DEFAULT_STATE = {
+  token: null,
+  fastlane: null,
+  canceledEmails: [],
+  customerContextId: null
+};
+function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_STATE;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var newState = state;
+  switch (action.type) {
+    case _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.SET_FASTLANE:
+      newState = _objectSpread(_objectSpread({}, state), {}, {
+        fastlane: action.fastlane
+      });
+      break;
+    case _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.SET_PAYMENT_TOKEN:
+      newState = _objectSpread(_objectSpread({}, state), {}, {
+        token: action.token
+      });
+      break;
+    case _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.SET_CUSTOMER_CONTEXT:
+      newState = _objectSpread(_objectSpread({}, state), {}, {
+        customerContextId: action.id
+      });
+      break;
+    case _action_types__WEBPACK_IMPORTED_MODULE_0__.ACTION_TYPES.ADD_CANCELED_EMAIL:
+      newState = _objectSpread(_objectSpread({}, state), {}, {
+        canceledEmails: [].concat(_toConsumableArray(state.canceledEmails), [action.email])
+      });
+      break;
+  }
+  return newState;
+}
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/data/checkout/selectors.js":
+/*!**************************************************************!*\
+  !*** ./packages/blocks/assets/js/data/checkout/selectors.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getCanceledEmails": () => (/* binding */ getCanceledEmails),
+/* harmony export */   "getFastlane": () => (/* binding */ getFastlane),
+/* harmony export */   "getPaymentToken": () => (/* binding */ getPaymentToken),
+/* harmony export */   "isCustomerFound": () => (/* binding */ isCustomerFound)
+/* harmony export */ });
+var getPaymentToken = function getPaymentToken(state) {
+  return state.token;
+};
+var getFastlane = function getFastlane(state) {
+  return state.fastlane;
+};
+var isCustomerFound = function isCustomerFound(state) {
+  return !!state.customerContextId;
+};
+var getCanceledEmails = function getCanceledEmails(state) {
+  return state.canceledEmails;
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/data/index.js":
+/*!*************************************************!*\
+  !*** ./packages/blocks/assets/js/data/index.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "STORE_KEY": () => (/* reexport safe */ _checkout__WEBPACK_IMPORTED_MODULE_0__.STORE_KEY),
+/* harmony export */   "store": () => (/* reexport safe */ _checkout__WEBPACK_IMPORTED_MODULE_0__.store)
+/* harmony export */ });
+/* harmony import */ var _checkout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkout */ "./packages/blocks/assets/js/data/checkout/index.js");
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/hooks/index.js":
+/*!**************************************************!*\
+  !*** ./packages/blocks/assets/js/hooks/index.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useApiRequests": () => (/* reexport safe */ _use_api_requests__WEBPACK_IMPORTED_MODULE_4__.useApiRequests),
+/* harmony export */   "useBreakpointWidth": () => (/* reexport safe */ _use_breakpoint_width__WEBPACK_IMPORTED_MODULE_3__.useBreakpointWidth),
+/* harmony export */   "useLoadPayPalScript": () => (/* reexport safe */ _use_load_paypal_script__WEBPACK_IMPORTED_MODULE_0__.useLoadPayPalScript),
+/* harmony export */   "usePaymentMethodNotices": () => (/* reexport safe */ _use_payment_method_notices__WEBPACK_IMPORTED_MODULE_1__.usePaymentMethodNotices),
+/* harmony export */   "useProcessPaymentFailure": () => (/* reexport safe */ _use_process_payment_failure__WEBPACK_IMPORTED_MODULE_2__.useProcessPaymentFailure)
+/* harmony export */ });
+/* harmony import */ var _use_load_paypal_script__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-load-paypal-script */ "./packages/blocks/assets/js/hooks/use-load-paypal-script.js");
+/* harmony import */ var _use_payment_method_notices__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-payment-method-notices */ "./packages/blocks/assets/js/hooks/use-payment-method-notices.js");
+/* harmony import */ var _use_process_payment_failure__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./use-process-payment-failure */ "./packages/blocks/assets/js/hooks/use-process-payment-failure.js");
+/* harmony import */ var _use_breakpoint_width__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./use-breakpoint-width */ "./packages/blocks/assets/js/hooks/use-breakpoint-width.js");
+/* harmony import */ var _use_api_requests__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-api-requests */ "./packages/blocks/assets/js/hooks/use-api-requests.js");
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/hooks/use-api-requests.js":
+/*!*************************************************************!*\
+  !*** ./packages/blocks/assets/js/hooks/use-api-requests.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useApiRequests": () => (/* binding */ useApiRequests)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "./packages/blocks/assets/js/utils.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+var useApiRequests = function useApiRequests(_ref) {
+  var _ref$isExpress = _ref.isExpress,
+    isExpress = _ref$isExpress === void 0 ? false : _ref$isExpress,
+    paymentMethod = _ref.paymentMethod;
+  var createOrder = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)( /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(currentData) {
+      var billing, shipping, _currentData$shouldSa, shouldSavePayment, needsShipping, shippingAddress, billingAddress, _objectSpread2, response;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              billing = currentData.billing, shipping = currentData.shipping, _currentData$shouldSa = currentData.shouldSavePayment, shouldSavePayment = _currentData$shouldSa === void 0 ? false : _currentData$shouldSa;
+              needsShipping = shipping.needsShipping, shippingAddress = shipping.shippingAddress;
+              billingAddress = billing.billingAddress;
+              _context.prev = 3;
+              _context.next = 6;
+              return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+                method: 'POST',
+                url: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getRestPath)('wc-ppcp/v1/cart/order'),
+                data: _objectSpread(_objectSpread((_objectSpread2 = {
+                  payment_method: paymentMethod
+                }, _defineProperty(_objectSpread2, "".concat(paymentMethod, "_save_payment"), shouldSavePayment), _defineProperty(_objectSpread2, "address_provided", !isExpress && needsShipping), _defineProperty(_objectSpread2, "checkout_blocks", true), _defineProperty(_objectSpread2, "context", !isExpress ? 'checkout' : 'express'), _objectSpread2), needsShipping ? {
+                  shipping_first_name: shippingAddress.first_name,
+                  shipping_last_name: shippingAddress.last_name,
+                  shipping_address_1: shippingAddress.address_1,
+                  shipping_address_2: shippingAddress.address_2,
+                  shipping_postcode: shippingAddress.postcode,
+                  shipping_city: shippingAddress.city,
+                  shipping_state: shippingAddress.state,
+                  shipping_country: shippingAddress.country
+                } : null), {
+                  billing_first_name: billingAddress.first_name,
+                  billing_last_name: billingAddress.last_name,
+                  billing_address_1: billingAddress.address_1,
+                  billing_address_2: billingAddress.address_2,
+                  billing_postcode: billingAddress.postcode,
+                  billing_city: billingAddress.city,
+                  billing_state: billingAddress.state,
+                  billing_country: billingAddress.country,
+                  billing_email: billingAddress.email,
+                  billing_phone: billingAddress.phone,
+                  billing_company: billingAddress.company
+                })
+              });
+            case 6:
+              response = _context.sent;
+              return _context.abrupt("return", response);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](3);
+              throw _context.t0;
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[3, 10]]);
+    }));
+    return function (_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }(), [isExpress, paymentMethod]);
+  var createVaultSetupToken = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            return _context2.abrupt("return", _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+              method: 'POST',
+              url: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getRestPath)('/wc-ppcp/v1/vault/setup-tokens'),
+              data: {
+                context: 'checkout',
+                payment_method: paymentMethod
+              }
+            }).then(function (token) {
+              return token.id;
+            }).catch(function (error) {
+              console.info('Error creating setup token. ', error);
+              throw error;
+            }));
+          case 1:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  })), [paymentMethod]);
+  var onShippingChange = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (data, actions, currentData) {
+    var _data$selected_shippi;
+    var shipping = currentData.shipping;
+    var setSelectedRates = shipping.setSelectedRates;
+    var intermediateAddress = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_2__.convertPayPalAddressToCart)((data === null || data === void 0 ? void 0 : data.shipping_address) || {}, true);
+    var selectedShippingOption = (data === null || data === void 0 ? void 0 : (_data$selected_shippi = data.selected_shipping_option) === null || _data$selected_shippi === void 0 ? void 0 : _data$selected_shippi.id) || '';
+    return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      method: 'POST',
+      url: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getRestPath)('wc-ppcp/v1/cart/shipping'),
+      data: {
+        order_id: data.orderID,
+        address: intermediateAddress,
+        shipping_method: (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_2__.extractShippingMethod)(selectedShippingOption),
+        payment_method: paymentMethod
+      }
+    }).then(function (response) {
+      if (response.code) {
+        return actions.reject();
+      } else {
+        return actions.resolve();
+      }
+    }).catch(function (error) {
+      return actions.reject();
+    }).finally(function () {
+      if (selectedShippingOption) {
+        setSelectedRates.apply(void 0, _toConsumableArray((0,_utils__WEBPACK_IMPORTED_MODULE_3__.extractShippingRateParams)(selectedShippingOption)));
+      }
+    });
+  }, [paymentMethod]);
+  var createPaymentToken = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (setupTokenId) {
+    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      method: 'POST',
+      path: "/wc-ppcp/v1/vault/payment-tokens",
+      data: _objectSpread({
+        setup_token: setupTokenId
+      }, data)
+    });
+  }, []);
+  return {
+    createOrder: createOrder,
+    onShippingChange: onShippingChange,
+    createPaymentToken: createPaymentToken,
+    createVaultSetupToken: createVaultSetupToken
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/hooks/use-breakpoint-width.js":
+/*!*****************************************************************!*\
+  !*** ./packages/blocks/assets/js/hooks/use-breakpoint-width.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useBreakpointWidth": () => (/* binding */ useBreakpointWidth)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var useBreakpointWidth = function useBreakpointWidth(_ref) {
+  var width = _ref.width,
+    node = _ref.node,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? 'wc-ppcp-sm__container' : _ref$className;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(window.innerWidth),
+    _useState2 = _slicedToArray(_useState, 2),
+    windowWidth = _useState2[0],
+    setWindowWidth = _useState2[1];
+  var _useState3 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(node),
+    _useState4 = _slicedToArray(_useState3, 2),
+    element = _useState4[0],
+    setElement = _useState4[1];
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (node) {
+      var _node$parentElement;
+      setElement(node === null || node === void 0 ? void 0 : (_node$parentElement = node.parentElement) === null || _node$parentElement === void 0 ? void 0 : _node$parentElement.parentElement);
+    }
+    setElement(node);
+  }, [node]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var handleResize = function handleResize() {
+      return setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return function () {
+      return window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (element) {
+      if (element.clientWidth <= width) {
+        element.classList.add(className);
+      } else {
+        element.classList.remove(className);
+      }
+    }
+  }, [windowWidth, width, element]);
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/hooks/use-load-paypal-script.js":
+/*!*******************************************************************!*\
+  !*** ./packages/blocks/assets/js/hooks/use-load-paypal-script.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useLoadPayPalScript": () => (/* binding */ useLoadPayPalScript)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+/*
+'client-id': this.getClientId(),
+'components': this.settings?.components,
+'currency': this.getOption('currency'),
+'intent': this.getOption('intent'),
+'vault': this.getOption('vault')
+ */
+
+/**
+ *
+ * @param params - client-id, components, currency, intent, vault
+ * @returns {*}
+ */
+var useLoadPayPalScript = function useLoadPayPalScript(params) {
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    paypal = _useState2[0],
+    setPayPal = _useState2[1];
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!paypal) {
+      (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.loadPayPalSdk)(params).then(function (paypal) {
+        return setPayPal(paypal);
+      });
+    }
+  }, [paypal]);
+  return paypal;
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/hooks/use-payment-method-notices.js":
+/*!***********************************************************************!*\
+  !*** ./packages/blocks/assets/js/hooks/use-payment-method-notices.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "usePaymentMethodNotices": () => (/* binding */ usePaymentMethodNotices)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var usePaymentMethodNotices = function usePaymentMethodNotices() {
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    notices = _useState2[0],
+    setNotices = _useState2[1];
+  var addNotice = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (message, options, type) {
+    setNotices(function (prevNotices) {
+      var _options$isDismissabl = options.isDismissable,
+        isDismissable = _options$isDismissabl === void 0 ? true : _options$isDismissabl;
+      var notice = {
+        message: message,
+        options: options,
+        type: type
+      };
+      return [].concat(_toConsumableArray(prevNotices), [notice]);
+    });
+  }, []);
+  var addErrorNotice = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (message) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    addNotice(message, options, 'error');
+  }, [addNotice]);
+  var addSuccessNotice = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (message) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    addNotice(message, options, 'success');
+  }, [addNotice]);
+  var addInfoNotice = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (message) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    addNotice(message, options, 'info');
+  }, [addNotice]);
+  return {
+    addErrorNotice: addErrorNotice,
+    addSuccessNotice: addSuccessNotice,
+    addInfoNotice: addInfoNotice
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/hooks/use-process-payment-failure.js":
+/*!************************************************************************!*\
+  !*** ./packages/blocks/assets/js/hooks/use-process-payment-failure.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "useProcessPaymentFailure": () => (/* binding */ useProcessPaymentFailure)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var useProcessPaymentFailure = function useProcessPaymentFailure(_ref) {
+  var event = _ref.event,
+    responseTypes = _ref.responseTypes,
+    _ref$messageContext = _ref.messageContext,
+    messageContext = _ref$messageContext === void 0 ? null : _ref$messageContext,
+    setPaymentData = _ref.setPaymentData;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var unsubscribe = event(function (data) {
+      var _data$processingRespo, _data$processingRespo2;
+      if (data !== null && data !== void 0 && (_data$processingRespo = data.processingResponse) !== null && _data$processingRespo !== void 0 && (_data$processingRespo2 = _data$processingRespo.paymentDetails) !== null && _data$processingRespo2 !== void 0 && _data$processingRespo2.ppcpErrorMessage) {
+        setPaymentData(null);
+        var message = data.processingResponse.paymentDetails.ppcpErrorMessage;
+        return {
+          type: responseTypes.ERROR,
+          retry: true,
+          message: message,
+          messageContext: messageContext
+        };
+      }
+      return null;
+    });
+    return function () {
+      unsubscribe();
+    };
+  }, [event]);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useProcessPaymentFailure);
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/paylater-messaging/index.js":
+/*!***************************************************************!*\
+  !*** ./packages/blocks/assets/js/paylater-messaging/index.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-checkout */ "@woocommerce/blocks-checkout");
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/plugins */ "@wordpress/plugins");
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var data = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__.getSetting)('paylaterParams');
+var PayLaterMessaging = function PayLaterMessaging(_ref) {
+  var cart = _ref.cart,
+    extensions = _ref.extensions,
+    context = _ref.context;
+  var isEnabled = data.enabled;
+  var el = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var cartTotals = cart.cartTotals;
+  var currency = cartTotals.currency_code,
+    total_price = cartTotals.total_price;
+  var paypal = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useLoadPayPalScript)((0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__.getSetting)('paypalQueryParams'));
+  var options = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return _objectSpread({
+      amount: total_price / Math.pow(10, cartTotals.currency_minor_unit),
+      currency: currency,
+      placement: 'payment'
+    }, data.options);
+  });
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (paypal && isEnabled) {
+      paypal.Messages(options).render(el.current);
+    }
+  }, [paypal, options, isEnabled]);
+  if (isEnabled) {
+    return /*#__PURE__*/React.createElement(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__.TotalsWrapper, null, /*#__PURE__*/React.createElement("div", {
+      className: "wc-block-components-totals-item"
+    }, /*#__PURE__*/React.createElement("div", {
+      ref: el,
+      className: "wc-ppcp-paylater-msg__container"
+    })));
+  }
+  return null;
+};
+var render = function render() {
+  return /*#__PURE__*/React.createElement(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__.ExperimentalOrderMeta, null, /*#__PURE__*/React.createElement(PayLaterMessaging, null));
+};
+(0,_wordpress_plugins__WEBPACK_IMPORTED_MODULE_2__.registerPlugin)('wc-ppcp', {
+  render: render,
+  scope: 'woocommerce-checkout'
+});
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/contexts/CreditCardContext.js":
+/*!*********************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/contexts/CreditCardContext.js ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CreditCardContext": () => (/* binding */ CreditCardContext),
+/* harmony export */   "CreditCardProvider": () => (/* binding */ CreditCardProvider)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../hooks */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var CreditCardContext = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+var CreditCardProvider = function CreditCardProvider(_ref) {
+  var data = _ref.data,
+    children = _ref.children;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState2 = _slicedToArray(_useState, 2),
+    errors = _useState2[0],
+    setErrors = _useState2[1];
+  var _useState3 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState4 = _slicedToArray(_useState3, 2),
+    paymentMethodData = _useState4[0],
+    setPaymentMethodData = _useState4[1];
+  var _useState5 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState6 = _slicedToArray(_useState5, 2),
+    isEligible = _useState6[0],
+    setIsEligible = _useState6[1];
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    paymentMethodData: paymentMethodData
+  });
+  var _useState7 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      cvv: {
+        isValid: false,
+        isEmpty: true,
+        isRequired: true
+      },
+      expiry: {
+        isValid: false,
+        isEmpty: true,
+        isRequired: true
+      },
+      number: {
+        isValid: false,
+        isEmpty: true,
+        isRequired: true
+      },
+      name: {
+        isValid: false,
+        isEmpty: true,
+        isRequired: !!data.cardNameRequired
+      }
+    }),
+    _useState8 = _slicedToArray(_useState7, 2),
+    validatedFields = _useState8[0],
+    setValidatedFields = _useState8[1];
+  var _useState9 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState9, 2),
+    cardElement = _useState10[0],
+    setCardElement = _useState10[1];
+  var _useState11 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState12 = _slicedToArray(_useState11, 2),
+    cardFields = _useState12[0],
+    setCardFields = _useState12[1];
+  var cardFieldRefs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({});
+  var addPaymentMethodData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (data) {
+    setPaymentMethodData(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), data);
+    });
+    currentData.current.paymentMethodData = _objectSpread(_objectSpread({}, currentData.current.paymentMethodData), data);
+  }, []);
+  var getPaymentMethodData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    return currentData.current.paymentMethodData;
+  }, []);
+  var cardFieldRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (key) {
+    return function (ref) {
+      if (ref) {
+        cardFieldRefs.current = _objectSpread(_objectSpread({}, cardFieldRefs.current), {}, _defineProperty({}, key, ref));
+      }
+    };
+  }, []);
+  var onFieldError = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (key) {
+    setErrors(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, key, getErrorCode(key)));
+    });
+  }, []);
+  var onRemoveError = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (key) {
+    setErrors(function (prev) {
+      delete prev[key];
+      return _objectSpread({}, prev);
+    });
+  }, []);
+  var setValidatedField = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (key, field) {
+    setValidatedFields(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, key, _objectSpread(_objectSpread({}, prev[key]), field)));
+    });
+  }, []);
+  var _useCardFieldEvents = (0,_hooks__WEBPACK_IMPORTED_MODULE_1__.useCardFieldEvents)({
+      setValidatedField: setValidatedField,
+      onError: onFieldError,
+      onRemoveError: onRemoveError,
+      cardFields: cardFields,
+      cardFieldRefs: cardFieldRefs.current
+    }),
+    events = _useCardFieldEvents.events;
+  var context = {
+    i18n: data.i18n,
+    events: events,
+    errors: errors,
+    onFieldError: onFieldError,
+    cardFields: cardFields,
+    cardFieldRef: cardFieldRef,
+    cardFieldRefs: cardFieldRefs,
+    cardElement: cardElement,
+    setCardFields: setCardFields,
+    setCardElement: setCardElement,
+    validatedFields: validatedFields,
+    isEligible: isEligible,
+    setIsEligible: setIsEligible,
+    paymentMethodData: paymentMethodData,
+    addPaymentMethodData: addPaymentMethodData,
+    getPaymentMethodData: getPaymentMethodData
+  };
+  return /*#__PURE__*/React.createElement(CreditCardContext.Provider, {
+    value: context
+  }, children);
+};
+var getErrorCode = function getErrorCode(key) {
+  var code;
+  switch (key) {
+    case 'name':
+      code = 'INVALID_NAME';
+      break;
+    case 'number':
+      code = 'INVALID_NUMBER';
+      break;
+    case 'expiry':
+      code = 'INVALID_EXPIRY';
+      break;
+    case 'cvv':
+      code = 'INVALID_CVV';
+      break;
+  }
+  return code;
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/contexts/index.js":
+/*!*********************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/contexts/index.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CreditCardContext": () => (/* reexport safe */ _CreditCardContext__WEBPACK_IMPORTED_MODULE_0__.CreditCardContext),
+/* harmony export */   "CreditCardProvider": () => (/* reexport safe */ _CreditCardContext__WEBPACK_IMPORTED_MODULE_0__.CreditCardProvider)
+/* harmony export */ });
+/* harmony import */ var _CreditCardContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreditCardContext */ "./packages/blocks/assets/js/payment-methods/credit-card/contexts/CreditCardContext.js");
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/index.js":
+/*!******************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/index.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCardBreakpoints": () => (/* reexport safe */ _use_card_breakpoints__WEBPACK_IMPORTED_MODULE_2__.useCardBreakpoints),
+/* harmony export */   "useCardFieldEvents": () => (/* reexport safe */ _use_card_field_events__WEBPACK_IMPORTED_MODULE_3__.useCardFieldEvents),
+/* harmony export */   "useCardFormHandler": () => (/* reexport safe */ _use_card_form_handler__WEBPACK_IMPORTED_MODULE_1__.useCardFormHandler),
+/* harmony export */   "useCardOptions": () => (/* reexport safe */ _use_card_options__WEBPACK_IMPORTED_MODULE_0__.useCardOptions),
+/* harmony export */   "useCreatePaymentMethod": () => (/* reexport safe */ _use_create_payment_method__WEBPACK_IMPORTED_MODULE_4__.useCreatePaymentMethod),
+/* harmony export */   "useManageFastlaneToken": () => (/* reexport safe */ _use_manage_fastlane_token__WEBPACK_IMPORTED_MODULE_6__.useManageFastlaneToken),
+/* harmony export */   "useProcessFastlaneToken": () => (/* reexport safe */ _use_process_fastlane_token__WEBPACK_IMPORTED_MODULE_5__.useProcessFastlaneToken)
+/* harmony export */ });
+/* harmony import */ var _use_card_options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-card-options */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-options.js");
+/* harmony import */ var _use_card_form_handler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-card-form-handler */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-form-handler.js");
+/* harmony import */ var _use_card_breakpoints__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./use-card-breakpoints */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-breakpoints.js");
+/* harmony import */ var _use_card_field_events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./use-card-field-events */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-field-events.js");
+/* harmony import */ var _use_create_payment_method__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-create-payment-method */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-create-payment-method.js");
+/* harmony import */ var _use_process_fastlane_token__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-process-fastlane-token */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-process-fastlane-token.js");
+/* harmony import */ var _use_manage_fastlane_token__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-manage-fastlane-token */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-manage-fastlane-token.js");
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-breakpoints.js":
+/*!*********************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-breakpoints.js ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCardBreakpoints": () => (/* binding */ useCardBreakpoints)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var useCardBreakpoints = function useCardBreakpoints() {
+  var BREAKPOINTS = {
+    xs: [0, 600],
+    sm: [600, 900],
+    md: [900, 1200],
+    lg: [1200, Infinity]
+  };
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    cardContainerRef = _useState2[0],
+    setCardContainerRef = _useState2[1];
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (cardContainerRef) {
+      var observer = new ResizeObserver(function (entries) {
+        var entry = entries[0];
+        var width = entry.contentRect.width;
+        Object.keys(BREAKPOINTS).forEach(function (key) {
+          entry.target.classList.remove("card-field-container--".concat(key));
+        });
+        var key = Object.keys(BREAKPOINTS).find(function (key) {
+          var _BREAKPOINTS$key = _slicedToArray(BREAKPOINTS[key], 2),
+            r1 = _BREAKPOINTS$key[0],
+            r2 = _BREAKPOINTS$key[1];
+          if (r1 < width && r2 > width) {
+            return true;
+          }
+          return false;
+        });
+        if (key) {
+          entry.target.classList.add("card-field-container--".concat(key));
+        }
+      });
+      observer.observe(cardContainerRef);
+      return function () {
+        observer.disconnect();
+      };
+    }
+  }, [cardContainerRef]);
+  return {
+    setCardContainerRef: setCardContainerRef
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-field-events.js":
+/*!**********************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-field-events.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCardFieldEvents": () => (/* binding */ useCardFieldEvents)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var useCardFieldEvents = function useCardFieldEvents(_ref) {
+  var onError = _ref.onError,
+    onRemoveError = _ref.onRemoveError,
+    setValidatedField = _ref.setValidatedField,
+    cardFields = _ref.cardFields,
+    cardFieldRefs = _ref.cardFieldRefs;
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    cardFields: cardFields,
+    cardFieldRefs: cardFieldRefs
+  });
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentData.current = {
+      cardFields: cardFields,
+      cardFieldRefs: cardFieldRefs
+    };
+  }, [cardFields, cardFieldRefs]);
+  var onBlur = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (event) {
+    var _currentData$current = currentData.current,
+      cardFields = _currentData$current.cardFields,
+      cardFieldRefs = _currentData$current.cardFieldRefs;
+    var fields = event.fields,
+      emittedBy = event.emittedBy;
+    setValidatedField(emittedBy, getField(emittedBy, fields));
+    cardFields[emittedBy].removeClass('focused');
+    cardFieldRefs[emittedBy].classList.remove('card-field--focused');
+    var _getField = getField(emittedBy, fields),
+      isValid = _getField.isValid,
+      isEmpty = _getField.isEmpty;
+    if (!isEmpty) {
+      if (!isValid) {
+        cardFieldRefs[emittedBy].classList.remove('card-field--valid');
+        cardFieldRefs[emittedBy].classList.add('card-field--invalid');
+        onError(emittedBy);
+      }
+    } else {
+      cardFieldRefs[emittedBy].classList.remove('card-field--invalid');
+      cardFields[emittedBy].removeClass('invalid');
+      onRemoveError(emittedBy);
+    }
+  }, [onError, onRemoveError]);
+  var onFocus = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (event) {
+    var fields = event.fields,
+      emittedBy = event.emittedBy;
+    var _currentData$current2 = currentData.current,
+      cardFields = _currentData$current2.cardFields,
+      cardFieldRefs = _currentData$current2.cardFieldRefs;
+    setValidatedField(emittedBy, getField(emittedBy, fields));
+    Object.keys(cardFields).forEach(function (key) {
+      cardFields[key].removeClass('focused');
+    });
+    Object.keys(cardFieldRefs).forEach(function (key) {
+      cardFieldRefs[key].classList.remove('card-field--focused');
+    });
+    cardFieldRefs[emittedBy].classList.add('card-field--focused');
+    cardFields[emittedBy].addClass('focused');
+  }, [onError, onRemoveError]);
+  var onChange = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (event) {
+    var fields = event.fields,
+      emittedBy = event.emittedBy;
+    var cardFieldRefs = currentData.current.cardFieldRefs;
+    var _getField2 = getField(emittedBy, fields),
+      _getField2$isEmpty = _getField2.isEmpty,
+      isEmpty = _getField2$isEmpty === void 0 ? false : _getField2$isEmpty,
+      _getField2$isValid = _getField2.isValid,
+      isValid = _getField2$isValid === void 0 ? false : _getField2$isValid;
+    setValidatedField(emittedBy, getField(emittedBy, fields));
+    onRemoveError(emittedBy);
+    if (isValid) {
+      cardFieldRefs[emittedBy].classList.add('card-field--valid');
+    } else {
+      cardFieldRefs[emittedBy].classList.remove('card-field--valid');
+    }
+  }, [onError, onRemoveError]);
+  var events = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return {
+      onBlur: onBlur,
+      onFocus: onFocus,
+      onChange: onChange
+    };
+  }, [onBlur, onFocus, onChange]);
+  return {
+    events: events
+  };
+};
+var getField = function getField(key, fields) {
+  var name = Object.keys(fields).find(function (name) {
+    return name.toLowerCase().indexOf(key) > -1;
+  });
+  return fields[name];
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-fields.js":
+/*!****************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-fields.js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCardFields": () => (/* binding */ useCardFields)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _use_credit_card_context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-credit-card-context */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-credit-card-context.js");
+
+
+var useCardFields = function useCardFields(_ref) {
+  var data = _ref.data,
+    paypal = _ref.paypal,
+    options = _ref.options;
+  var _useCreditCardContext = (0,_use_credit_card_context__WEBPACK_IMPORTED_MODULE_1__.useCreditCardContext)(),
+    cardFields = _useCreditCardContext.cardFields,
+    cardFieldRefs = _useCreditCardContext.cardFieldRefs,
+    setCardElement = _useCreditCardContext.setCardElement,
+    setCardFields = _useCreditCardContext.setCardFields,
+    setIsEligible = _useCreditCardContext.setIsEligible;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (paypal && options) {
+      var cardElement = paypal.CardFields(options);
+      if (cardElement.isEligible()) {
+        var name = cardElement.NameField(data.fields.name);
+        var number = cardElement.NumberField(data.fields.number);
+        var expiry = cardElement.ExpiryField(data.fields.expiry);
+        var cvv = cardElement.CVVField(data.fields.cvv);
+        setCardElement(cardElement);
+        setCardFields({
+          name: name,
+          number: number,
+          expiry: expiry,
+          cvv: cvv
+        });
+      } else {
+        setIsEligible(false);
+      }
+    }
+  }, [paypal, options]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    Object.keys(cardFields).map(function (key) {
+      var field = cardFields[key];
+      if (cardFieldRefs.current[key]) {
+        field.render(cardFieldRefs.current[key]);
+      }
+    });
+  }, [cardFields, cardFieldRefs]);
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-form-handler.js":
+/*!**********************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-form-handler.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCardFormHandler": () => (/* binding */ useCardFormHandler)
+/* harmony export */ });
+/* harmony import */ var _use_card_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-card-fields */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-fields.js");
+/* harmony import */ var _use_card_options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-card-options */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-options.js");
+/* harmony import */ var _use_create_payment_method__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./use-create-payment-method */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-create-payment-method.js");
+/* harmony import */ var _use_credit_card_context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./use-credit-card-context */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-credit-card-context.js");
+var _excluded = ["data", "paypal"];
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+var useCardFormHandler = function useCardFormHandler(_ref) {
+  var _extensions$wc_ppcp;
+  var data = _ref.data,
+    paypal = _ref.paypal,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var billing = props.billing,
+    cartData = props.cartData,
+    shippingData = props.shippingData,
+    emitResponse = props.emitResponse,
+    eventRegistration = props.eventRegistration,
+    shouldSavePayment = props.shouldSavePayment;
+  var extensions = cartData.extensions;
+  var needsSetupToken = (extensions === null || extensions === void 0 ? void 0 : (_extensions$wc_ppcp = extensions.wc_ppcp) === null || _extensions$wc_ppcp === void 0 ? void 0 : _extensions$wc_ppcp.needsSetupToken) || false;
+  var onPaymentSetup = eventRegistration.onPaymentSetup,
+    onCheckoutValidation = eventRegistration.onCheckoutValidation;
+  var _useCardOptions = (0,_use_card_options__WEBPACK_IMPORTED_MODULE_1__.useCardOptions)({
+      data: data,
+      billing: billing,
+      shippingData: shippingData,
+      needsSetupToken: needsSetupToken,
+      shouldSavePayment: shouldSavePayment
+    }),
+    options = _useCardOptions.options;
+  (0,_use_card_fields__WEBPACK_IMPORTED_MODULE_0__.useCardFields)({
+    data: data,
+    paypal: paypal,
+    options: options
+  });
+  (0,_use_create_payment_method__WEBPACK_IMPORTED_MODULE_2__.useCreatePaymentMethod)({
+    billing: billing,
+    emitResponse: emitResponse,
+    onPaymentSetup: onPaymentSetup,
+    needsSetupToken: needsSetupToken
+  });
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-options.js":
+/*!*****************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-card-options.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCardOptions": () => (/* binding */ useCardOptions)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+/* harmony import */ var _use_credit_card_context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./use-credit-card-context */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-credit-card-context.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var useCardOptions = function useCardOptions(_ref) {
+  var data = _ref.data,
+    billing = _ref.billing,
+    shippingData = _ref.shippingData,
+    needsSetupToken = _ref.needsSetupToken,
+    shouldSavePayment = _ref.shouldSavePayment;
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    billing: billing,
+    shipping: shippingData,
+    shouldSavePayment: shouldSavePayment
+  });
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentData.current = {
+      billing: billing,
+      shipping: shippingData,
+      shouldSavePayment: shouldSavePayment
+    };
+  }, [billing, shippingData, shouldSavePayment]);
+  var _useApiRequests = (0,_hooks__WEBPACK_IMPORTED_MODULE_1__.useApiRequests)({
+      paymentMethod: 'ppcp_card'
+    }),
+    _createOrder = _useApiRequests.createOrder,
+    createPaymentToken = _useApiRequests.createPaymentToken,
+    _createVaultSetupToken = _useApiRequests.createVaultSetupToken;
+  var _useCreditCardContext = (0,_use_credit_card_context__WEBPACK_IMPORTED_MODULE_2__.useCreditCardContext)(),
+    events = _useCreditCardContext.events,
+    addPaymentMethodData = _useCreditCardContext.addPaymentMethodData;
+  var options = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    var options = _objectSpread(_objectSpread({
+      fundingSource: 'card',
+      style: data.styles,
+      inputEvents: events,
+      onApprove: function onApprove(data) {
+        if (data.vaultSetupToken) {
+          return createPaymentToken(data.vaultSetupToken).then(function (response) {
+            addPaymentMethodData({
+              orderId: data.orderID || '',
+              paymentTokenId: response.id
+            });
+          });
+        } else {
+          addPaymentMethodData({
+            orderId: data.orderID || '',
+            paymentTokenId: ''
+          });
+        }
+      },
+      createOrder: function createOrder() {
+        return _createOrder(currentData.current);
+      }
+    }, needsSetupToken && {
+      createOrder: null,
+      createVaultSetupToken: function createVaultSetupToken() {
+        return _createVaultSetupToken.apply(void 0, arguments);
+      }
+    }), {}, {
+      onError: function onError(error) {}
+    });
+    return options;
+  }, [events, needsSetupToken, addPaymentMethodData]);
+  return {
+    options: options
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-create-payment-method.js":
+/*!**************************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-create-payment-method.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCreatePaymentMethod": () => (/* binding */ useCreatePaymentMethod)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _use_credit_card_context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-credit-card-context */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-credit-card-context.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var useCreatePaymentMethod = function useCreatePaymentMethod(_ref) {
+  var billing = _ref.billing,
+    emitResponse = _ref.emitResponse,
+    onPaymentSetup = _ref.onPaymentSetup,
+    needsSetupToken = _ref.needsSetupToken;
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({});
+  var _useCreditCardContext = (0,_use_credit_card_context__WEBPACK_IMPORTED_MODULE_1__.useCreditCardContext)(),
+    i18n = _useCreditCardContext.i18n,
+    onFieldError = _useCreditCardContext.onFieldError,
+    cardElement = _useCreditCardContext.cardElement,
+    cardFields = _useCreditCardContext.cardFields,
+    validatedFields = _useCreditCardContext.validatedFields,
+    paymentMethodData = _useCreditCardContext.paymentMethodData,
+    getPaymentMethodData = _useCreditCardContext.getPaymentMethodData;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentData.current = {
+      billing: billing,
+      cardFields: cardFields,
+      cardElement: cardElement,
+      emitResponse: emitResponse,
+      validatedFields: validatedFields,
+      paymentMethodData: paymentMethodData
+    };
+  }, [billing, cardElement, cardFields, emitResponse, validatedFields, paymentMethodData]);
+  var validateCreditCardFields = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    var _currentData$current = currentData.current,
+      cardFields = _currentData$current.cardFields,
+      validatedFields = _currentData$current.validatedFields;
+    if (!Object.keys(validatedFields).length) {
+      Object.keys(cardFields).forEach(function (key) {
+        if (validatedFields[key].isRequired) {
+          onFieldError(key);
+          cardFields[key].addClass('invalid');
+        }
+      });
+      throw new Error(i18n.incomplete_form);
+    }
+    var isCardFormValid = true;
+    Object.keys(validatedFields).forEach(function (key) {
+      var _validatedFields$key = validatedFields[key],
+        isValid = _validatedFields$key.isValid,
+        isEmpty = _validatedFields$key.isEmpty,
+        isRequired = _validatedFields$key.isRequired;
+      if (isRequired && (!isValid || isEmpty)) {
+        onFieldError(key);
+        cardFields[key].addClass('invalid');
+        isCardFormValid = false;
+      }
+    });
+    if (!isCardFormValid) {
+      throw new Error(i18n.incomplete_form);
+    }
+  }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var unsubscribe = onPaymentSetup( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _currentData$current2, billing, cardElement, emitResponse, billingAddress, _getPaymentMethodData, _getPaymentMethodData2, orderId, _getPaymentMethodData3, paymentTokenId, message;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _currentData$current2 = currentData.current, billing = _currentData$current2.billing, cardElement = _currentData$current2.cardElement, emitResponse = _currentData$current2.emitResponse;
+              billingAddress = billing.billingAddress;
+              _context.prev = 2;
+              _context.next = 5;
+              return validateCreditCardFields();
+            case 5:
+              _context.next = 7;
+              return cardElement.submit(_objectSpread({}, !needsSetupToken && {
+                billingAddress: {
+                  addressLine1: billingAddress.address_1 || '',
+                  addressLine2: billingAddress.address_2 || '',
+                  adminArea1: billingAddress.state || '',
+                  adminArea2: billingAddress.city || '',
+                  postalCode: billingAddress.postcode || '',
+                  countryCode: billingAddress.country || ''
+                }
+              }));
+            case 7:
+              _getPaymentMethodData = getPaymentMethodData(), _getPaymentMethodData2 = _getPaymentMethodData.orderId, orderId = _getPaymentMethodData2 === void 0 ? '' : _getPaymentMethodData2, _getPaymentMethodData3 = _getPaymentMethodData.paymentTokenId, paymentTokenId = _getPaymentMethodData3 === void 0 ? '' : _getPaymentMethodData3;
+              return _context.abrupt("return", {
+                type: emitResponse.responseTypes.SUCCESS,
+                meta: {
+                  paymentMethodData: {
+                    ppcp_card_payment_token: paymentTokenId,
+                    ppcp_card_paypal_order_id: orderId
+                  }
+                }
+              });
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](2);
+              message = (_context.t0 === null || _context.t0 === void 0 ? void 0 : _context.t0.message) || '';
+              if (_context.t0 !== null && _context.t0 !== void 0 && _context.t0.message && ['INVALID_NUMBER', 'INVALID_EXPIRY', 'INVALID_CVV'].includes(_context.t0.message)) {
+                message = i18n.incomplete_form;
+              }
+              return _context.abrupt("return", {
+                type: emitResponse.responseTypes.ERROR,
+                message: message,
+                messageContext: emitResponse.noticeContexts.PAYMENTS
+              });
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 11]]);
+    })));
+    return unsubscribe;
+  }, [i18n, onPaymentSetup, needsSetupToken, getPaymentMethodData, validateCreditCardFields]);
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-credit-card-context.js":
+/*!************************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-credit-card-context.js ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCreditCardContext": () => (/* binding */ useCreditCardContext)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _contexts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../contexts */ "./packages/blocks/assets/js/payment-methods/credit-card/contexts/index.js");
+
+
+var useCreditCardContext = function useCreditCardContext() {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_contexts__WEBPACK_IMPORTED_MODULE_1__.CreditCardContext);
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-manage-fastlane-token.js":
+/*!**************************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-manage-fastlane-token.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useManageFastlaneToken": () => (/* binding */ useManageFastlaneToken)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @woocommerce/block-data */ "@woocommerce/block-data");
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ppcp/block-data */ "@ppcp/block-data");
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _data_checkout_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../data/checkout/actions */ "./packages/blocks/assets/js/data/checkout/actions.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+
+var useManageFastlaneToken = function useManageFastlaneToken(_ref) {
+  var fastlane = _ref.fastlane;
+  var _useDispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_3__.STORE_KEY),
+    setPaymentToken = _useDispatch.setPaymentToken,
+    setCustomerContextId = _useDispatch.setCustomerContextId;
+  var _useDispatch2 = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_2__.CART_STORE_KEY),
+    setBillingAddress = _useDispatch2.setBillingAddress;
+  var _useDispatch3 = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)('core/notices'),
+    createErrorNotice = _useDispatch3.createErrorNotice;
+  var onCancel = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    setPaymentToken(null);
+    setCustomerContextId(null);
+  }, []);
+  var onChangePaymentMethod = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$fastlane$profi, selectedCard, selectionChanged, _selectedCard$payment, _selectedCard$payment2, _selectedCard$payment3, _selectedCard$payment4, name, billingAddress, address, fullName;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return fastlane.profile.showCardSelector();
+          case 3:
+            _yield$fastlane$profi = _context.sent;
+            selectedCard = _yield$fastlane$profi.selectedCard;
+            selectionChanged = _yield$fastlane$profi.selectionChanged;
+            if (selectedCard && selectionChanged) {
+              setPaymentToken(selectedCard);
+              if (selectedCard !== null && selectedCard !== void 0 && (_selectedCard$payment = selectedCard.paymentSource) !== null && _selectedCard$payment !== void 0 && (_selectedCard$payment2 = _selectedCard$payment.card) !== null && _selectedCard$payment2 !== void 0 && _selectedCard$payment2.billingAddress) {
+                _selectedCard$payment3 = selectedCard.paymentSource.card, _selectedCard$payment4 = _selectedCard$payment3.name, name = _selectedCard$payment4 === void 0 ? '' : _selectedCard$payment4, billingAddress = _selectedCard$payment3.billingAddress;
+                address = billingAddress;
+                fullName = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_4__.extractFullName)(name);
+                setBillingAddress({
+                  first_name: fullName[0],
+                  last_name: fullName[1],
+                  address_1: address === null || address === void 0 ? void 0 : address.addressLine1,
+                  address_2: address === null || address === void 0 ? void 0 : address.addressLine2,
+                  city: (address === null || address === void 0 ? void 0 : address.adminArea2) || '',
+                  state: (address === null || address === void 0 ? void 0 : address.adminArea1) || '',
+                  postcode: (address === null || address === void 0 ? void 0 : address.postalCode) || '',
+                  country: (address === null || address === void 0 ? void 0 : address.countryCode) || ''
+                });
+              }
+            }
+            _context.next = 12;
+            break;
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](0);
+            createErrorNotice(_context.t0.message, {
+              id: 'wc-ppcp-tokenize-error',
+              context: 'wc/checkout/payments'
+            });
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 9]]);
+  })), [fastlane]);
+  return {
+    onCancel: onCancel,
+    onChangePaymentMethod: onChangePaymentMethod
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-process-fastlane-token.js":
+/*!***************************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-process-fastlane-token.js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useProcessFastlaneToken": () => (/* binding */ useProcessFastlaneToken)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var useProcessFastlaneToken = function useProcessFastlaneToken(_ref) {
+  var token = _ref.token,
+    emitResponse = _ref.emitResponse,
+    onPaymentSetup = _ref.onPaymentSetup,
+    needsSetupToken = _ref.needsSetupToken,
+    shouldSavePayment = _ref.shouldSavePayment;
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    token: token
+  });
+  var _useApiRequests = (0,_hooks__WEBPACK_IMPORTED_MODULE_1__.useApiRequests)({
+      paymentMethod: 'ppcp_card'
+    }),
+    createPaymentToken = _useApiRequests.createPaymentToken;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentData.current = {
+      token: token,
+      emitResponse: emitResponse,
+      shouldSavePayment: shouldSavePayment
+    };
+  }, [token, emitResponse, shouldSavePayment]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var unsubscribe = onPaymentSetup( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _currentData$current, token, emitResponse, shouldSavePayment;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _currentData$current = currentData.current, token = _currentData$current.token, emitResponse = _currentData$current.emitResponse, shouldSavePayment = _currentData$current.shouldSavePayment;
+              _context.prev = 1;
+              if (!needsSetupToken) {
+                _context.next = 6;
+                break;
+              }
+              _context.next = 5;
+              return createPaymentToken(token.id, {
+                fastlane: true
+              });
+            case 5:
+              token = _context.sent;
+            case 6:
+              return _context.abrupt("return", {
+                type: emitResponse.responseTypes.SUCCESS,
+                meta: {
+                  paymentMethodData: {
+                    ppcp_card_payment_token: token.id,
+                    ppcp_card_paypal_order_id: '',
+                    ppcp_card_save_payment: shouldSavePayment
+                  }
+                }
+              });
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              return _context.abrupt("return", {
+                type: emitResponse.responseTypes.ERROR,
+                message: _context.t0 === null || _context.t0 === void 0 ? void 0 : _context.t0.message,
+                messageContext: emitResponse.noticeContexts.PAYMENTS
+              });
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9]]);
+    })));
+    return unsubscribe;
+  }, [onPaymentSetup, needsSetupToken, createPaymentToken]);
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/index.js":
+/*!************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/index.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ppcp/block-data */ "@ppcp/block-data");
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @woocommerce/blocks-checkout */ "@woocommerce/blocks-checkout");
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils */ "./packages/blocks/assets/js/utils.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components */ "./packages/blocks/assets/js/components/index.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./hooks */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/index.js");
+/* harmony import */ var _contexts__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./contexts */ "./packages/blocks/assets/js/payment-methods/credit-card/contexts/index.js");
+/* harmony import */ var _hooks_use_credit_card_context__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./hooks/use-credit-card-context */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/use-credit-card-context.js");
+/* harmony import */ var _tokenized_card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tokenized-card */ "./packages/blocks/assets/js/payment-methods/credit-card/tokenized-card.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_13__);
+var _excluded = ["data", "paypal"];
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var data = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__.getSetting)('ppcp_card_data');
+var PaymentMethodComponent = function PaymentMethodComponent(props) {
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    modalOpen = _useState2[0],
+    setModalOpen = _useState2[1];
+  var queryParams = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_3__.getSetting)('paypalQueryParams');
+  var billing = props.billing,
+    shippingData = props.shippingData;
+  var email = billing.billingAddress.email;
+  var paypal = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLoadPayPalScript)(queryParams);
+  var _useDispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__.STORE_KEY),
+    setPaymentToken = _useDispatch.setPaymentToken;
+  var _useSelect = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(function (select) {
+      var store = select(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__.STORE_KEY);
+      return {
+        emails: store.getCanceledEmails(),
+        fastlane: store.getFastlane(),
+        paymentToken: store.getPaymentToken(),
+        customerFound: store.isCustomerFound()
+      };
+    }),
+    emails = _useSelect.emails,
+    fastlane = _useSelect.fastlane,
+    paymentToken = _useSelect.paymentToken,
+    customerFound = _useSelect.customerFound;
+  var onTokenize = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (token) {
+    setPaymentToken(token);
+  }, []);
+  var showSignup = data.showSignup && !emails.includes(email);
+  if (paymentToken) {
+    return /*#__PURE__*/React.createElement(_tokenized_card__WEBPACK_IMPORTED_MODULE_12__["default"], _extends({
+      data: data,
+      token: paymentToken,
+      fastlane: fastlane,
+      customerFound: customerFound
+    }, props));
+  }
+  return /*#__PURE__*/React.createElement(React.Fragment, null, showSignup && fastlane && /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_8__.FastlaneLink, {
+    text: data.i18n.fastlane_signup,
+    logo: data.fastlane_logo,
+    onClick: function onClick() {
+      return setModalOpen(true);
+    }
+  }), fastlane && /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_8__.FastlaneModal, {
+    i18n: data.i18n,
+    open: modalOpen,
+    onClose: function onClose() {
+      return setModalOpen(false);
+    },
+    fastlane: fastlane,
+    shippingData: shippingData,
+    onTokenize: onTokenize
+  }), /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_8__.PaymentMethodDescription, {
+    description: data.description
+  }), /*#__PURE__*/React.createElement(_contexts__WEBPACK_IMPORTED_MODULE_10__.CreditCardProvider, {
+    data: data
+  }, /*#__PURE__*/React.createElement(CreditCardForm, _extends({
+    data: data,
+    paypal: paypal
+  }, props))));
+};
+var CreditCardForm = function CreditCardForm(_ref) {
+  var data = _ref.data,
+    paypal = _ref.paypal,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var i18n = data.i18n,
+    cardHolderNameEnabled = data.cardHolderNameEnabled;
+  var _useCreditCardContext = (0,_hooks_use_credit_card_context__WEBPACK_IMPORTED_MODULE_11__.useCreditCardContext)(),
+    errors = _useCreditCardContext.errors,
+    isEligible = _useCreditCardContext.isEligible;
+  var _useCardBreakpoints = (0,_hooks__WEBPACK_IMPORTED_MODULE_9__.useCardBreakpoints)(),
+    setCardContainerRef = _useCardBreakpoints.setCardContainerRef;
+  (0,_hooks__WEBPACK_IMPORTED_MODULE_9__.useCardFormHandler)(_objectSpread({
+    data: data,
+    paypal: paypal
+  }, props));
+  if (!isEligible) {
+    return /*#__PURE__*/React.createElement(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_5__.StoreNotice, {
+      status: 'warning',
+      isDismissible: false
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_6__.isUserAdmin)() ? i18n.cardsNotAvailableAdmin : i18n.cardsNotAvailable);
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'wc-ppcp-card-payment-method__container wc-payment-form',
+    ref: setCardContainerRef
+  }, cardHolderNameEnabled && /*#__PURE__*/React.createElement("div", {
+    className: "ppcp-card-fields--container card-name-field"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ppcp-card-field--container card-name-field"
+  }, /*#__PURE__*/React.createElement(CardField, {
+    id: "ppcp-card-name",
+    name: 'name',
+    label: i18n.cardHolderLabel
+  }), /*#__PURE__*/React.createElement(ErrorMessage, {
+    name: 'name',
+    errors: errors
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "ppcp-card-fields--container"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ppcp-card-field--container card-number-field"
+  }, /*#__PURE__*/React.createElement(CardField, {
+    id: "ppcp-card-number",
+    name: 'number',
+    label: i18n.cardNumberLabel
+  }), /*#__PURE__*/React.createElement(ErrorMessage, {
+    name: 'number',
+    errors: errors
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "ppcp-card-field--container card-exp-field"
+  }, /*#__PURE__*/React.createElement(CardField, {
+    id: "ppcp-card-exp",
+    name: 'expiry',
+    label: i18n.cardExpiryLabel
+  }), /*#__PURE__*/React.createElement(ErrorMessage, {
+    name: 'expiry',
+    errors: errors
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "ppcp-card-field--container card-cvv-field"
+  }, /*#__PURE__*/React.createElement(CardField, {
+    id: 'ppcp-card-cvv',
+    name: 'cvv',
+    label: i18n.cardCvvLabel
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ppcp-card-cvv-icon"
+  }, /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_8__.CvvIcon, null))), /*#__PURE__*/React.createElement(ErrorMessage, {
+    name: 'cvv',
+    errors: errors
+  }))));
+};
+var CardField = function CardField(_ref2) {
+  var id = _ref2.id,
+    name = _ref2.name,
+    label = _ref2.label,
+    children = _ref2.children;
+  var _useCreditCardContext2 = (0,_hooks_use_credit_card_context__WEBPACK_IMPORTED_MODULE_11__.useCreditCardContext)(),
+    errors = _useCreditCardContext2.errors,
+    cardFieldRef = _useCreditCardContext2.cardFieldRef;
+  var hasError = function hasError(key, errors) {
+    return _typeof(errors) === 'object' && errors.hasOwnProperty(key);
+  };
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("label", {
+    className: "ppcp-card-field--label"
+  }, label), /*#__PURE__*/React.createElement("div", {
+    id: id,
+    ref: cardFieldRef(name),
+    className: classnames__WEBPACK_IMPORTED_MODULE_13___default()({
+      'card-field--invalid': hasError(name, errors)
+    })
+  }, children));
+};
+var ErrorMessage = function ErrorMessage(_ref3) {
+  var name = _ref3.name,
+    errors = _ref3.errors;
+  if (errors !== null && errors !== void 0 && errors[name]) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "ppcp-card-field-error",
+      "data-parent": "ppcp-card-exp"
+    }, data.i18n.error_codes[errors[name]]);
+  }
+  return null;
+};
+(0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_2__.registerPaymentMethod)({
+  name: 'ppcp_card',
+  ariaLabel: 'Credit/Debit Cards',
+  label: /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_8__.PaymentMethodLabel, {
+    id: 'ppcp_card',
+    title: data.title,
+    icons: data.icon
+  }),
+  canMakePayment: function canMakePayment() {
+    return !(0,_utils__WEBPACK_IMPORTED_MODULE_6__.isAdminOnly)();
+  },
+  content: /*#__PURE__*/React.createElement(PaymentMethodComponent, {
+    data: data
+  }),
+  edit: /*#__PURE__*/React.createElement(PaymentMethodComponent, {
+    data: data
+  }),
+  placeOrderButtonLabel: data.i18n.buttonLabel,
+  supports: {
+    showSavedCards: true,
+    showSaveOption: data.showSaveOption,
+    features: data.features
+  }
+});
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/credit-card/tokenized-card.js":
+/*!*********************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/credit-card/tokenized-card.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TokenizedCard)
+/* harmony export */ });
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hooks */ "./packages/blocks/assets/js/payment-methods/credit-card/hooks/index.js");
+var _excluded = ["data", "token", "fastlane", "customerFound"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+function TokenizedCard(_ref) {
+  var _extensions$wc_ppcp;
+  var data = _ref.data,
+    token = _ref.token,
+    fastlane = _ref.fastlane,
+    customerFound = _ref.customerFound,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var i18n = data.i18n,
+    icons = data.icons,
+    payment_format = data.payment_format;
+  var cartData = props.cartData,
+    emitResponse = props.emitResponse,
+    eventRegistration = props.eventRegistration,
+    shouldSavePayment = props.shouldSavePayment;
+  var onPaymentSetup = eventRegistration.onPaymentSetup;
+  var extensions = cartData.extensions;
+  var needsSetupToken = (extensions === null || extensions === void 0 ? void 0 : (_extensions$wc_ppcp = extensions.wc_ppcp) === null || _extensions$wc_ppcp === void 0 ? void 0 : _extensions$wc_ppcp.needsSetupToken) || false;
+  var card = token.paymentSource.card;
+  card = _objectSpread(_objectSpread({}, card), {}, {
+    brand: card.brand,
+    last4: card.lastDigits,
+    expiry: card.expiry
+  });
+  (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useProcessFastlaneToken)({
+    token: token,
+    emitResponse: emitResponse,
+    onPaymentSetup: onPaymentSetup,
+    needsSetupToken: needsSetupToken,
+    shouldSavePayment: shouldSavePayment
+  });
+  var _useManageFastlaneTok = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useManageFastlaneToken)({
+      fastlane: fastlane
+    }),
+    onCancel = _useManageFastlaneTok.onCancel,
+    onChangePaymentMethod = _useManageFastlaneTok.onChangePaymentMethod;
+  return /*#__PURE__*/React.createElement("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()('wc-ppcp-tokenized-card', {
+      'has-customer-context': customerFound
+    })
+  }, /*#__PURE__*/React.createElement(CardIcon, {
+    icons: icons,
+    brand: card.brand.toLowerCase()
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-tokenized-card-format"
+  }, (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.formatPaymentMethod)(payment_format, card)), /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-tokenized-card-actions"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "wc-ppcp-tokenized-card-cancel",
+    onClick: onCancel
+  }, i18n.cancel), customerFound && /*#__PURE__*/React.createElement("a", {
+    className: "wc-ppcp-tokenized-card-change",
+    onClick: onChangePaymentMethod
+  }, i18n.change)));
+}
+var CardIcon = function CardIcon(_ref2) {
+  var icons = _ref2.icons,
+    brand = _ref2.brand;
+  var src = '';
+  if (icons[brand]) {
+    src = icons[brand];
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-tokenized-card-icon-container"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: src
+  }));
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/fastlane/express-payment-component.js":
+/*!*****************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/fastlane/express-payment-component.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ExpressPaymentComponent)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hooks */ "./packages/blocks/assets/js/payment-methods/fastlane/hooks/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components */ "./packages/blocks/assets/js/components/index.js");
+var _excluded = ["data"];
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+function ExpressPaymentComponent(_ref) {
+  var data = _ref.data,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var billing = props.billing,
+    cartData = props.cartData,
+    shippingData = props.shippingData,
+    setExpressPaymentError = props.setExpressPaymentError;
+  var billingAddress = billing.billingAddress;
+  var email = billingAddress.email;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    buttonRef = _useState2[0],
+    setButtonRef = _useState2[1];
+  var _useState3 = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    openModal = _useState4[0],
+    setOpenModal = _useState4[1];
+  var resolveRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var promiseRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var queryParams = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('paypalQueryParams');
+  var openFastlaneModal = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    promiseRef.current = new Promise(function (resolve) {
+      resolveRef.current = resolve;
+    });
+    setOpenModal(true);
+    return promiseRef.current;
+  }, []);
+  var onClose = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    var skip = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    setOpenModal(false);
+    if (!skip) {
+      resolveRef.current(null);
+    }
+  }, []);
+  var onTokenize = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (data) {
+    resolveRef.current(data);
+  }, []);
+  var paypal = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLoadPayPalScript)(queryParams);
+  var fastlane = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useCreateFastlane)({
+    paypal: paypal
+  });
+  var _useProcessFastlane = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useProcessFastlane)({
+      i18n: data.i18n,
+      email: email,
+      onError: setExpressPaymentError,
+      fastlane: fastlane,
+      shippingData: shippingData,
+      openFastlaneModal: openFastlaneModal
+    }),
+    onClick = _useProcessFastlane.onClick,
+    processing = _useProcessFastlane.processing;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(props.components.LoadingMask, {
+    isLoading: processing
+  }, /*#__PURE__*/React.createElement("button", {
+    id: "wc-ppcp-fastlane-checkout",
+    className: 'wc-ppcp-fastlane-button',
+    ref: setButtonRef,
+    disabled: openModal || processing,
+    onClick: onClick
+  }, /*#__PURE__*/React.createElement("img", {
+    className: 'wc-ppcp-fastlane-icon',
+    src: data.icon_url
+  }))), /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_4__.FastlaneModal, {
+    i18n: data.i18n,
+    open: openModal,
+    onClose: onClose,
+    fastlane: fastlane,
+    onTokenize: onTokenize,
+    shippingData: shippingData
+  }));
+}
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/fastlane/hooks/index.js":
+/*!***************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/fastlane/hooks/index.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCreateFastlane": () => (/* reexport safe */ _use_create_fastlane__WEBPACK_IMPORTED_MODULE_0__.useCreateFastlane),
+/* harmony export */   "useProcessFastlane": () => (/* reexport safe */ _use_process_fastlane__WEBPACK_IMPORTED_MODULE_1__.useProcessFastlane)
+/* harmony export */ });
+/* harmony import */ var _use_create_fastlane__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-create-fastlane */ "./packages/blocks/assets/js/payment-methods/fastlane/hooks/use-create-fastlane.js");
+/* harmony import */ var _use_process_fastlane__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-process-fastlane */ "./packages/blocks/assets/js/payment-methods/fastlane/hooks/use-process-fastlane.js");
+
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/fastlane/hooks/use-create-fastlane.js":
+/*!*****************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/fastlane/hooks/use-create-fastlane.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCreateFastlane": () => (/* binding */ useCreateFastlane)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ppcp/block-data */ "@ppcp/block-data");
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var useCreateFastlane = function useCreateFastlane(_ref) {
+  var paypal = _ref.paypal;
+  var fastlane = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(function (select) {
+    return select(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_2__.STORE_KEY).getFastlane();
+  });
+  var _useDispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_2__.STORE_KEY),
+    setFastlane = _useDispatch.setFastlane;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (paypal && paypal.Fastlane) {
+      paypal.Fastlane().then(function (result) {
+        setFastlane(result);
+      });
+    }
+  }, [paypal]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setFastlane(fastlane);
+  }, []);
+  return fastlane;
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/fastlane/hooks/use-process-fastlane.js":
+/*!******************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/fastlane/hooks/use-process-fastlane.js ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useProcessFastlane": () => (/* binding */ useProcessFastlane)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @woocommerce/block-data */ "@woocommerce/block-data");
+/* harmony import */ var _woocommerce_block_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ppcp/block-data */ "@ppcp/block-data");
+/* harmony import */ var _ppcp_block_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _data_checkout_selectors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../data/checkout/selectors */ "./packages/blocks/assets/js/data/checkout/selectors.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var useProcessFastlane = function useProcessFastlane(_ref) {
+  var i18n = _ref.i18n,
+    email = _ref.email,
+    onError = _ref.onError,
+    fastlane = _ref.fastlane,
+    buttonRef = _ref.buttonRef,
+    shippingData = _ref.shippingData,
+    openFastlaneModal = _ref.openFastlaneModal;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    processing = _useState2[0],
+    setProcessing = _useState2[1];
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    email: email,
+    fastlane: fastlane,
+    buttonRef: buttonRef,
+    onError: onError,
+    shippingData: shippingData
+  });
+  var _useSelect = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(function (select) {
+      var store = select(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__.STORE_KEY);
+      return {
+        emails: store.getCanceledEmails(),
+        isCustomerFound: store.isCustomerFound()
+      };
+    }),
+    emails = _useSelect.emails,
+    isCustomerFound = _useSelect.isCustomerFound;
+  var _useDispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_3__.CART_STORE_KEY),
+    setBillingAddress = _useDispatch.setBillingAddress;
+  var _useDispatch2 = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_ppcp_block_data__WEBPACK_IMPORTED_MODULE_4__.STORE_KEY),
+    setPaymentToken = _useDispatch2.setPaymentToken,
+    addCanceledEmail = _useDispatch2.addCanceledEmail,
+    setCustomerContextId = _useDispatch2.setCustomerContextId;
+  var _useDispatch3 = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_woocommerce_block_data__WEBPACK_IMPORTED_MODULE_3__.PAYMENT_STORE_KEY),
+    setActivePaymentMethod = _useDispatch3.__internalSetActivePaymentMethod;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentData.current = _objectSpread(_objectSpread({}, currentData.current), {}, {
+      email: email,
+      onError: onError,
+      fastlane: fastlane,
+      buttonRef: buttonRef,
+      shippingData: shippingData
+    });
+  }, [email, onError, fastlane, buttonRef, shippingData]);
+  var removeEmptyValues = function removeEmptyValues(obj) {
+    var result = Object.fromEntries(Object.entries(obj).filter(function (_ref2) {
+      var _ref3 = _slicedToArray(_ref2, 2),
+        _ = _ref3[0],
+        value = _ref3[1];
+      return value !== undefined && value !== null && value !== '';
+    }));
+    return result;
+  };
+  var updateShippingAddress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (address) {
+    var shippingData = currentData.current.shippingData;
+    var setShippingAddress = shippingData.setShippingAddress;
+    setShippingAddress(removeEmptyValues({
+      first_name: (address === null || address === void 0 ? void 0 : address.firstName) || '',
+      last_name: address === null || address === void 0 ? void 0 : address.lastName,
+      address_1: address === null || address === void 0 ? void 0 : address.addressLine1,
+      address_2: address === null || address === void 0 ? void 0 : address.addressLine2,
+      city: (address === null || address === void 0 ? void 0 : address.adminArea2) || '',
+      state: (address === null || address === void 0 ? void 0 : address.adminArea1) || '',
+      postcode: (address === null || address === void 0 ? void 0 : address.postalCode) || '',
+      country: (address === null || address === void 0 ? void 0 : address.countryCode) || '',
+      phone: (address === null || address === void 0 ? void 0 : address.phoneNumber) || ''
+    }));
+  }, []);
+  var updateBillingAddress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (address) {
+    setBillingAddress(removeEmptyValues({
+      first_name: (address === null || address === void 0 ? void 0 : address.firstName) || '',
+      last_name: address === null || address === void 0 ? void 0 : address.lastName,
+      address_1: address === null || address === void 0 ? void 0 : address.addressLine1,
+      address_2: address === null || address === void 0 ? void 0 : address.addressLine2,
+      city: (address === null || address === void 0 ? void 0 : address.adminArea2) || '',
+      state: (address === null || address === void 0 ? void 0 : address.adminArea1) || '',
+      postcode: (address === null || address === void 0 ? void 0 : address.postalCode) || '',
+      country: (address === null || address === void 0 ? void 0 : address.countryCode) || '',
+      phone: (address === null || address === void 0 ? void 0 : address.phoneNumber) || ''
+    }));
+  }, [setBillingAddress]);
+  var scrollToElement = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (selector) {
+    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
+    var el = document.querySelector(selector);
+    if (!el) {
+      return;
+    }
+    var rect = el.getBoundingClientRect();
+    var scrollPosition = rect.top + window.scrollY - offset;
+    window.scrollTo({
+      behavior: 'smooth',
+      left: 0,
+      top: scrollPosition
+    });
+  }, []);
+  var triggerAuthentication = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)( /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(email) {
+      var showSignup,
+        _currentData$current,
+        fastlane,
+        shippingData,
+        needsShipping,
+        profile,
+        identity,
+        _yield$identity$looku,
+        customerContextId,
+        _yield$identity$trigg,
+        profileData,
+        authenticationState,
+        _card$paymentSource,
+        _card$paymentSource$c,
+        name,
+        card,
+        shippingAddress,
+        _selectedAddress$phon,
+        _yield$profile$showSh,
+        selectedAddress,
+        _shippingAddress,
+        token,
+        _token$paymentSource,
+        _token$paymentSource$,
+        address,
+        _name,
+        a,
+        _args = arguments;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              showSignup = _args.length > 1 && _args[1] !== undefined ? _args[1] : true;
+              _currentData$current = currentData.current, fastlane = _currentData$current.fastlane, shippingData = _currentData$current.shippingData;
+              needsShipping = shippingData.needsShipping;
+              profile = fastlane.profile, identity = fastlane.identity;
+              _context.prev = 4;
+              setProcessing(true);
+              _context.next = 8;
+              return identity.lookupCustomerByEmail(email);
+            case 8:
+              _yield$identity$looku = _context.sent;
+              customerContextId = _yield$identity$looku.customerContextId;
+              if (!customerContextId) {
+                _context.next = 41;
+                break;
+              }
+              _context.next = 13;
+              return identity.triggerAuthenticationFlow(customerContextId);
+            case 13:
+              _yield$identity$trigg = _context.sent;
+              profileData = _yield$identity$trigg.profileData;
+              authenticationState = _yield$identity$trigg.authenticationState;
+              if (!(authenticationState === 'canceled')) {
+                _context.next = 21;
+                break;
+              }
+              addCanceledEmail(email);
+              setCustomerContextId(null);
+              _context.next = 39;
+              break;
+            case 21:
+              if (!(authenticationState === 'succeeded')) {
+                _context.next = 39;
+                break;
+              }
+              name = profileData.name, card = profileData.card, shippingAddress = profileData.shippingAddress;
+              setCustomerContextId(customerContextId);
+              if (!needsShipping) {
+                _context.next = 35;
+                break;
+              }
+              _context.next = 27;
+              return profile.showShippingAddressSelector();
+            case 27:
+              _yield$profile$showSh = _context.sent;
+              selectedAddress = _yield$profile$showSh.selectedAddress;
+              if (selectedAddress) {
+                _context.next = 33;
+                break;
+              }
+              addCanceledEmail(email);
+              setCustomerContextId(null);
+              return _context.abrupt("return");
+            case 33:
+              shippingAddress = _objectSpread(_objectSpread(_objectSpread({}, selectedAddress.name), selectedAddress.address), (selectedAddress === null || selectedAddress === void 0 ? void 0 : (_selectedAddress$phon = selectedAddress.phoneNumber) === null || _selectedAddress$phon === void 0 ? void 0 : _selectedAddress$phon.nationalNumber) && {
+                phoneNumber: selectedAddress.phoneNumber.nationalNumber
+              });
+              updateShippingAddress(shippingAddress);
+            case 35:
+              if (card !== null && card !== void 0 && (_card$paymentSource = card.paymentSource) !== null && _card$paymentSource !== void 0 && (_card$paymentSource$c = _card$paymentSource.card) !== null && _card$paymentSource$c !== void 0 && _card$paymentSource$c.billingAddress) {
+                updateBillingAddress(_objectSpread(_objectSpread(_objectSpread({}, name), card.paymentSource.card.billingAddress), {}, {
+                  phoneNumber: ((_shippingAddress = shippingAddress) === null || _shippingAddress === void 0 ? void 0 : _shippingAddress.phoneNumber) || null
+                }));
+              }
+              setPaymentToken(card);
+              setActivePaymentMethod('ppcp_card');
+              scrollToElement('#radio-control-wc-payment-method-options-ppcp_card');
+            case 39:
+              _context.next = 47;
+              break;
+            case 41:
+              if (!showSignup) {
+                _context.next = 47;
+                break;
+              }
+              setCustomerContextId(null);
+              // display the Fastlane modal
+              _context.next = 45;
+              return openFastlaneModal();
+            case 45:
+              token = _context.sent;
+              if (token) {
+                if (token !== null && token !== void 0 && (_token$paymentSource = token.paymentSource) !== null && _token$paymentSource !== void 0 && (_token$paymentSource$ = _token$paymentSource.card) !== null && _token$paymentSource$ !== void 0 && _token$paymentSource$.billingAddress) {
+                  address = token.paymentSource.card.billingAddress;
+                  _name = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_5__.extractFullName)(token.paymentSource.card.name || '');
+                  if (token.paymentSource.card.billingAddress.toPpSdkType) {
+                    address = _objectSpread({
+                      firstName: _name[0],
+                      lastName: _name[1]
+                    }, token.paymentSource.card.billingAddress.toPpSdkType());
+                  } else {
+                    a = token.paymentSource.card.billingAddress;
+                    address = _objectSpread({
+                      firstName: _name[0],
+                      lastName: _name[1]
+                    }, {
+                      addressLine1: a.streetAddress,
+                      addressLine2: a.extendedAddress,
+                      postalCode: a.postalCode,
+                      adminArea2: a.locality,
+                      adminArea1: a.region,
+                      countryCode: a.countryCodeAlpha2
+                    });
+                    if (needsShipping) {
+                      updateShippingAddress(address);
+                    }
+                  }
+                  updateBillingAddress(address);
+                }
+                setPaymentToken(token);
+                setActivePaymentMethod('ppcp_card');
+                scrollToElement('#radio-control-wc-payment-method-options-ppcp_card');
+              }
+            case 47:
+              _context.next = 52;
+              break;
+            case 49:
+              _context.prev = 49;
+              _context.t0 = _context["catch"](4);
+              console.info(_context.t0);
+            case 52:
+              _context.prev = 52;
+              setProcessing(false);
+              return _context.finish(52);
+            case 55:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[4, 49, 52, 55]]);
+    }));
+    return function (_x) {
+      return _ref4.apply(this, arguments);
+    };
+  }(), []);
+  var onClick = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)( /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+      var _currentData$current2, email, onError;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              e.preventDefault();
+              _currentData$current2 = currentData.current, email = _currentData$current2.email, onError = _currentData$current2.onError;
+              if (email) {
+                _context2.next = 4;
+                break;
+              }
+              return _context2.abrupt("return", onError(i18n.email_empty));
+            case 4:
+              if ((0,_wordpress_url__WEBPACK_IMPORTED_MODULE_2__.isEmail)(email)) {
+                _context2.next = 6;
+                break;
+              }
+              return _context2.abrupt("return", onError(i18n.email_invalid));
+            case 6:
+              _context2.next = 8;
+              return triggerAuthentication(email);
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return function (_x2) {
+      return _ref5.apply(this, arguments);
+    };
+  }(), [scrollToElement, openFastlaneModal, updateBillingAddress, updateShippingAddress, triggerAuthentication]);
+  return {
+    emails: emails,
+    onClick: onClick,
+    processing: processing,
+    isCustomerFound: isCustomerFound,
+    triggerAuthentication: triggerAuthentication
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/fastlane/index.js":
+/*!*********************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/fastlane/index.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _express_payment_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./express-payment-component */ "./packages/blocks/assets/js/payment-methods/fastlane/express-payment-component.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils */ "./packages/blocks/assets/js/utils.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+var data = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcp_fastlane_data');
+(0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_0__.registerExpressPaymentMethod)({
+  name: 'ppcp_fastlane',
+  canMakePayment: function () {
+    var _canMakePayment = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              return _context.abrupt("return", !(0,_utils__WEBPACK_IMPORTED_MODULE_3__.isAdminOnly)() && (0,_utils__WEBPACK_IMPORTED_MODULE_3__.isCheckoutPage)());
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    function canMakePayment() {
+      return _canMakePayment.apply(this, arguments);
+    }
+    return canMakePayment;
+  }(),
+  content: /*#__PURE__*/React.createElement(_express_payment_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    data: data
+  }),
+  edit: /*#__PURE__*/React.createElement(_express_payment_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    data: data
+  }),
+  supports: {
+    features: data.features
+  }
+});
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/paypal/hooks/index.js":
+/*!*************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/paypal/hooks/index.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "usePayPalFundingSources": () => (/* reexport safe */ _use_paypal_funding_sources__WEBPACK_IMPORTED_MODULE_1__.usePayPalFundingSources),
+/* harmony export */   "usePayPalOptions": () => (/* reexport safe */ _use_paypal_options__WEBPACK_IMPORTED_MODULE_0__.usePayPalOptions),
+/* harmony export */   "useProcessPayment": () => (/* reexport safe */ _use_process_payment__WEBPACK_IMPORTED_MODULE_2__.useProcessPayment),
+/* harmony export */   "useValidateCheckout": () => (/* reexport safe */ _use_validate_checkout__WEBPACK_IMPORTED_MODULE_3__.useValidateCheckout)
+/* harmony export */ });
+/* harmony import */ var _use_paypal_options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-paypal-options */ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-options.js");
+/* harmony import */ var _use_paypal_funding_sources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-paypal-funding-sources */ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-funding-sources.js");
+/* harmony import */ var _use_process_payment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./use-process-payment */ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-process-payment.js");
+/* harmony import */ var _use_validate_checkout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./use-validate-checkout */ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-validate-checkout.js");
+
+
+
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-funding-sources.js":
+/*!**********************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-funding-sources.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "usePayPalFundingSources": () => (/* binding */ usePayPalFundingSources)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var usePayPalFundingSources = function usePayPalFundingSources(_ref) {
+  var data = _ref.data,
+    paypal = _ref.paypal,
+    context = _ref.context,
+    _ref$vault = _ref.vault,
+    vault = _ref$vault === void 0 ? false : _ref$vault;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    sources = _useState2[0],
+    setSources = _useState2[1];
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (paypal) {
+      var _sources = [];
+      var buttonOrder = data('buttonOrder', []);
+      if (context === 'express_checkout') {
+        if (data('paypalSections', []).includes(context)) {
+          _sources.push(paypal.FUNDING.PAYPAL);
+        }
+      } else {
+        _sources.push(paypal.FUNDING.PAYPAL);
+      }
+      if (data('payLaterEnabled') && data('payLaterSections', []).includes(context)) {
+        if (vault) {
+          _sources.push(paypal.FUNDING.CREDIT);
+        } else {
+          _sources.push(paypal.FUNDING.PAYLATER);
+        }
+      }
+      if (data('cardEnabled') && data('creditCardSections', []).includes(context)) {
+        _sources.push(paypal.FUNDING.CARD);
+      }
+      if (data('venmoEnabled') && data('venmoSections', []).includes(context)) {
+        _sources.push(paypal.FUNDING.VENMO);
+      }
+      _sources.sort(function (a, b) {
+        return buttonOrder.indexOf(a) < buttonOrder.indexOf(b) ? -1 : 1;
+      });
+      setSources([].concat(_sources));
+    }
+  }, [paypal]);
+  return sources;
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-options.js":
+/*!**************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-options.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "usePayPalOptions": () => (/* binding */ usePayPalOptions)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./packages/blocks/assets/js/utils.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var usePayPalOptions = function usePayPalOptions(_ref) {
+  var isExpress = _ref.isExpress,
+    paypal = _ref.paypal,
+    needsSetupToken = _ref.needsSetupToken,
+    buttonStyles = _ref.buttonStyles,
+    shippingData = _ref.shippingData,
+    billing = _ref.billing,
+    setError = _ref.setError,
+    setPaymentData = _ref.setPaymentData,
+    onClick = _ref.onClick,
+    onClose = _ref.onClose,
+    buttonsContainer = _ref.buttonsContainer;
+  var currentShippingData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(shippingData);
+  var currentBilling = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(billing);
+  var currentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)({
+    onClick: onClick,
+    onClose: onClose,
+    buttonState: true,
+    actions: {},
+    error: null,
+    billing: billing,
+    shipping: shippingData,
+    buttonsContainer: buttonsContainer
+  });
+  var _useApiRequests = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useApiRequests)({
+      isExpress: isExpress,
+      paymentMethod: 'ppcp'
+    }),
+    createOrder = _useApiRequests.createOrder,
+    onShippingChange = _useApiRequests.onShippingChange,
+    createPaymentToken = _useApiRequests.createPaymentToken,
+    createVaultSetupToken = _useApiRequests.createVaultSetupToken;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentShippingData.current = shippingData;
+    currentBilling.current = billing;
+    currentData.current = _objectSpread(_objectSpread({}, currentData.current), {}, {
+      shipping: shippingData,
+      billing: billing,
+      onClick: onClick,
+      onClose: onClose,
+      buttonsContainer: buttonsContainer
+    });
+  });
+  var getButtonStyle = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (fundingSource) {
+    var styles = {};
+    switch (fundingSource) {
+      case paypal.FUNDING.PAYPAL:
+        styles = buttonStyles.paypal;
+        break;
+      case paypal.FUNDING.PAYLATER:
+        styles = buttonStyles.paylater;
+        break;
+      case paypal.FUNDING.CREDIT:
+        var colors = ['black', 'white'];
+        var color = colors.includes(buttonStyles.paylater.color) ? buttonStyles.paylater.color : 'darkblue';
+        styles = _objectSpread(_objectSpread({}, buttonStyles.paylater), {}, {
+          color: color
+        });
+        break;
+      case paypal.FUNDING.CARD:
+        styles = buttonStyles.card;
+        if (styles.tagline) {
+          delete styles.tagline;
+          styles.layout = 'vertical';
+        } else {
+          styles.layout = 'horizontal';
+          delete styles.tagline;
+        }
+        break;
+      case paypal.FUNDING.VENMO:
+        styles = buttonStyles.venmo;
+        break;
+    }
+    return styles;
+  }, [paypal, buttonStyles]);
+  var onApprove = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)( /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(data, actions) {
+      var paymentData;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              paymentData = {
+                order: {},
+                orderId: data.orderID,
+                vaultSetupToken: data.vaultSetupToken || ''
+              };
+              if (data.vaultSetupToken) {
+                createPaymentToken(data.vaultSetupToken).then(function (response) {
+                  setPaymentData(_objectSpread(_objectSpread({}, paymentData), {}, {
+                    paymentToken: response
+                  }));
+                }).finally(function () {
+                  currentData.current.buttonsContainer.classList.remove('disabled');
+                });
+              } else {
+                actions.order.get().then(function (response) {
+                  setPaymentData(_objectSpread(_objectSpread({}, paymentData), {}, {
+                    order: response
+                  }));
+                }).catch(function (error) {
+                  setError(error);
+                });
+              }
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return function (_x, _x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }(), [setError]);
+  var onError = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (error) {
+    var _error$message;
+    var buttonsContainer = currentData.current.buttonsContainer;
+    if ((error === null || error === void 0 ? void 0 : (_error$message = error.message) === null || _error$message === void 0 ? void 0 : _error$message.indexOf('Window is closed')) > -1) {
+      return;
+    }
+    if (currentData.current.error) {
+      var _currentData$current$;
+      if (((_currentData$current$ = currentData.current.error) === null || _currentData$current$ === void 0 ? void 0 : _currentData$current$.code) === 'validation_errors') {
+        return setError(currentData.current.error.data.errors[0]);
+      } else {
+        return setError(currentData.current.error.message);
+      }
+    }
+    if ((error === null || error === void 0 ? void 0 : error.code) === 'validation_errors') {
+      setError(error.data.errors[0]);
+    } else {
+      setError(error);
+    }
+    buttonsContainer.classList.remove('disabled');
+  }, [setError]);
+  var getOptions = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (fundingSource) {
+    var needsShipping = currentShippingData.current.needsShipping;
+    var options = {
+      fundingSource: fundingSource,
+      style: getButtonStyle(fundingSource),
+      onApprove: onApprove,
+      onError: onError
+    };
+    if (isExpress) {
+      options.onClick = function () {
+        return currentData.current.onClick();
+      };
+      options.onCancel = function () {
+        return currentData.current.onClose();
+      };
+    } else {
+      options.onClick = function () {
+        // if address is not valid, show a notification that address data must be filled out first
+        if (!isExpress && !currentData.current.buttonState) {
+          if (needsShipping) {
+            setError(_utils__WEBPACK_IMPORTED_MODULE_3__.i18n.order_missing_address);
+          } else {
+            setError(_utils__WEBPACK_IMPORTED_MODULE_3__.i18n.order_missing_billing_address);
+          }
+        }
+      };
+      options.onCancel = function () {
+        currentData.current.buttonsContainer.classList.remove('disabled');
+      };
+    }
+    options.onInit = function (data, actions) {
+      if (!isExpress) {
+        currentData.current.actions[fundingSource] = actions;
+      }
+    };
+    if (!needsSetupToken) {
+      options.createOrder = function (data, actions) {
+        return createOrder(currentData.current);
+      };
+    } else {
+      options.createVaultSetupToken = function () {
+        var buttonsContainer = currentData.current.buttonsContainer;
+        buttonsContainer.classList.add('disabled');
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+        return createVaultSetupToken.apply(void 0, args.concat([currentData.current]));
+      };
+    }
+    if (isExpress && needsShipping && fundingSource !== 'venmo') {
+      options.onShippingChange = function () {
+        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+        return onShippingChange.apply(void 0, args.concat([currentData.current]));
+      };
+    }
+    return options;
+  }, [paypal, isExpress, createOrder, createVaultSetupToken, onApprove, onError, createOrder, onShippingChange, needsSetupToken, setError]);
+  return {
+    getOptions: getOptions
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-process-payment.js":
+/*!***************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/paypal/hooks/use-process-payment.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useProcessPayment": () => (/* binding */ useProcessPayment)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./packages/blocks/assets/js/utils.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var useProcessPayment = function useProcessPayment(_ref) {
+  var isExpress = _ref.isExpress,
+    onSubmit = _ref.onSubmit,
+    billingAddress = _ref.billingAddress,
+    shippingData = _ref.shippingData,
+    onPaymentSetup = _ref.onPaymentSetup,
+    responseTypes = _ref.responseTypes,
+    activePaymentMethod = _ref.activePaymentMethod,
+    paymentMethodId = _ref.paymentMethodId;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    paymentData = _useState2[0],
+    updatePaymentData = _useState2[1];
+  var currentPaymentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var currentBillingAddress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var currentShippingData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var setPaymentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (value) {
+    var submit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    if (value === null || value === '') {
+      updatePaymentData(null);
+    } else {
+      updatePaymentData(_objectSpread(_objectSpread({}, value), {}, {
+        submit: submit
+      }));
+    }
+  }, []);
+  var clearPaymentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    updatePaymentData(null);
+  }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    currentPaymentData.current = paymentData;
+    currentBillingAddress.current = billingAddress;
+    currentShippingData.current = shippingData;
+  });
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!(0,lodash__WEBPACK_IMPORTED_MODULE_2__.isEmpty)(paymentData) && paymentData.submit) {
+      onSubmit();
+    }
+  }, [paymentData, onSubmit]);
+  var convertOrderDataToAddress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (order) {
+    var _order$payer, _order$payer$address, _order$purchase_units, _order$purchase_units2, _order$payer2, _order$payer3, _order$payer4, _order$payer4$phone, _order$payer4$phone$p;
+    var needsShipping = currentShippingData.current.needsShipping;
+    var address = {};
+    if (!(0,lodash__WEBPACK_IMPORTED_MODULE_2__.isEmpty)(order === null || order === void 0 ? void 0 : (_order$payer = order.payer) === null || _order$payer === void 0 ? void 0 : (_order$payer$address = _order$payer.address) === null || _order$payer$address === void 0 ? void 0 : _order$payer$address.address_line_1)) {
+      address = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.convertPayPalAddressToCart)(order.payer.address);
+    } else if (needsShipping && !(0,lodash__WEBPACK_IMPORTED_MODULE_2__.isEmpty)(order === null || order === void 0 ? void 0 : (_order$purchase_units = order.purchase_units) === null || _order$purchase_units === void 0 ? void 0 : (_order$purchase_units2 = _order$purchase_units[0]) === null || _order$purchase_units2 === void 0 ? void 0 : _order$purchase_units2.shipping)) {
+      var shipping = order.purchase_units[0].shipping;
+      address = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.convertPayPalAddressToCart)(shipping.address);
+    }
+    if (order !== null && order !== void 0 && (_order$payer2 = order.payer) !== null && _order$payer2 !== void 0 && _order$payer2.name) {
+      address = _objectSpread(_objectSpread({}, address), extractName(order.payer.name));
+    }
+    if (order !== null && order !== void 0 && (_order$payer3 = order.payer) !== null && _order$payer3 !== void 0 && _order$payer3.email_address && isExpress) {
+      // only override email address if express checkout is being used
+      address = _objectSpread(_objectSpread({}, address), {}, {
+        email: order.payer.email_address
+      });
+    }
+    if (order !== null && order !== void 0 && (_order$payer4 = order.payer) !== null && _order$payer4 !== void 0 && (_order$payer4$phone = _order$payer4.phone) !== null && _order$payer4$phone !== void 0 && (_order$payer4$phone$p = _order$payer4$phone.phone_number) !== null && _order$payer4$phone$p !== void 0 && _order$payer4$phone$p.national_number) {
+      address = _objectSpread(_objectSpread({}, address), {}, {
+        phone: order.payer.phone.phone_number.national_number
+      });
+    }
+    return address;
+  }, []);
+  var convertPaymentTokenToAddress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (paymentToken) {
+    var _data$shipping, _data$phone, _data$phone$phone_num;
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'billing';
+    var result = {};
+    var data = paymentToken.payment_source.paypal;
+    var needsShipping = currentShippingData.current.needsShipping;
+    if (type === 'billing') {
+      var _data$name, _data$name2;
+      if (data !== null && data !== void 0 && (_data$name = data.name) !== null && _data$name !== void 0 && _data$name.given_name) {
+        result = _objectSpread(_objectSpread({}, result), {}, {
+          first_name: data.name.given_name
+        });
+      }
+      if (data !== null && data !== void 0 && (_data$name2 = data.name) !== null && _data$name2 !== void 0 && _data$name2.surname) {
+        result = _objectSpread(_objectSpread({}, result), {}, {
+          last_name: data.name.surname
+        });
+      }
+    }
+    if (needsShipping && (_data$shipping = data.shipping) !== null && _data$shipping !== void 0 && _data$shipping.address) {
+      var _data$shipping2, _data$shipping2$name;
+      result = _objectSpread(_objectSpread({}, result), (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.convertPayPalAddressToCart)(data.shipping.address));
+      if (type === 'shipping' && (_data$shipping2 = data.shipping) !== null && _data$shipping2 !== void 0 && (_data$shipping2$name = _data$shipping2.name) !== null && _data$shipping2$name !== void 0 && _data$shipping2$name.full_name) {
+        var name = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.extractFullName)(data.shipping.name.full_name);
+        result = _objectSpread(_objectSpread({}, result), extractName(name));
+      }
+    }
+    if (data !== null && data !== void 0 && data.email_address && isExpress) {
+      result = _objectSpread(_objectSpread({}, result), {}, {
+        email: data.email_address
+      });
+    }
+    if (data !== null && data !== void 0 && (_data$phone = data.phone) !== null && _data$phone !== void 0 && (_data$phone$phone_num = _data$phone.phone_number) !== null && _data$phone$phone_num !== void 0 && _data$phone$phone_num.national_number) {
+      result = _objectSpread(_objectSpread({}, result), {}, {
+        phone: data.phone.phone_number.national_number
+      });
+    }
+    return result;
+  }, []);
+  var extractName = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (name) {
+    var first_name, last_name;
+    if (Array.isArray(name)) {
+      var _name = _slicedToArray(name, 2);
+      first_name = _name[0];
+      last_name = _name[1];
+    } else {
+      first_name = name.given_name;
+      last_name = name.surname;
+    }
+    return {
+      first_name: first_name,
+      last_name: last_name
+    };
+  }, []);
+  var convertShippingAddress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (order) {
+    var _order$purchase_units3, _order$purchase_units4;
+    var address = {};
+    if (order !== null && order !== void 0 && (_order$purchase_units3 = order.purchase_units) !== null && _order$purchase_units3 !== void 0 && (_order$purchase_units4 = _order$purchase_units3[0]) !== null && _order$purchase_units4 !== void 0 && _order$purchase_units4.shipping) {
+      var _shipping$name;
+      var shipping = order.purchase_units[0].shipping;
+      address = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.convertPayPalAddressToCart)(shipping.address);
+      if (shipping !== null && shipping !== void 0 && (_shipping$name = shipping.name) !== null && _shipping$name !== void 0 && _shipping$name.full_name) {
+        var name = (0,_ppcp_utils__WEBPACK_IMPORTED_MODULE_1__.extractFullName)(shipping.name.full_name);
+        address = _objectSpread(_objectSpread({}, address), extractName(name));
+      }
+    }
+    return address;
+  }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (activePaymentMethod === paymentMethodId) {
+      var unsubscribe = onPaymentSetup(function () {
+        var billingAddress = currentBillingAddress.current;
+        var shippingData = currentShippingData.current;
+        var shippingAddress = shippingData.shippingAddress,
+          needsShipping = shippingData.needsShipping;
+        var _currentPaymentData$c = currentPaymentData.current,
+          orderId = _currentPaymentData$c.orderId,
+          _currentPaymentData$c2 = _currentPaymentData$c.paymentToken,
+          paymentToken = _currentPaymentData$c2 === void 0 ? null : _currentPaymentData$c2,
+          _currentPaymentData$c3 = _currentPaymentData$c.order,
+          order = _currentPaymentData$c3 === void 0 ? {} : _currentPaymentData$c3;
+        var response = {
+          meta: _objectSpread({
+            paymentMethodData: {
+              ppcp_paypal_order_id: orderId,
+              ppcp_payment_token: (paymentToken === null || paymentToken === void 0 ? void 0 : paymentToken.id) || ''
+            }
+          }, isExpress && {
+            billingAddress: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, _utils__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_BILLING_ADDRESS), billingAddress), convertOrderDataToAddress(order)), paymentToken && convertPaymentTokenToAddress(paymentToken))
+          })
+        };
+        if (needsShipping && isExpress) {
+          response.meta.shippingAddress = _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, _utils__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_SHIPPING_ADDRESS), shippingAddress), convertShippingAddress(order)), paymentToken && convertPaymentTokenToAddress(paymentToken, 'shipping'));
+        }
+        return _objectSpread({
+          type: responseTypes.SUCCESS
+        }, response);
+      });
+      return function () {
+        return unsubscribe();
+      };
+    }
+  }, [isExpress, onPaymentSetup, activePaymentMethod]);
+  return {
+    paymentData: paymentData,
+    setPaymentData: setPaymentData,
+    clearPaymentData: clearPaymentData
+  };
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/paypal/hooks/use-validate-checkout.js":
+/*!*****************************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/paypal/hooks/use-validate-checkout.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useValidateCheckout": () => (/* binding */ useValidateCheckout)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./packages/blocks/assets/js/utils.js");
+
+
+var useValidateCheckout = function useValidateCheckout(_ref) {
+  var isExpress = _ref.isExpress,
+    paymentData = _ref.paymentData,
+    emitResponse = _ref.emitResponse,
+    onCheckoutValidation = _ref.onCheckoutValidation;
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!isExpress) {
+      var unsubscribe = onCheckoutValidation(function () {
+        // validate that the order has been created.
+        if (!(paymentData !== null && paymentData !== void 0 && paymentData.orderId) && !(paymentData !== null && paymentData !== void 0 && paymentData.paymentToken)) {
+          return {
+            type: emitResponse.responseTypes.FAIL,
+            errorMessage: _utils__WEBPACK_IMPORTED_MODULE_1__.i18n.order_button_click
+          };
+        }
+        return true;
+      });
+      return unsubscribe;
+    }
+  }, [isExpress, paymentData]);
+};
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/paypal/index.js":
+/*!*******************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/paypal/index.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _simple_paypal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./simple-paypal */ "./packages/blocks/assets/js/payment-methods/paypal/simple-paypal.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./hooks */ "./packages/blocks/assets/js/payment-methods/paypal/hooks/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components */ "./packages/blocks/assets/js/components/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils */ "./packages/blocks/assets/js/utils.js");
+var _excluded = ["context"];
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+
+
+
+
+
+var getData = function getData(key) {
+  var data = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__.getSetting)(key);
+  return function (key) {
+    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    if (!data.hasOwnProperty(key)) {
+      data[key] = defaultValue;
+    }
+    return data[key];
+  };
+};
+var data = getData('ppcp_data');
+var isExpressEnabled = function isExpressEnabled() {
+  var sections = ['paypalSections', 'payLaterSections', 'creditCardSections', 'venmoSections'];
+  for (var _i = 0, _sections = sections; _i < _sections.length; _i++) {
+    var section = _sections[_i];
+    if (data(section, []).includes('express_checkout')) {
+      return true;
+    }
+  }
+  return false;
+};
+var isCartEnabled = function isCartEnabled() {
+  return data('paypalSections').includes('cart');
+};
+var ExpressPaymentMethod = function ExpressPaymentMethod(_ref) {
+  var _ref$context = _ref.context,
+    context = _ref$context === void 0 ? 'express_checkout' : _ref$context,
+    props = _objectWithoutProperties(_ref, _excluded);
+  return /*#__PURE__*/React.createElement(PayPalPaymentMethod, _extends({
+    context: context,
+    isExpress: true,
+    paymentMethodId: "paymentplugins_ppcp_express"
+  }, props));
+};
+var PayPalPaymentMethod = function PayPalPaymentMethod(_ref2) {
+  var _extensions$wc_ppcp;
+  var _ref2$isExpress = _ref2.isExpress,
+    isExpress = _ref2$isExpress === void 0 ? false : _ref2$isExpress,
+    context = _ref2.context,
+    billing = _ref2.billing,
+    shippingData = _ref2.shippingData,
+    eventRegistration = _ref2.eventRegistration,
+    emitResponse = _ref2.emitResponse,
+    onError = _ref2.onError,
+    onClick = _ref2.onClick,
+    onClose = _ref2.onClose,
+    onSubmit = _ref2.onSubmit,
+    activePaymentMethod = _ref2.activePaymentMethod,
+    paymentMethodId = _ref2.paymentMethodId,
+    cartData = _ref2.cartData;
+  var queryParams = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__.getSetting)('paypalQueryParams');
+  var vault = queryParams.vault === 'true';
+  var billingAddress = billing.billingAddress;
+  var onPaymentSetup = eventRegistration.onPaymentSetup,
+    onCheckoutFail = eventRegistration.onCheckoutFail,
+    onCheckoutValidation = eventRegistration.onCheckoutValidation;
+  var responseTypes = emitResponse.responseTypes,
+    noticeContexts = emitResponse.noticeContexts;
+  var extensions = cartData.extensions;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _useState2 = _slicedToArray(_useState, 2),
+    buttonsContainer = _useState2[0],
+    setButtonsContainer = _useState2[1];
+  var _dispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.dispatch)('core/notices'),
+    createErrorNotice = _dispatch.createErrorNotice;
+  (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useBreakpointWidth)({
+    width: 375,
+    node: buttonsContainer
+  });
+  if (!isExpress) {
+    onError = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (error) {
+      createErrorNotice(error !== null && error !== void 0 && error.message ? error.message : error, {
+        context: noticeContexts.PAYMENTS
+      });
+    }, []);
+  }
+  var setButtonContainerRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (el) {
+    setButtonsContainer(el);
+  }, []);
+  var _useProcessPayment = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useProcessPayment)({
+      isExpress: isExpress,
+      onSubmit: onSubmit,
+      billingAddress: billingAddress,
+      shippingData: shippingData,
+      onPaymentSetup: onPaymentSetup,
+      responseTypes: responseTypes,
+      activePaymentMethod: activePaymentMethod,
+      paymentMethodId: paymentMethodId
+    }),
+    paymentData = _useProcessPayment.paymentData,
+    setPaymentData = _useProcessPayment.setPaymentData,
+    clearPaymentData = _useProcessPayment.clearPaymentData;
+  (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useProcessPaymentFailure)({
+    event: onCheckoutFail,
+    responseTypes: responseTypes,
+    messageContext: noticeContexts.PAYMENTS,
+    setPaymentData: setPaymentData
+  });
+  (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useValidateCheckout)({
+    isExpress: isExpress,
+    emitResponse: emitResponse,
+    paymentData: paymentData,
+    onCheckoutValidation: onCheckoutValidation
+  });
+  var paypal = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLoadPayPalScript)(queryParams);
+  var _usePayPalOptions = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.usePayPalOptions)({
+      isExpress: isExpress,
+      paypal: paypal,
+      vault: vault,
+      intent: queryParams.intent,
+      buttonStyles: data('buttons'),
+      billing: billing,
+      shippingData: shippingData,
+      eventRegistration: eventRegistration,
+      setError: onError,
+      setPaymentData: setPaymentData,
+      onClick: onClick,
+      onClose: onClose,
+      needsSetupToken: (extensions === null || extensions === void 0 ? void 0 : (_extensions$wc_ppcp = extensions.wc_ppcp) === null || _extensions$wc_ppcp === void 0 ? void 0 : _extensions$wc_ppcp.needsSetupToken) || false,
+      buttonsContainer: buttonsContainer
+    }),
+    getOptions = _usePayPalOptions.getOptions;
+  var sources = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.usePayPalFundingSources)({
+    data: data,
+    paypal: paypal,
+    context: context,
+    vault: vault
+  });
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var paymentData = data('paymentData');
+    if (paymentData && paymentData.order) {
+      setPaymentData(paymentData, false);
+    }
+  }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (paypal && sources && buttonsContainer) {
+      sources.forEach(function (source) {
+        var button = paypal.Buttons(getOptions(source));
+        if (button.isEligible()) {
+          button.render(buttonsContainer);
+        }
+      });
+    }
+  }, [paypal, sources, buttonsContainer]);
+  if (!isExpress && paymentData) {
+    if (paymentData.paymentToken) {
+      var _paymentData$paymentT, _paymentData$paymentT2, _paymentData$paymentT3;
+      return /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_7__.PaymentMethodCard, {
+        description: (_paymentData$paymentT = paymentData.paymentToken) === null || _paymentData$paymentT === void 0 ? void 0 : (_paymentData$paymentT2 = _paymentData$paymentT.payment_source) === null || _paymentData$paymentT2 === void 0 ? void 0 : (_paymentData$paymentT3 = _paymentData$paymentT2.paypal) === null || _paymentData$paymentT3 === void 0 ? void 0 : _paymentData$paymentT3.email_address,
+        icon: data('icons').find(function (icon) {
+          return icon.id === 'paypal_simple';
+        }),
+        label: _utils__WEBPACK_IMPORTED_MODULE_8__.i18n.cancel,
+        onCancel: clearPaymentData
+      });
+    }
+    return /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_7__.PaymentMethodCard, {
+      description: paymentData.order.payer.email_address,
+      icon: data('icons').find(function (icon) {
+        return icon.id === 'paypal_simple';
+      }),
+      label: _utils__WEBPACK_IMPORTED_MODULE_8__.i18n.cancel,
+      onCancel: clearPaymentData
+    });
+  }
+  return /*#__PURE__*/React.createElement(React.Fragment, null, !isExpress && /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_7__.PaymentMethodDescription, {
+    description: data('description')
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-paypal__buttons",
+    ref: setButtonContainerRef
+  }));
+};
+var context = 'express_checkout';
+if ((0,_utils__WEBPACK_IMPORTED_MODULE_8__.isCartPage)()) {
+  context = 'cart';
+}
+(0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerExpressPaymentMethod)({
+  name: 'paymentplugins_ppcp_express',
+  gatewayId: 'ppcp',
+  paymentMethodId: 'ppcp',
+  canMakePayment: function canMakePayment() {
+    return !(0,_utils__WEBPACK_IMPORTED_MODULE_8__.isAdminOnly)() && ((0,_utils__WEBPACK_IMPORTED_MODULE_8__.isCartPage)() && isCartEnabled() || (0,_utils__WEBPACK_IMPORTED_MODULE_8__.isCheckoutPage)() && isExpressEnabled());
+  },
+  content: /*#__PURE__*/React.createElement(ExpressPaymentMethod, {
+    context: context
+  }),
+  edit: /*#__PURE__*/React.createElement(ExpressPaymentMethod, {
+    context: context
+  }),
+  supports: {
+    features: data('features')
+  }
+});
+if (data('placeOrderButtonEnabled')) {
+  (0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
+    name: 'ppcp',
+    label: /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_7__.PaymentMethodLabel, {
+      id: "ppcp",
+      title: data('title'),
+      icons: data('icons').find(function (icon) {
+        return icon.id === 'paypal';
+      })
+    }),
+    ariaLabel: 'PayPal',
+    canMakePayment: function canMakePayment() {
+      return !(0,_utils__WEBPACK_IMPORTED_MODULE_8__.isAdminOnly)() && (0,_utils__WEBPACK_IMPORTED_MODULE_8__.isCheckoutPage)();
+    },
+    content: /*#__PURE__*/React.createElement(_simple_paypal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      data: data
+    }),
+    edit: /*#__PURE__*/React.createElement(_simple_paypal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      data: data
+    }),
+    placeOrderButtonLabel: data('i18n').buttonLabel,
+    supports: {
+      showSavedCards: false,
+      showSaveOption: false,
+      features: data('features')
+    }
+  });
+} else {
+  (0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
+    name: 'ppcp',
+    label: /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_7__.PaymentMethodLabel, {
+      id: "ppcp",
+      title: data('title'),
+      icons: data('icons').find(function (icon) {
+        return icon.id === 'paypal';
+      })
+    }),
+    ariaLabel: 'PayPal',
+    canMakePayment: function canMakePayment() {
+      return !(0,_utils__WEBPACK_IMPORTED_MODULE_8__.isAdminOnly)() && (0,_utils__WEBPACK_IMPORTED_MODULE_8__.isCheckoutPage)();
+    },
+    content: /*#__PURE__*/React.createElement(PayPalPaymentMethod, {
+      context: 'checkout',
+      paymentMethodId: 'ppcp'
+    }),
+    edit: /*#__PURE__*/React.createElement(PayPalPaymentMethod, {
+      context: 'checkout',
+      paymentMethodId: 'ppcp'
+    }),
+    supports: {
+      showSavedCards: false,
+      showSaveOption: false,
+      features: data('features')
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/payment-methods/paypal/simple-paypal.js":
+/*!***************************************************************************!*\
+  !*** ./packages/blocks/assets/js/payment-methods/paypal/simple-paypal.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components */ "./packages/blocks/assets/js/components/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils */ "./packages/blocks/assets/js/utils.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../hooks */ "./packages/blocks/assets/js/hooks/index.js");
+var _excluded = ["data", "eventRegistration", "activePaymentMethod", "emitResponse"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+var data = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcp_data');
+var SimplePayPal = function SimplePayPal(props) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_2__.PaymentMethodDescription, {
+    description: data.description
+  }), /*#__PURE__*/React.createElement(PayPalRedirectNotice, props));
+};
+var PayPalRedirectNotice = function PayPalRedirectNotice(_ref) {
+  var data = _ref.data,
+    eventRegistration = _ref.eventRegistration,
+    activePaymentMethod = _ref.activePaymentMethod,
+    emitResponse = _ref.emitResponse,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var onPaymentSetup = eventRegistration.onPaymentSetup,
+    onCheckoutFail = eventRegistration.onCheckoutFail;
+  var responseTypes = emitResponse.responseTypes,
+    noticeContexts = emitResponse.noticeContexts;
+  var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(data('paymentData')),
+    _useState2 = _slicedToArray(_useState, 2),
+    paymentData = _useState2[0],
+    setPaymentData = _useState2[1];
+  var clearPaymentData = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    setPaymentData(null);
+  }, []);
+  (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useProcessPaymentFailure)({
+    event: onCheckoutFail,
+    responseTypes: responseTypes,
+    messageContext: noticeContexts.CHECKOUT,
+    setPaymentData: setPaymentData
+  });
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (activePaymentMethod === 'ppcp' && paymentData) {
+      var unsubscribe = onPaymentSetup(function () {
+        var _paymentData$orderId = paymentData.orderId,
+          orderId = _paymentData$orderId === void 0 ? '' : _paymentData$orderId,
+          _paymentData$billingT = paymentData.billingToken,
+          billingToken = _paymentData$billingT === void 0 ? '' : _paymentData$billingT;
+        var response = {
+          meta: {
+            paymentMethodData: {
+              ppcp_paypal_order_id: orderId,
+              ppcp_billing_token: billingToken
+            }
+          }
+        };
+        return _objectSpread({
+          type: responseTypes.SUCCESS
+        }, response);
+      });
+      return unsubscribe;
+    }
+  }, [paymentData, responseTypes, onPaymentSetup, activePaymentMethod]);
+  if (paymentData && paymentData !== null && paymentData !== void 0 && paymentData.order) {
+    if (paymentData.billingTokenData) {
+      return /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_2__.PaymentMethodCard, {
+        description: paymentData.billingTokenData.payer_info.email,
+        icon: data('icons').find(function (icon) {
+          return icon.id === 'paypal_simple';
+        }),
+        label: _utils__WEBPACK_IMPORTED_MODULE_3__.i18n.cancel,
+        onCancel: clearPaymentData
+      });
+    }
+    return /*#__PURE__*/React.createElement(_components__WEBPACK_IMPORTED_MODULE_2__.PaymentMethodCard, {
+      description: paymentData.order.payer.email_address,
+      icon: data('icons').find(function (icon) {
+        return icon.id === 'paypal_simple';
+      }),
+      label: _utils__WEBPACK_IMPORTED_MODULE_3__.i18n.cancel,
+      onCancel: clearPaymentData
+    });
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "wc-ppcp-popup__container"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: data('redirectIcon')
+  }), /*#__PURE__*/React.createElement("p", {
+    dangerouslySetInnerHTML: {
+      __html: data('i18n').redirectText
+    }
+  }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SimplePayPal);
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/utils.js":
+/*!********************************************!*\
+  !*** ./packages/blocks/assets/js/utils.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DEFAULT_BILLING_ADDRESS": () => (/* binding */ DEFAULT_BILLING_ADDRESS),
+/* harmony export */   "DEFAULT_SHIPPING_ADDRESS": () => (/* binding */ DEFAULT_SHIPPING_ADDRESS),
+/* harmony export */   "extractShippingRateParams": () => (/* binding */ extractShippingRateParams),
+/* harmony export */   "getRestPath": () => (/* binding */ getRestPath),
+/* harmony export */   "getSelectedShippingOptionId": () => (/* binding */ getSelectedShippingOptionId),
+/* harmony export */   "getShippingOptionId": () => (/* binding */ getShippingOptionId),
+/* harmony export */   "hasShippingOptions": () => (/* binding */ hasShippingOptions),
+/* harmony export */   "i18n": () => (/* binding */ i18n),
+/* harmony export */   "isAdminOnly": () => (/* binding */ isAdminOnly),
+/* harmony export */   "isCartPage": () => (/* binding */ isCartPage),
+/* harmony export */   "isCheckoutPage": () => (/* binding */ isCheckoutPage),
+/* harmony export */   "isUserAdmin": () => (/* binding */ isUserAdmin),
+/* harmony export */   "removeNumberPrecision": () => (/* binding */ removeNumberPrecision)
+/* harmony export */ });
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ppcp/utils */ "@ppcp/utils");
+/* harmony import */ var _ppcp_utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ppcp_utils__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
+/* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var getShippingOptionId = function getShippingOptionId(packageId, rateId) {
+  return "".concat(packageId, ":").concat(rateId);
+};
+var getSelectedShippingOptionId = function getSelectedShippingOptionId(shippingRates) {
+  var shippingOption = '';
+  shippingRates.forEach(function (shippingPackage, idx) {
+    shippingPackage.shipping_rates.forEach(function (rate) {
+      if (rate.selected) {
+        shippingOption = getShippingOptionId(idx, rate.rate_id);
+      }
+    });
+  });
+  return shippingOption;
+};
+var extractShippingRateParams = function extractShippingRateParams(id) {
+  var result = id.match(_ppcp_utils__WEBPACK_IMPORTED_MODULE_0__.SHIPPING_OPTION_REGEX);
+  if (result) {
+    var packageIdx = result[1],
+      rate = result[2];
+    return [rate, packageIdx];
+  }
+  return [];
+};
+var removeNumberPrecision = function removeNumberPrecision(value, unit) {
+  return value / Math.pow(10, unit);
+};
+var hasShippingOptions = function hasShippingOptions(shippingRates) {
+  return shippingRates.map(function (rate) {
+    return (rate === null || rate === void 0 ? void 0 : rate.shipping_rates.length) > 0;
+  }).filter(Boolean).length > 0;
+};
+
+/**
+ * Returns a rest route in ajax form given a route path.
+ * @param path
+ * @returns {*}
+ */
+var getRestPath = function getRestPath(path) {
+  var _getSetting, _getSetting$ajaxRestP;
+  path = path.replace(/^\//, '');
+  return (_getSetting = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcpGeneralData')) === null || _getSetting === void 0 ? void 0 : (_getSetting$ajaxRestP = _getSetting.ajaxRestPath) === null || _getSetting$ajaxRestP === void 0 ? void 0 : _getSetting$ajaxRestP.replace('%s', path);
+};
+var isUserAdmin = function isUserAdmin() {
+  var _getSetting2;
+  return (_getSetting2 = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcpGeneralData')) === null || _getSetting2 === void 0 ? void 0 : _getSetting2.isAdmin;
+};
+var getLocaleFields = function getLocaleFields(country) {
+  var countryLocale = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('countryLocale', {});
+  var localeFields = _objectSpread({}, countryLocale.default);
+  if (country && countryLocale.hasOwnProperty(country)) {
+    localeFields = Object.entries(countryLocale[country]).reduce(function (locale, _ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+        key = _ref2[0],
+        value = _ref2[1];
+      locale[key] = _objectSpread(_objectSpread({}, locale[key]), value);
+      return locale;
+    }, localeFields);
+  }
+  return localeFields;
+};
+
+/**
+ * Returns true if the provided value is empty.
+ * @param value
+ * @returns {boolean}
+ */
+var isEmpty = function isEmpty(value) {
+  if (typeof value === 'string') {
+    return value.length == 0 || value == '';
+  }
+  if (Array.isArray(value)) {
+    return array.length == 0;
+  }
+  if (_typeof(value) === 'object') {
+    return Object.keys(value).length == 0;
+  }
+  if (typeof value === 'undefined') {
+    return true;
+  }
+  return true;
+};
+var isCartPage = function isCartPage() {
+  return (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcpGeneralData').context === 'cart';
+};
+var isCheckoutPage = function isCheckoutPage() {
+  return (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcpGeneralData').context === 'checkout';
+};
+var isAdminOnly = function isAdminOnly() {
+  return (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcpGeneralData').adminOnly === true;
+};
+var DEFAULT_SHIPPING_ADDRESS = {
+  'first_name': '',
+  'last_name': '',
+  'company': '',
+  'address_1': '',
+  'address_2': '',
+  'city': '',
+  'state': '',
+  'postcode': '',
+  'country': '',
+  'phone': ''
+};
+var DEFAULT_BILLING_ADDRESS = _objectSpread(_objectSpread({}, DEFAULT_SHIPPING_ADDRESS), {}, {
+  'email': ''
+});
+var i18n = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_1__.getSetting)('ppcpGeneralData').i18n;
+
+/***/ }),
+
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/***/ ((module, exports) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = '';
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (arg) {
+				classes = appendClass(classes, parseValue(arg));
+			}
+		}
+
+		return classes;
+	}
+
+	function parseValue (arg) {
+		if (typeof arg === 'string' || typeof arg === 'number') {
+			return arg;
+		}
+
+		if (typeof arg !== 'object') {
+			return '';
+		}
+
+		if (Array.isArray(arg)) {
+			return classNames.apply(null, arg);
+		}
+
+		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+			return arg.toString();
+		}
+
+		var classes = '';
+
+		for (var key in arg) {
+			if (hasOwn.call(arg, key) && arg[key]) {
+				classes = appendClass(classes, key);
+			}
+		}
+
+		return classes;
+	}
+
+	function appendClass (value, newClass) {
+		if (!newClass) {
+			return value;
+		}
+	
+		if (value) {
+			return value + ' ' + newClass;
+		}
+	
+		return value + newClass;
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/blocks/checkout/block.json":
+/*!**************************************************************!*\
+  !*** ./packages/blocks/assets/js/blocks/checkout/block.json ***!
+  \**************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"apiVersion":2,"name":"wc-ppcp/checkout-block","version":"2.0.0","title":"PayPal checkout block","category":"woocommerce","description":"Adds an invisible block to the checkout page.","supports":{"html":false,"align":false,"multiple":false,"reusable":false},"parent":["woocommerce/checkout-fields-block"],"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}}},"textdomain":"pymntpl-paypal-woocommerce"}');
+
+/***/ }),
+
+/***/ "./packages/blocks/assets/js/blocks/fastlane/block.json":
+/*!**************************************************************!*\
+  !*** ./packages/blocks/assets/js/blocks/fastlane/block.json ***!
+  \**************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"apiVersion":2,"name":"wc-ppcp/fastlane-block","version":"2.0.0","title":"PayPal Fastlane block","category":"woocommerce","description":"Adds an invisible Fastlane block to the checkout page.","supports":{"html":false,"align":false,"multiple":false,"reusable":false},"parent":["woocommerce/checkout-fields-block"],"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}}},"textdomain":"pymntpl-paypal-woocommerce"}');
+
+/***/ })
+
+}]);
 //# sourceMappingURL=blocks-commons.js.map

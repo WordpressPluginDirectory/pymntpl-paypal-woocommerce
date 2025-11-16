@@ -4,11 +4,13 @@
 namespace PaymentPlugins\PPCP\Blocks;
 
 use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
 use Automattic\WooCommerce\StoreApi\StoreApi;
 use PaymentPlugins\PayPalSDK\PayPalClient;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\CreditCardGateway;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\FastlaneGateway;
+use PaymentPlugins\PPCP\Blocks\Payments\Gateways\GooglePayGateway;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\PayPalGateway;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\APISettings;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\PayLaterMessageSettings;
@@ -60,6 +62,12 @@ class Package extends AbstractPackage {
 				$container->get( self::ASSETS_API )
 			);
 		} );
+		$this->container->register( GooglePayGateway::class, function ( $container ) {
+			return new GooglePayGateway(
+				$container->get( PayPalClient::class ),
+				$container->get( self::ASSETS_API )
+			);
+		} );
 		$this->container->register( FastlaneGateway::class, function ( $container ) {
 			return new FastlaneGateway(
 				$container->get( PayPalClient::class ),
@@ -89,7 +97,9 @@ class Package extends AbstractPackage {
 			return new Rest\Controller();
 		} );
 		$this->container->register( SchemaController::class, function () {
-			return new SchemaController( StoreApi::container()->get( ExtendSchema::class ) );
+			return new SchemaController(
+				StoreApi::container()->get( ExtendSchema::class )
+			);
 		} );
 		$this->container->register( FrontendScripts::class, function ( $container ) {
 			return new FrontendScripts( $container->get( self::ASSETS_API ) );

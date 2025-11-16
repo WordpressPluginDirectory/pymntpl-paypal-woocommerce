@@ -5,6 +5,8 @@ namespace PaymentPlugins\WooCommerce\PPCP\Rest\Routes;
 
 
 use PaymentPlugins\WooCommerce\PPCP\Constants;
+use PaymentPlugins\WooCommerce\PPCP\ContextHandler;
+use PaymentPlugins\WooCommerce\PPCP\PaymentMethodRegistry;
 use PaymentPlugins\WooCommerce\PPCP\ProductSettings;
 
 /**
@@ -23,7 +25,8 @@ class CartItem extends AbstractCart {
 				'callback' => [ $this, 'handle_request' ],
 				'args'     => [
 					'payment_method' => [
-						'required' => true
+						'required'          => true,
+						'validate_callback' => [ $this->validator, 'validate_payment_method' ]
 					]
 				]
 			]
@@ -78,7 +81,13 @@ class CartItem extends AbstractCart {
 
 			$this->cache->set( sprintf( '%s_%s', $payment_method->id, Constants::PAYPAL_ORDER_ID ), $result->id );
 
-			return $result->id;
+			$payment_registry = wc_ppcp_get_container()->get( PaymentMethodRegistry::class );
+			$context          = wc_ppcp_get_container()->get( ContextHandler::class );
+
+			return [
+				'order_id'        => $result->id,
+				'payment_methods' => $payment_registry->get_payment_method_data( $context )
+			];
 		} catch ( \Exception $e ) {
 			$this->logger->info( sprintf( 'Error adding product to cart. Reason: %s. Cart args: %s', $e->getMessage(), print_r( $cart_params, true ) ) );
 

@@ -36,7 +36,7 @@ class PaymentSourceFactory extends AbstractFactory {
 		/**
 		 * If there is a payment token ID in the request then this is a Fastlane payment request.
 		 */
-		if ( $this->payment_method->get_payment_token_id_from_request() ) {
+		if ( $this->payment_method->supports( 'vault' ) && $this->payment_method->get_payment_token_id_from_request() ) {
 			if ( $this->payment_method->get_payment_method_type() === 'card' ) {
 				$source->card->single_use_token = $this->payment_method->get_payment_token_id_from_request();
 			}
@@ -81,20 +81,21 @@ class PaymentSourceFactory extends AbstractFactory {
 	}
 
 	/**
-	 * @param bool          $store_in_vault
+	 * @param bool $store_in_vault
 	 * @param Customer|null $customer
 	 *
 	 * @return \PaymentPlugins\PayPalSDK\PaymentSource|null
 	 */
 	private function create( $store_in_vault = false, $customer = null ) {
 		$source = null;
-		if ( $this->payment_method && $this->payment_method->supports( 'vault' ) ) {
+		if ( $this->payment_method ) {
 			$payment_type = $this->payment_method->get_payment_method_type();
 			$source       = new PaymentSource( [
 				$payment_type => [
 					'attributes' => new \stdClass()
 				]
 			] );
+
 			if ( $this->payment_method->supports( '3ds' ) && $this->payment_method->is_3ds_enabled() ) {
 				//is_force_3ds_enabled
 				$source->$payment_type->attributes->verification = (object) [
@@ -102,7 +103,7 @@ class PaymentSourceFactory extends AbstractFactory {
 				];
 			}
 
-			if ( $store_in_vault ) {
+			if ( $this->payment_method->supports( 'vault' ) && $store_in_vault ) {
 				$source->$payment_type->attributes->vault = (object) [
 					'store_in_vault' => 'ON_SUCCESS'
 				];

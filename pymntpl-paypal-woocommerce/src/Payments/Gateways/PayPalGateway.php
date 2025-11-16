@@ -49,7 +49,6 @@ class PayPalGateway extends AbstractGateway {
 	protected function init_hooks() {
 		parent::init_hooks();
 		add_action( 'wc_ppcp_paypal_query_params', [ $this, 'add_query_params' ], 10, 2 );
-		add_action( 'wc_ppcp_product_form_fields', [ $this, 'get_product_form_fields' ] );
 	}
 
 	public function init_form_fields() {
@@ -197,6 +196,14 @@ class PayPalGateway extends AbstractGateway {
 					'data-show-if' => 'use_place_order=true'
 				],
 
+			],
+			'immediate_payment'             => [
+				'title'       => __( 'Immediate Payment Only', 'pymntpl-paypal-woocommerce' ),
+				'type'        => 'checkbox',
+				'default'     => 'no',
+				'value'       => 'yes',
+				'desc_tip'    => true,
+				'description' => __( 'If enabled, only payments which settle immediately will be available.', 'pymntpl-paypal-woocommerce' )
 			],
 			'button_options'                => [
 				'type'  => 'title',
@@ -405,9 +412,9 @@ class PayPalGateway extends AbstractGateway {
 	public function get_checkout_script_handles() {
 		if ( ! $this->is_place_order_button() || is_add_payment_method_page() ) {
 			if ( $this->supports( 'billing_agreement' ) ) {
-				$this->assets->register_script( 'wc-ppcp-checkout-gateway', 'build/legacy/paypal-checkout.js', [ 'wc-ppcp-legacy-commons' ] );
+				$this->assets->register_script( 'wc-ppcp-checkout-gateway', 'build/legacy/paypal-checkout.js' );
 			} else {
-				$this->assets->register_script( 'wc-ppcp-checkout-gateway', 'build/js/paypal-checkout.js', [ 'wc-ppcp-frontend-commons' ] );
+				$this->assets->register_script( 'wc-ppcp-checkout-gateway', 'build/js/paypal-checkout.js' );
 			}
 
 			$this->tokenization_script();
@@ -420,9 +427,9 @@ class PayPalGateway extends AbstractGateway {
 
 	public function get_express_checkout_script_handles() {
 		if ( $this->supports( 'billing_agreement' ) ) {
-			$this->assets->register_script( 'wc-ppcp-checkout-express', 'build/legacy/paypal-express-checkout.js', [ 'wc-ppcp-legacy-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-checkout-express', 'build/legacy/paypal-express-checkout.js' );
 		} else {
-			$this->assets->register_script( 'wc-ppcp-checkout-express', 'build/js/paypal-express-checkout.js', [ 'wc-ppcp-frontend-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-checkout-express', 'build/js/paypal-express-checkout.js' );
 		}
 
 		return [ 'wc-ppcp-checkout-express' ];
@@ -430,9 +437,9 @@ class PayPalGateway extends AbstractGateway {
 
 	public function get_cart_script_handles() {
 		if ( $this->supports( 'billing_agreement' ) ) {
-			$this->assets->register_script( 'wc-ppcp-cart-gateway', 'build/legacy/paypal-cart.js', [ 'wc-ppcp-legacy-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-cart-gateway', 'build/legacy/paypal-cart.js' );
 		} else {
-			$this->assets->register_script( 'wc-ppcp-cart-gateway', 'build/js/paypal-cart.js', [ 'wc-ppcp-frontend-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-cart-gateway', 'build/js/paypal-cart.js' );
 		}
 
 		return [ 'wc-ppcp-cart-gateway' ];
@@ -440,9 +447,9 @@ class PayPalGateway extends AbstractGateway {
 
 	public function get_minicart_script_handles() {
 		if ( $this->supports( 'billing_agreement' ) ) {
-			$this->assets->register_script( 'wc-ppcp-minicart-gateway', 'build/legacy/paypal-minicart.js', [ 'wc-ppcp-legacy-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-minicart-gateway', 'build/legacy/paypal-minicart.js' );
 		} else {
-			$this->assets->register_script( 'wc-ppcp-minicart-gateway', 'build/js/paypal-minicart.js', [ 'wc-ppcp-frontend-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-minicart-gateway', 'build/js/paypal-minicart.js' );
 		}
 
 		return [ 'wc-ppcp-minicart-gateway' ];
@@ -450,9 +457,9 @@ class PayPalGateway extends AbstractGateway {
 
 	public function get_product_script_handles() {
 		if ( $this->supports( 'billing_agreement' ) ) {
-			$this->assets->register_script( 'wc-ppcp-product-gateway', 'build/legacy/paypal-product.js', [ 'wc-ppcp-legacy-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-product-gateway', 'build/legacy/paypal-product.js' );
 		} else {
-			$this->assets->register_script( 'wc-ppcp-product-gateway', 'build/js/paypal-product.js', [ 'wc-ppcp-frontend-commons' ] );
+			$this->assets->register_script( 'wc-ppcp-product-gateway', 'build/js/paypal-product.js' );
 		}
 
 		return [ 'wc-ppcp-product-gateway' ];
@@ -475,6 +482,7 @@ class PayPalGateway extends AbstractGateway {
 	 */
 	public function get_payment_method_data( $context ) {
 		$data = [
+			'title'                => $this->get_title(),
 			'needsSetupToken'      => $context->is_add_payment_method(),
 			'funding'              => array_values( array_filter( $this->get_funding_types(), function ( $source ) {
 				if ( $source === 'paypal' ) {
@@ -514,19 +522,16 @@ class PayPalGateway extends AbstractGateway {
 					'height' => (int) $this->get_option( 'button_height' )
 				]
 			],
-			'paypal_sections'      => array_merge( $this->get_option( 'sections', [] ), [ 'checkout', 'add_payment_method' ] ),
+			'paypal_sections'      => array_merge( $this->get_option( 'sections', [] ), [
+				'checkout',
+				'add_payment_method'
+			] ),
 			'paylater_sections'    => $this->get_option( 'paylater_sections', [] ),
 			'credit_card_sections' => $this->get_option( 'credit_card_sections', [] ),
 			'venmo_sections'       => $this->get_option( 'venmo_sections', [] ),
 			'placeOrderEnabled'    => $this->is_place_order_button() && ! $context->is_add_payment_method()
 		];
-		if ( $context->is_product() ) {
-			$settings                        = new ProductSettings( Utils::get_queried_product_id() );
-			$data['funding']                 = array_values( array_filter( [ 'paypal', 'paylater', 'card' ], function ( $type ) use ( $settings ) {
-				return wc_string_to_bool( $settings->get_option( "{$type}_enabled" ) );
-			} ) );
-			$data['product']['button_width'] = $settings->get_option( 'width' );
-		} elseif ( $context->is_order_pay() ) {
+		if ( $context->is_order_pay() ) {
 			$data['paypal_sections'] = array_merge( $data['paypal_sections'], [ 'order_pay' ] );
 		}
 
@@ -546,11 +551,6 @@ class PayPalGateway extends AbstractGateway {
 
 	public function get_product_form_fields( $fields ) {
 		return $fields + [
-				'paypal_enabled'   => [
-					'title'   => __( 'PayPal Enabled', 'pymntpl-paypal-woocommerce' ),
-					'type'    => 'checkbox',
-					'default' => in_array( 'product', $this->get_option( 'sections' ) ) ? 'yes' : 'no'
-				],
 				'intent'           => [
 					'type'        => 'select',
 					'class'       => 'wc-enhanced-select',
@@ -566,6 +566,11 @@ class PayPalGateway extends AbstractGateway {
 						'If set to capture, funds will be captured immediately during checkout. Authorized transactions put a hold on the customer\'s funds but
 						no payment is taken until the charge is captured. Authorized charges can be captured on the Admin Order page.',
 						'pymntpl-paypal-woocommerce' )
+				],
+				'paypal_enabled'   => [
+					'title'   => __( 'PayPal Enabled', 'pymntpl-paypal-woocommerce' ),
+					'type'    => 'checkbox',
+					'default' => in_array( 'product', (array) $this->get_option( 'sections', [] ) ) ? 'yes' : 'no'
 				],
 				'paylater_enabled' => [
 					'title'   => __( 'Pay Later Enabled', 'pymntpl-paypal-woocommerce' ),
@@ -598,6 +603,7 @@ class PayPalGateway extends AbstractGateway {
 
 	protected function get_payment_section_options( $type = 'paypal' ) {
 		$options = [
+			'block_checkout'   => __( 'Block Checkout Payment Section', 'pymntpl-paypal-woocommerce' ),
 			'product'          => __( 'Product Page', 'pymntpl-paypal-woocommerce' ),
 			'cart'             => __( 'Cart Page', 'pymntpl-paypal-woocommerce' ),
 			'checkout'         => __( 'Checkout Page', 'pymntpl-paypal-woocommerce' ),
@@ -606,7 +612,7 @@ class PayPalGateway extends AbstractGateway {
 			'minicart'         => __( 'Minicart', 'pymntpl-paypal-woocommerce' )
 		];
 		if ( $type === 'paypal' ) {
-			// If PayPal is enabled, it' always enabled on checkout
+			// If PayPal is enabled, it's always enabled on checkout
 			unset( $options['checkout'] );
 		} elseif ( $type === 'venmo' ) {
 			unset( $options['product'], $options['cart'] );
@@ -617,7 +623,7 @@ class PayPalGateway extends AbstractGateway {
 
 	/**
 	 * @param \PaymentPlugins\WooCommerce\PPCP\PayPalQueryParams $query_params
-	 * @param \PaymentPlugins\WooCommerce\PPCP\ContextHandler    $context
+	 * @param \PaymentPlugins\WooCommerce\PPCP\ContextHandler $context
 	 */
 	public function add_query_params( PayPalQueryParams $query_params, $context ) {
 		if ( $query_params->flow === 'checkout' ) {
@@ -634,8 +640,8 @@ class PayPalGateway extends AbstractGateway {
 	}
 
 	/**
-	 * @since 1.0.19
 	 * @return bool
+	 * @since 1.0.19
 	 */
 	public function is_show_popup_icon_enabled() {
 		return ( $this->get_option( 'checkout_placement', 'place_order' ) === 'place_order'
@@ -644,8 +650,8 @@ class PayPalGateway extends AbstractGateway {
 	}
 
 	/**
-	 * @since 1.0.38
 	 * @return bool
+	 * @since 1.0.38
 	 */
 	public function is_place_order_button() {
 		return \wc_string_to_bool( $this->get_option( 'use_place_order', 'no' ) );
@@ -662,7 +668,7 @@ class PayPalGateway extends AbstractGateway {
 
 	/**
 	 * @param \PaymentPlugins\PayPalSDK\Order $paypal_order
-	 * @param \WC_Order                       $order
+	 * @param \WC_Order $order
 	 *
 	 * @return void
 	 */
@@ -687,6 +693,10 @@ class PayPalGateway extends AbstractGateway {
 				throw new RetryException( 'Create new order' );
 			}
 		}
+	}
+
+	public function is_immediate_payment_required() {
+		return \wc_string_to_bool( $this->get_option( 'immediate_payment', 'no' ) );
 	}
 
 }

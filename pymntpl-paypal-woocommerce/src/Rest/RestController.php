@@ -25,6 +25,7 @@ use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\CartOrder;
 use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\CartRefresh;
 use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\CartShipping;
 use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\Admin\ConnectAccount;
+use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\CheckoutFormValidation;
 use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\OrderPay;
 use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\VaultPaymentTokensRoute;
 use PaymentPlugins\WooCommerce\PPCP\Rest\Routes\VaultSetupTokensRoute;
@@ -91,7 +92,8 @@ class RestController {
 				$this->container->get( CoreFactories::class ),
 				$this->container->get( AdvancedSettings::class )
 			),
-			'payment-tokens'          => new VaultPaymentTokensRoute( $this->container->get( PayPalClient::class ) )
+			'payment-tokens'          => new VaultPaymentTokensRoute( $this->container->get( PayPalClient::class ) ),
+			'checkout/validation'     => new CheckoutFormValidation()
 		];
 	}
 

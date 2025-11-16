@@ -105,6 +105,10 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 		return [];
 	}
 
+	public function get_minicart_script_handles() {
+		return [];
+	}
+
 	/**
 	 * @param \PaymentPlugins\WooCommerce\PPCP\ContextHandler $context
 	 *
@@ -260,6 +264,9 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 			if ( ! is_user_logged_in() ) {
 				throw new \Exception( __( 'You must be logged in to add a payment method.', 'pymntpl-paypal-woocommerce' ) );
 			}
+			if ( ! $this->supports( 'vault' ) ) {
+				throw new \Exception( __( 'This payment method does not supports vaulting.', 'pymntpl-paypal-woocommerce' ) );
+			}
 
 			$payment_token_id = $this->get_payment_token_id_from_request();
 
@@ -362,7 +369,7 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 
 	/**
 	 * @param \PaymentPlugins\PayPalSDK\Order $paypal_order
-	 * @param \WC_Order                       $order
+	 * @param \WC_Order $order
 	 *
 	 * @return void
 	 */
@@ -394,8 +401,8 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 	 *
 	 * @param \WC_Order|null $order
 	 *
-	 * @since 1.1.0
 	 * @return bool
+	 * @since 1.1.0
 	 */
 	public function is_payment_method_save_required( $order = null ) {
 		if ( $order instanceof \WC_Order ) {
@@ -417,6 +424,14 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 				$result->is_captured() ? sprintf( __( 'Capture ID: %s', 'pymntpl-paypal-woocommerce' ), $result->get_capture_id() ) : sprintf( __( 'Authorization ID: %s', 'pymntpl-paypal-woocommerce' ), $result->get_authorization_id() )
 			)
 		);
+	}
+
+	/**
+	 * @return false
+	 * @since 1.1.14
+	 */
+	public function is_immediate_payment_required() {
+		return false;
 	}
 
 }

@@ -21,9 +21,11 @@ class Messages {
 			'invalid_client_id'             => __( 'Invalid PayPal client ID. Please check your API Settings.', 'pymntpl-paypal-woocommerce' ),
 			'invalid_currency'              => __( 'PayPal does not support currency %. Please use a supported currency.', 'pymntpl-paypal-woocommerce' ),
 			'order_button_click'            => __( 'Please click the PayPal button before placing your order.', 'pymntpl-paypal-woocommerce' ),
+			'gpay_order_button_click'       => __( 'Please click the Google Pay button before placing your order', 'pymntpl-paypal-woocommerce' ),
 			'order_missing_address'         => __( 'Please fill out all billing and shipping fields before clicking PayPal.', 'pymntpl-paypal-woocommerce' ),
 			'order_missing_billing_address' => __( 'Please fill out all billing fields before clicking PayPal.', 'pymntpl-paypal-woocommerce' ),
 			'cancel'                        => __( 'Cancel', 'pymntpl-paypal-woocommerce' ),
+			'required_fields'               => __( 'Please fill out all required fields.', 'pymntpl-paypal-woocommerce' ),
 			'Y_N_NO'                        => __( '3DS authentication failed.', 'pymntpl-paypal-woocommerce' ),
 			'Y_R_NO'                        => __( '3DS authentication was rejected.', 'pymntpl-paypal-woocommerce' ),
 			'Y_U_UNKNOWN'                   => __( 'Unable to complete 3DS authentication. Please try again.', 'pymntpl-paypal-woocommerce' ),
@@ -50,7 +52,7 @@ class Messages {
 	}
 
 	/**
-	 * @param string                                           $msg
+	 * @param string $msg
 	 * @param \PaymentPlugins\PayPalSDK\Exception\ApiException $error
 	 *
 	 * @return void
