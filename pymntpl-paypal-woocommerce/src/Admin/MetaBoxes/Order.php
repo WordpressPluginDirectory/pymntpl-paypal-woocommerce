@@ -178,7 +178,7 @@ class Order {
 
 	public function fee_details( $order_id ) {
 		$order = wc_get_order( $order_id );
-		if ( Main::container()->get( PaymentGateways::class )->has_gateway( $order->get_payment_method() ) ) {
+		if ( wc_ppcp_get_container()->get( PaymentGateways::class )->has_gateway( $order->get_payment_method() ) ) {
 			$fee = PayPalFee::display_fee( $order );
 			$net = PayPalFee::display_net( $order );
 			if ( $fee && $net ) {

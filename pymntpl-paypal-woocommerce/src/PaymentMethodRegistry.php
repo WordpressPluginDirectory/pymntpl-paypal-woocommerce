@@ -101,6 +101,9 @@ class PaymentMethodRegistry extends Registry\BaseRegistry {
 	public function add_checkout_script_dependencies() {
 		$handles = [];
 		foreach ( $this->get_active_integrations() as $payment_method ) {
+			/**
+			 * @var AbstractGateway $payment_method
+			 */
 			$handles = array_merge( $handles, $payment_method->get_checkout_script_handles() );
 		}
 

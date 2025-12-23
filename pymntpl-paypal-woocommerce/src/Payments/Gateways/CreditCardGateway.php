@@ -2,8 +2,9 @@
 
 namespace PaymentPlugins\WooCommerce\PPCP\Payments\Gateways;
 
+use PaymentPlugins\PPCP\WooCommercePreOrders\Traits\PreOrdersTrait;
+use PaymentPlugins\PPCP\WooCommerceSubscriptions\Traits\SubscriptionTrait;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\AdvancedSettings;
-use PaymentPlugins\WooCommerce\PPCP\Messages;
 use PaymentPlugins\WooCommerce\PPCP\Tokens\CreditCardToken;
 use PaymentPlugins\WooCommerce\PPCP\Traits\CardPaymentNoteTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\TokenizationTrait;
@@ -16,6 +17,8 @@ class CreditCardGateway extends AbstractGateway {
 	use TokenizationTrait;
 	use ThreeDSecureTrait;
 	use CardPaymentNoteTrait;
+	use SubscriptionTrait;
+	use PreOrdersTrait;
 
 	public $id = 'ppcp_card';
 
@@ -29,12 +32,13 @@ class CreditCardGateway extends AbstractGateway {
 
 	public function __construct( ...$args ) {
 		parent::__construct( ...$args );
-		$this->method_title       = __( 'PayPal Credit Card Gateway By Payment Plugins', 'pymntpl-paypal-woocommerce' );
-		$this->tab_label          = __( 'PayPal Credit Card Settings', 'pymntpl-paypal-woocommerce' );
-		$this->icon               = $this->assets->assets_url( 'assets/img/paypal_logo.svg' );
-		$this->method_description = __( 'Offer Credit Cards by PayPal', 'pymntpl-paypal-woocommerce' );
-		$this->order_button_text  = $this->get_option( 'order_button_text' );
-		$this->icon               = $this->get_option( 'card_icons_url', '' );
+		$this->method_title         = __( 'PayPal Credit Card Gateway By Payment Plugins', 'pymntpl-paypal-woocommerce' );
+		$this->tab_label            = __( 'Credit Card Settings', 'pymntpl-paypal-woocommerce' );
+		$this->icon                 = $this->assets->assets_url( 'assets/img/paypal_logo.svg' );
+		$this->method_description   = __( 'Offer Credit Cards by PayPal', 'pymntpl-paypal-woocommerce' );
+		$this->order_button_text    = $this->get_option( 'order_button_text' );
+		$this->icon                 = $this->get_option( 'card_icons_url', '' );
+		$this->settings['sections'] = [ 'checkout', 'order_pay', 'add_payment_method' ];
 	}
 
 	public function init_form_fields() {

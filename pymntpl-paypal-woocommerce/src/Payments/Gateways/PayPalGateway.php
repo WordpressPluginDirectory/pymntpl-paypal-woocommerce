@@ -4,6 +4,8 @@
 namespace PaymentPlugins\WooCommerce\PPCP\Payments\Gateways;
 
 use PaymentPlugins\PayPalSDK\OrderApplicationContext;
+use PaymentPlugins\PPCP\WooCommercePreOrders\Traits\PreOrdersTrait;
+use PaymentPlugins\PPCP\WooCommerceSubscriptions\Traits\SubscriptionTrait;
 use PaymentPlugins\WooCommerce\PPCP\Cache\CacheHandler;
 use PaymentPlugins\WooCommerce\PPCP\Constants;
 use PaymentPlugins\WooCommerce\PPCP\Exception\RetryException;
@@ -26,6 +28,8 @@ class PayPalGateway extends AbstractGateway {
 	use TokenizationTrait;
 	use VaultTokenTrait;
 	use BillingAgreementTrait;
+	use SubscriptionTrait;
+	use PreOrdersTrait;
 
 	public $id = 'ppcp';
 
@@ -397,16 +401,19 @@ class PayPalGateway extends AbstractGateway {
 		$src = add_query_arg( [
 			'client-id'      => 'sb',
 			'components'     => 'buttons',
-			'enable-funding' => 'paylater,venmo'
+			'enable-funding' => 'paylater,venmo',
+			'currency'       => 'USD',
+			'buyer-country'  => 'US'
 		], 'https://www.paypal.com/sdk/js' );
 		wp_register_script( 'wc-ppcp-smartbuttons', $src, [], null, true );
 		$this->assets->register_script( 'wc-ppcp-settings', 'build/js/paypal-settings.js', [
 			'jquery-ui-sortable',
 			'jquery-ui-widget',
-			'jquery-ui-core'
+			'jquery-ui-core',
+			'jquery-ui-slider'
 		] );
 
-		return [ 'wc-ppcp-settings', 'wc-ppcp-smartbuttons', 'jquery-ui-slider' ];
+		return [ 'wc-ppcp-settings', 'wc-ppcp-smartbuttons' ];
 	}
 
 	public function get_checkout_script_handles() {
@@ -483,10 +490,11 @@ class PayPalGateway extends AbstractGateway {
 	public function get_payment_method_data( $context ) {
 		$data = [
 			'title'                => $this->get_title(),
+			'sections'             => $this->get_option( 'sections', [] ),
 			'needsSetupToken'      => $context->is_add_payment_method(),
 			'funding'              => array_values( array_filter( $this->get_funding_types(), function ( $source ) {
 				if ( $source === 'paypal' ) {
-					return true;
+					return wc_string_to_bool( $this->get_option( "enabled" ) );
 				}
 
 				return wc_string_to_bool( $this->get_option( "{$source}_enabled" ) );
@@ -523,7 +531,6 @@ class PayPalGateway extends AbstractGateway {
 				]
 			],
 			'paypal_sections'      => array_merge( $this->get_option( 'sections', [] ), [
-				'checkout',
 				'add_payment_method'
 			] ),
 			'paylater_sections'    => $this->get_option( 'paylater_sections', [] ),
@@ -531,11 +538,32 @@ class PayPalGateway extends AbstractGateway {
 			'venmo_sections'       => $this->get_option( 'venmo_sections', [] ),
 			'placeOrderEnabled'    => $this->is_place_order_button() && ! $context->is_add_payment_method()
 		];
-		if ( $context->is_order_pay() ) {
-			$data['paypal_sections'] = array_merge( $data['paypal_sections'], [ 'order_pay' ] );
+		// If vault is not enabled, make sure checkout is always enabled since that is how it used to work.
+		if ( $context->is_checkout() && $this->supports( 'billing_agreement' ) ) {
+			$data['paypal_sections'] = array_merge( $data['paypal_sections'], [ 'checkout' ] );
 		}
 
 		return $data;
+	}
+
+	public function is_section_enabled( $key ) {
+		$sections = [
+			'paypal_sections'   => $this->get_option( 'sections', [] ),
+			'paylater_sections' => $this->get_option( 'paylater_sections', [] ),
+			'card_sections'     => $this->get_option( 'credit_card_sections', [] ),
+			'venmo_sections'    => $this->get_option( 'venmo_sections', [] ),
+		];
+		foreach ( $this->get_funding_types() as $type ) {
+			if ( $type === 'paypal' ) {
+				if ( parent::is_section_enabled( $key ) && wc_string_to_bool( $this->get_option( "enabled" ) ) ) {
+					return true;
+				}
+			} elseif ( \in_array( $key, $sections["{$type}_sections"] ) && wc_string_to_bool( $this->get_option( "{$type}_enabled" ) ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public function is_product_section_enabled( $product ) {
@@ -548,6 +576,15 @@ class PayPalGateway extends AbstractGateway {
 
 		return count( array_filter( $values ) ) > 0;
 	}
+
+	public function is_cart_section_enabled() {
+		return $this->is_section_enabled( 'cart' );
+	}
+
+	public function is_express_section_enabled() {
+		return $this->is_section_enabled( 'express_checkout' );
+	}
+
 
 	public function get_product_form_fields( $fields ) {
 		return $fields + [
@@ -603,7 +640,6 @@ class PayPalGateway extends AbstractGateway {
 
 	protected function get_payment_section_options( $type = 'paypal' ) {
 		$options = [
-			'block_checkout'   => __( 'Block Checkout Payment Section', 'pymntpl-paypal-woocommerce' ),
 			'product'          => __( 'Product Page', 'pymntpl-paypal-woocommerce' ),
 			'cart'             => __( 'Cart Page', 'pymntpl-paypal-woocommerce' ),
 			'checkout'         => __( 'Checkout Page', 'pymntpl-paypal-woocommerce' ),
@@ -613,7 +649,8 @@ class PayPalGateway extends AbstractGateway {
 		];
 		if ( $type === 'paypal' ) {
 			// If PayPal is enabled, it's always enabled on checkout
-			unset( $options['checkout'] );
+			// commented out in version 2.0.1
+			//unset( $options['checkout'] );
 		} elseif ( $type === 'venmo' ) {
 			unset( $options['product'], $options['cart'] );
 		}

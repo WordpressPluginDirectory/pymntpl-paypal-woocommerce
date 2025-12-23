@@ -10,7 +10,7 @@ use PaymentPlugins\WooCommerce\PPCP\Assets\AssetDataApi;
  * @property string $intent
  * @property string $vault
  * @property string $commit
- * @property array  $components
+ * @property array $components
  * @property string $currency
  * @property string $enableFunding;
  * @protected string $locale
@@ -23,7 +23,7 @@ class PayPalQueryParams {
 		'client-id'                   => 'sb',
 		'intent'                      => '',
 		'commit'                      => 'true',
-		'components'                  => [ 'buttons', 'messages', 'card-fields', 'googlepay' ],
+		'components'                  => [ 'buttons', 'messages', 'card-fields', 'googlepay', 'applepay' ],
 		'currency'                    => '',
 		'enable-funding'              => [ 'paylater' ],
 		'data-partner-attribution-id' => 'PaymentPlugins_PCP'

@@ -13,9 +13,9 @@ use PaymentPlugins\WooCommerce\PPCP\Main;
 use PaymentPlugins\WooCommerce\PPCP\Messages;
 use PaymentPlugins\WooCommerce\PPCP\PaymentMethodRegistry;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\AbstractGateway;
+use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\ApplePayGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\CreditCardGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\GooglePayGateway;
-use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\PayPal;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\PayPalGateway;
 use PaymentPlugins\WooCommerce\PPCP\Container\Container;
 use PaymentPlugins\WooCommerce\PPCP\Utils;
@@ -50,9 +50,6 @@ class PaymentGateways {
 		add_filter( 'woocommerce_available_payment_gateways', [ $this, 'get_available_payment_gateways' ] );
 		add_action( 'woocommerce_before_mini_cart', [ $this, 'add_minicart_scripts' ] );
 		add_action( 'wc_ppcp_admin_add_script_data', [ $this, 'add_admin_script_data' ] );
-		add_filter( 'wc_ppcp_update_order_review_data', [ $this, 'add_payment_method_data_to_fragments' ] );
-		add_filter( 'wc_ppcp_post_cart/refresh', [ $this, 'get_cart_refresh_data' ] );
-		add_filter( 'wc_ppcp_cart_refresh_data', [ $this, 'add_cart_refresh_data' ] );
 
 		$this->payment_method_registry->initialize();
 	}
@@ -65,6 +62,7 @@ class PaymentGateways {
 		$this->payment_method_registry->register( $container->get( PayPalGateway::class ) );
 		$this->payment_method_registry->register( $container->get( CreditCardGateway::class ) );
 		$this->payment_method_registry->register( $container->get( GooglePayGateway::class ) );
+		$this->payment_method_registry->register( $container->get( ApplePayGateway::class ) );
 	}
 
 	public function initialize_gateways( $gateways = [] ) {
@@ -153,7 +151,13 @@ class PaymentGateways {
 				'add_payment_method',
 				'order_pay'
 			] ) || apply_filters( 'wc_ppcp_checkout_scripts', false ) ) {
-			if ( $this->context_handler->is_checkout_block() ) {
+
+			// if this is the checkout block, and there is no checkout shortcode, return.
+			// order pay page doesn't use the checkout block so if this is the order pay page
+			// the scripts needs to be loaded.
+			if ( $this->context_handler->is_checkout_block()
+			     && ! $this->context_handler->is_checkout_shortcode()
+			     && ! $this->context_handler->is_order_pay() ) {
 				return;
 			}
 			if ( $this->context_handler->is_add_payment_method() ) {
@@ -243,8 +247,22 @@ class PaymentGateways {
 			 */
 			$advanced_settings = wc_ppcp_get_container()->get( AdvancedSettings::class );
 			$vault_enabled     = $advanced_settings->is_vault_enabled();
+			// Payment methods can only be added when Vault is enabled.
 			if ( ! $vault_enabled ) {
 				foreach ( $this->payment_method_registry->get_registered_integrations() as $integration ) {
+					unset( $gateways[ $integration->id ] );
+				}
+			} else {
+				// Until Apple Pay supports vaulting with no payment, it should be removed on add payment method page
+				unset( $gateways['ppcp_applepay'] );
+			}
+		}
+		if ( is_checkout_pay_page() ) {
+			foreach ( $this->payment_method_registry->get_registered_integrations() as $integration ) {
+				/**
+				 * @var AbstractGateway $integration
+				 */
+				if ( ! $integration->is_section_enabled( 'order_pay' ) ) {
 					unset( $gateways[ $integration->id ] );
 				}
 			}
@@ -255,7 +273,12 @@ class PaymentGateways {
 
 	public function add_minicart_scripts() {
 		if ( $this->context_handler ) {
-			if ( ! $this->context_handler->is_checkout() && ! $this->context_handler->is_cart() && ! $this->context_handler->is_order_pay() && ! $this->context_handler->is_order_received() ) {
+			if ( ! $this->context_handler->is_checkout()
+			     && ! $this->context_handler->is_cart()
+			     && ! $this->context_handler->is_order_pay()
+			     && ! $this->context_handler->is_order_received()
+			     // don't load minicart on checkout block
+			     && ! $this->context_handler->is_checkout_block() ) {
 				$handles = $this->payment_method_registry->add_minicart_script_dependencies();
 				if ( ! empty( $handles ) ) {
 					$this->enqueue_scripts( $handles );
@@ -269,43 +292,6 @@ class PaymentGateways {
 	 */
 	public function get_api_settings() {
 		return $this->api_settings;
-	}
-
-	/**
-	 * Add payment method data to AJAX fragments for checkout updates
-	 *
-	 * @param array $data
-	 *
-	 * @return array
-	 */
-	public function add_payment_method_data_to_fragments( $data ) {
-		if ( ! $this->context_handler ) {
-			return $data;
-		}
-
-		if ( $this->payment_method_registry->is_empty() ) {
-			$this->payment_method_registry->initialize();
-		}
-
-		// Get fresh payment method data for each active gateway
-		$data = array_merge( $data, $this->payment_method_registry->get_payment_method_data( $this->context_handler ) );
-
-		return $data;
-	}
-
-	public function get_cart_refresh_data( $data ) {
-		return array_merge( $data, $this->payment_method_registry->get_payment_method_data( $this->context_handler ) );
-	}
-
-	/**
-	 * @param AssetDataApi $data
-	 *
-	 * @return void
-	 */
-	public function add_cart_refresh_data( $data ) {
-		foreach ( $this->payment_method_registry->get_payment_method_data( $this->context_handler ) as $key => $payment_data ) {
-			$data->add( $key, $payment_data );
-		}
 	}
 
 }

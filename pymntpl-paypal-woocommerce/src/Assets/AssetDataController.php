@@ -29,7 +29,7 @@ class AssetDataController {
 	private $transformer;
 
 	/**
-	 * @param AssetDataApi   $data_api
+	 * @param AssetDataApi $data_api
 	 * @param ContextHandler $context_handler
 	 */
 	public function __construct( AssetDataApi $data_api, ContextHandler $context_handler ) {
@@ -62,7 +62,7 @@ class AssetDataController {
 		/**
 		 * Add script data that's output to frontend pages.
 		 *
-		 * @param AssetDataApi   $data_api        The data API for adding data
+		 * @param AssetDataApi $data_api The data API for adding data
 		 * @param ContextHandler $context_handler The context handler
 		 */
 		do_action( 'wc_ppcp_add_script_data', $this->data_api, $this->context_handler );
@@ -120,7 +120,6 @@ class AssetDataController {
 			$order = Utils::get_order_from_query_vars();
 			if ( $order ) {
 				$this->data_api->add( 'order', $this->transformer->transform_order( $order ) );
-				$this->data_api->add( 'currency', $order->get_currency() );
 			}
 		}
 

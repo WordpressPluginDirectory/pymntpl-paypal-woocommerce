@@ -2,8 +2,6 @@
 
 namespace PaymentPlugins\PPCP\CheckoutWC;
 
-use PaymentPlugins\WooCommerce\PPCP\Assets\AssetsApi;
-
 class PaymentGatewaysController extends \Objectiv\Plugins\Checkout\Compatibility\CompatibilityAbstract {
 
 	/**

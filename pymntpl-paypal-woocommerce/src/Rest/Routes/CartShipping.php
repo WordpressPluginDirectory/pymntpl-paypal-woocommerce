@@ -7,6 +7,7 @@ namespace PaymentPlugins\WooCommerce\PPCP\Rest\Routes;
 use PaymentPlugins\PayPalSDK\Order;
 use PaymentPlugins\PayPalSDK\PatchRequest;
 use PaymentPlugins\PayPalSDK\PurchaseUnit;
+use PaymentPlugins\WooCommerce\PPCP\Assets\PayPalDataTransformer;
 use PaymentPlugins\WooCommerce\PPCP\Constants;
 use PaymentPlugins\WooCommerce\PPCP\Rest\Exceptions\ShippingException;
 use PaymentPlugins\WooCommerce\PPCP\Utils;
@@ -222,21 +223,9 @@ class CartShipping extends AbstractCart {
 		 */
 		$payment_method = $this->get_payment_method_from_request( $request );
 
-		$shipping_method = null;
+		$transformer = new PayPalDataTransformer();
 
-		$methods = WC()->session->get( 'chosen_shipping_methods', [] );
-		foreach ( $methods as $idx => $method ) {
-			$shipping_method = $payment_method->get_shipping_method_id( $method, $idx );
-		}
-
-		return [
-			'total'            => wc_format_decimal( WC()->cart->get_total( 'float' ), 2 ),
-			'currency'         => get_woocommerce_currency(),
-			'display_items'    => $payment_method->get_display_items_for_cart( WC()->cart ),
-			'shipping_options' => $payment_method->get_shipping_options(),
-			'shipping_method'  => $shipping_method,
-			'country_code'     => WC()->countries->get_base_country(),
-		];
+		return $transformer->transform_cart( WC()->cart );
 	}
 
 	/**

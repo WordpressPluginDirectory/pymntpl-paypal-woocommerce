@@ -7,6 +7,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
 use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
 use Automattic\WooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\AbstractGateway;
+use PaymentPlugins\WooCommerce\PPCP\Assets\PayPalDataTransformer;
 
 class SchemaController {
 
@@ -35,6 +36,13 @@ class SchemaController {
 		$data = [
 			'needsSetupToken' => false
 		];
+
+		$cart = WC()->cart;
+
+		$transformer = new PayPalDataTransformer();
+
+		$data['cart'] = $transformer->transform_cart( $cart );
+
 		/**
 		 * @var \PaymentPlugins\WooCommerce\PPCP\PaymentMethodRegistry $ppcp_registry
 		 */

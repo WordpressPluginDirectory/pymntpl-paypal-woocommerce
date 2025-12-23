@@ -21,6 +21,7 @@ class FrontendScripts {
 		$this->assets->register_script( 'wc-ppcp-utils', 'build/js/utils.js' );
 		$this->assets->register_script( 'wc-ppcp-product', 'build/js/product.js' );
 		$this->assets->register_script( 'wc-ppcp-cart', 'build/js/cart.js' );
+		$this->assets->register_script( 'wc-ppcp-order', 'build/js/order.js' );
 		$this->assets->register_script( 'wc-ppcp-actions', 'build/js/actions.js' );
 		$this->assets->register_script( 'wc-ppcp-context', 'build/js/context.js' );
 		$this->assets->register_script( 'wc-ppcp-controllers', 'build/js/controllers.js' );

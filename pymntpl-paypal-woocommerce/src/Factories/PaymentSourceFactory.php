@@ -45,14 +45,29 @@ class PaymentSourceFactory extends AbstractFactory {
 		return $source;
 	}
 
-	public function from_order() {
+	public function from_order( $context = 'one_time' ) {
 		$payment_source = ( new PaymentSource() )->setToken( new Token() );
 
 		$id = $this->order->get_meta( Constants::PAYMENT_METHOD_TOKEN );
 
 		if ( $id ) {
-			$payment_source->token->setId( $this->order->get_meta( Constants::PAYMENT_METHOD_TOKEN ) );
-			$payment_source->token->setType( Token::PAYMENT_METHOD_TOKEN );
+			$key            = $this->payment_method->get_payment_method_type();
+			$payment_source = new PaymentSource( [
+				$key => [
+					'vault_id' => $id,
+				]
+			] );
+
+			if ( $key === 'apple_pay' ) {
+				$payment_source->$key->stored_credential = new \stdClass();
+				if ( $context === 'one_time' ) {
+					$payment_source->$key->stored_credential->payment_initiator = 'MERCHANT';
+					$payment_source->$key->stored_credential->payment_type      = 'UNSCHEDULED';
+				} else {
+					$payment_source->$key->stored_credential->payment_initiator = 'MERCHANT';
+					$payment_source->$key->stored_credential->payment_type      = 'RECURRING';
+				}
+			}
 		} else {
 			$id = $this->order->get_meta( Constants::BILLING_AGREEMENT_ID );
 			if ( ! $id ) {
@@ -110,6 +125,11 @@ class PaymentSourceFactory extends AbstractFactory {
 				if ( $payment_type === 'paypal' ) {
 					$source->$payment_type->attributes->vault->usage_type  = 'MERCHANT';
 					$source->$payment_type->permit_multiple_payment_tokens = true;
+				}
+				if ( $payment_type === 'apple_pay' ) {
+					$source->$payment_type->stored_credential                    = new \stdClass();
+					$source->$payment_type->stored_credential->payment_initiator = 'CUSTOMER';
+					$source->$payment_type->stored_credential->payment_type      = 'RECURRING';
 				}
 				if ( $customer ) {
 					if ( $customer->has_id() ) {

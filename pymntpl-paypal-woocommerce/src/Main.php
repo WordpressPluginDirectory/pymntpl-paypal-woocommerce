@@ -24,6 +24,7 @@ use PaymentPlugins\WooCommerce\PPCP\Integrations\PluginIntegrationsRegistry;
 use PaymentPlugins\WooCommerce\PPCP\Orders\OrderAttributionController;
 use PaymentPlugins\WooCommerce\PPCP\Package\PackageController;
 use PaymentPlugins\WooCommerce\PPCP\Package\PackageRegistry;
+use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\ApplePayGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\CreditCardGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\GooglePayGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\PayPalGateway;
@@ -209,6 +210,14 @@ class Main {
 		} );
 		$this->container->register( GooglePayGateway::class, function ( $container ) {
 			return new GooglePayGateway(
+				$container->get( PaymentHandler::class ),
+				$container->get( Logger::class ),
+				$container->get( AssetsApi::class ),
+				$container->get( TemplateLoader::class )
+			);
+		} );
+		$this->container->register( ApplePayGateway::class, function ( $container ) {
+			return new ApplePayGateway(
 				$container->get( PaymentHandler::class ),
 				$container->get( Logger::class ),
 				$container->get( AssetsApi::class ),

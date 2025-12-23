@@ -61,7 +61,7 @@ class Controller {
 	}
 
 	/**
-	 * @param array     $payment_meta
+	 * @param array $payment_meta
 	 * @param \WC_Order $subscription
 	 */
 	public function add_subscription_payment_meta( $payment_meta, $subscription ) {
@@ -73,7 +73,7 @@ class Controller {
 	}
 
 	/**
-	 * @param string    $payment_method
+	 * @param string $payment_method
 	 * @param \WC_Order $order
 	 */
 	public function get_payment_method( $payment_method, $order ) {
@@ -86,11 +86,11 @@ class Controller {
 
 	/**
 	 * @param \PaymentPlugins\PayPalSDK\PaymentSource $payment_source
-	 * @param \WC_Order                               $order
+	 * @param \WC_Order $order
 	 */
 	public function get_payment_source_from_order( $payment_source, $order ) {
 		// f the payment source token doesn't have an ID, check the integrations.
-		if ( ! $payment_source->getToken()->getId() ) {
+		if ( $payment_source->getToken() && ! $payment_source->getToken()->getId() ) {
 			foreach ( $this->registry->get_registered_integrations() as $integration ) {
 				if ( $integration->is_plugin ) {
 					$payment_source = $integration->get_payment_source_from_order( $payment_source, $order );

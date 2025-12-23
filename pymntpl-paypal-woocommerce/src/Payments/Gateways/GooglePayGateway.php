@@ -5,16 +5,12 @@ namespace PaymentPlugins\WooCommerce\PPCP\Payments\Gateways;
 use PaymentPlugins\WooCommerce\PPCP\ProductSettings;
 use PaymentPlugins\WooCommerce\PPCP\Tokens\CreditCardToken;
 use PaymentPlugins\WooCommerce\PPCP\Traits\CardPaymentNoteTrait;
-use PaymentPlugins\WooCommerce\PPCP\Traits\DisplayItemsTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\ThreeDSecureTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\TokenizationTrait;
-use PaymentPlugins\WooCommerce\PPCP\Utils;
 
 class GooglePayGateway extends AbstractGateway {
 
-	use TokenizationTrait;
 	use ThreeDSecureTrait;
-	use DisplayItemsTrait;
 	use CardPaymentNoteTrait;
 
 	public $id = 'ppcp_googlepay';
@@ -89,29 +85,10 @@ class GooglePayGateway extends AbstractGateway {
 	public function __construct( ...$args ) {
 		parent::__construct( ...$args );
 		$this->method_title       = __( 'Google Pay Gateway By Payment Plugins', 'pymntpl-paypal-woocommerce' );
-		$this->tab_label          = __( 'PayPal Google Pay Settings', 'pymntpl-paypal-woocommerce' );
+		$this->tab_label          = __( 'Google Pay Settings', 'pymntpl-paypal-woocommerce' );
 		$this->icon               = $this->assets->assets_url( 'assets/img/googlepay/' . $this->get_option( 'icon' ) . '.svg' );
 		$this->method_description = __( 'Offer Google Pay through PayPal', 'pymntpl-paypal-woocommerce' );
 		$this->order_button_text  = $this->get_option( 'order_button_text' );
-	}
-
-	public function init_supports( $supports = [] ) {
-		parent::init_supports( $supports );
-		$unsupported    = [
-			'tokenization',
-			'add_payment_method',
-			'subscriptions',
-			'subscription_cancellation',
-			'multiple_subscriptions',
-			'subscription_amount_changes',
-			'subscription_date_changes',
-			'pre-orders',
-			'subscription_payment_method_change_admin',
-			'subscription_reactivation',
-			'subscription_suspension',
-			'subscription_payment_method_change_customer',
-		];
-		$this->supports = array_diff( $this->supports, $unsupported );
 	}
 
 	public function init_form_fields() {
@@ -176,20 +153,20 @@ class GooglePayGateway extends AbstractGateway {
 				'desc_tip'          => true,
 				'description'       => __( 'If the transaction is authorized, this is the status applied to the order.', 'pymntpl-paypal-woocommerce' )
 			],
-			'merchant_name'      => [
+			/*'merchant_name'      => [
 				'title'       => __( 'Merchant Name', 'pymntpl-paypal-woocommerce' ),
 				'type'        => 'text',
 				'default'     => '',
 				'desc_tip'    => true,
 				'description' => __( 'Merchant name encoded as UTF-8. Merchant name is rendered in the payment sheet. In TEST environment, or if a merchant isn\'t recognized, a “Pay Unverified Merchant” message is displayed 
 				in the payment sheet.', 'pymntpl-paypal-woocommerce' )
-			],
+			],*/
 			'order_button_text'  => [
 				'title'       => __( 'Button Text', 'pymntpl-paypal-woocommerce' ),
 				'type'        => 'text',
 				'default'     => '',
 				'desc_tip'    => true,
-				'description' => __( 'The text for the Place Order button when PayPal is selected. Leave blank to use the default WooCommerce text.',
+				'description' => __( 'The text for the Place Order button when Google Pay is selected. Leave blank to use the default WooCommerce text.',
 					'pymntpl-paypal-woocommerce' )
 
 			],
@@ -197,9 +174,9 @@ class GooglePayGateway extends AbstractGateway {
 				'title'             => __( 'Google Pay Payment Sections', 'pymntpl-paypal-woocommerce' ),
 				'type'              => 'multiselect',
 				'class'             => 'wc-enhanced-select',
-				'default'           => [ 'block_checkout', 'cart', 'checkout', 'order_pay' ],
+				'default'           => [ 'cart', 'checkout', 'order_pay' ],
 				'options'           => [
-					'block_checkout'   => __( 'Block Checkout Payment Section', 'pymntpl-paypal-woocommerce' ),
+					'checkout'         => __( 'Checkout Page', 'pymntpl-paypal-woocommerce' ),
 					'product'          => __( 'Product Page', 'pymntpl-paypal-woocommerce' ),
 					'cart'             => __( 'Cart Page', 'pymntpl-paypal-woocommerce' ),
 					'minicart'         => __( 'Minicart', 'pymntpl-paypal-woocommerce' ),
@@ -343,6 +320,16 @@ class GooglePayGateway extends AbstractGateway {
 					return absint( $value );
 				}
 			],
+			'button_height'      => [
+				'type'              => 'slider',
+				'title'             => __( 'Button Height', 'pymntpl-paypal-woocommerce' ),
+				'default'           => 40,
+				'custom_attributes' => [
+					'data-height-min'  => 25,
+					'data-height-max'  => 55,
+					'data-height-step' => 1,
+				]
+			],
 		];
 	}
 
@@ -353,7 +340,8 @@ class GooglePayGateway extends AbstractGateway {
 			[
 				'jquery-ui-sortable',
 				'jquery-ui-widget',
-				'jquery-ui-core'
+				'jquery-ui-core',
+				'jquery-ui-slider'
 			]
 		);
 
@@ -426,12 +414,13 @@ class GooglePayGateway extends AbstractGateway {
 	public function get_payment_method_data( $context ) {
 		$data = [
 			'title'                => $this->get_title(),
+			'sections'             => $this->get_option( 'sections', [] ),
 			'merchant_name'        => $this->get_option( 'merchant_name', get_bloginfo( 'name' ) ),
 			'buttonPlacement'      => $this->get_option( 'checkout_placement', 'place_order' ),
 			'i18n'                 => [
 				'total_price_label' => __( 'Total', 'pymntpl-paypal-woocommerce' ),
 				'unavailable'       => __( 'Google Pay is unavailable at this time.', 'pymntpl-paypal-woocommerce' ),
-				'unavailable_admin' => __( 'Google Pay is unavailable at this time.', 'pymntpl-paypal-woocommerce' )
+				'unavailable_admin' => __( 'Google Pay is unavailable at this time. Login to developer.paypal.com > Apps & Credentials and click your application. Under "Features" check "Google Pay".', 'pymntpl-paypal-woocommerce' )
 			],
 			'button'               => [
 				'buttonColor'      => $this->get_option( 'button_color', 'default' ),
@@ -439,116 +428,14 @@ class GooglePayGateway extends AbstractGateway {
 				'buttonBorderType' => $this->get_option( 'button_border', 'default_border' ),
 				'buttonSizeMode'   => $this->get_option( 'button_size', 'fill' ),
 				'buttonRadius'     => absint( $this->get_option( 'button_radius', 4 ) ),
-				'buttonLocale'     => $this->get_payment_button_locale()
+				'buttonLocale'     => $this->get_payment_button_locale(),
+				'buttonHeight'     => $this->get_option( 'button_height', 40 ) . 'px',
 			],
-			'total_price'          => 0,
-			'display_items'        => [],
-			'shipping_options'     => [],
-			'shipping_method'      => $this->get_selected_shipping_method(),
-			'currency_code'        => get_woocommerce_currency(),
 			'country_code'         => WC()->countries ? WC()->countries->get_base_country() : wc_get_base_location()['country'],
 			'supported_currencies' => $this->get_supported_currencies()
 		];
-		if ( $context->is_checkout() || $context->is_cart() || $context->is_shop() ) {
-			$cart                     = WC()->cart;
-			$data['total_price']      = wc_format_decimal( $cart->get_total( 'float' ), 2 );
-			$data['display_items']    = $this->get_display_items_for_cart( $cart );
-			$data['shipping_options'] = $this->get_shipping_options();
-		} elseif ( $context->is_order_pay() ) {
-			$order                    = $context->get_order_from_query();
-			$data['currency_code']    = $order->get_currency();
-			$data['total_price']      = wc_format_decimal( $order->get_total(), 2 );
-			$data['display_items']    = $this->get_display_items_for_order( $order );
-			$data['shipping_options'] = [];
-		} elseif ( $context->is_product() ) {
-			global $product;
-			if ( ! $product instanceof \WC_Product ) {
-				$product_id = Utils::get_queried_product_id();
-				$product    = wc_get_product( $product_id );
-			}
-			if ( $product instanceof \WC_Product ) {
-				$data['total_price']      = wc_format_decimal( wc_get_price_to_display( $product ), 2 );
-				$data['display_items']    = $this->get_display_items_for_product( $product );
-				$data['shipping_options'] = $this->get_shipping_options();
-			}
-		} else {
-			if ( WC()->cart ) {
-				$cart                     = WC()->cart;
-				$data['total_price']      = wc_format_decimal( $cart->get_total( 'float' ), 2 );
-				$data['display_items']    = $this->get_display_items_for_cart( $cart );
-				$data['shipping_options'] = $this->get_shipping_options();
-			}
-		}
 
 		return $data;
-	}
-
-	/**
-	 * Format a single display item for Google Pay
-	 * Required by DisplayItemsTrait
-	 *
-	 * @param float $price
-	 * @param string $label
-	 * @param string $type
-	 *
-	 * @return array
-	 */
-	protected function get_display_item( $price, $label, $type ) {
-		switch ( $type ) {
-			case 'tax':
-				$type = 'TAX';
-				break;
-			default:
-				$type = 'LINE_ITEM';
-				break;
-		}
-
-		return [
-			'label' => $label,
-			'type'  => $type,
-			'price' => wc_format_decimal( $price, 2 )
-		];
-	}
-
-	/**
-	 * Format display item for a product
-	 * Required by DisplayItemsTrait
-	 *
-	 * @param \WC_Product $product
-	 *
-	 * @return array
-	 */
-	protected function get_display_item_for_product( $product ) {
-		return [
-			'label' => esc_attr( $product->get_name() ),
-			'type'  => 'SUBTOTAL',
-			'price' => wc_format_decimal( $product->get_price(), 2 )
-		];
-	}
-
-	/**
-	 * Format a single shipping option for Google Pay
-	 * Required by DisplayItemsTrait
-	 *
-	 * @param float $price The price/amount for this shipping method
-	 * @param \WC_Shipping_Rate $rate The shipping rate object
-	 * @param int $index The package index
-	 * @param array $package The shipping package
-	 * @param bool $incl_tax Whether prices include tax
-	 *
-	 * @return array
-	 */
-	public function get_shipping_option( $price, $rate, $index, $package, $incl_tax ) {
-		$description = $rate->get_description();
-		if ( ! $description && $rate->get_delivery_time() ) {
-			$description = $rate->get_delivery_time();
-		}
-
-		return [
-			'id'          => $this->get_shipping_method_id( $rate->id, $index ),
-			'label'       => $this->get_formatted_shipping_label( $price, $rate, $incl_tax ),
-			'description' => $description
-		];
 	}
 
 	/**

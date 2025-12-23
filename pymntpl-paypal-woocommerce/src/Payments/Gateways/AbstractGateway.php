@@ -133,6 +133,14 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 		return in_array( $key, $this->get_option( 'sections', [] ) );
 	}
 
+	/**
+	 * @return bool
+	 * @since 2.0.1
+	 */
+	public function is_checkout_section_enabled() {
+		return $this->is_section_enabled( 'checkout' );
+	}
+
 	public function is_cart_section_enabled() {
 		return $this->is_section_enabled( 'cart' );
 	}

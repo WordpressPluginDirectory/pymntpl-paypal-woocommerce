@@ -231,12 +231,11 @@ class PaymentHandler extends LegacyPaymentHandler {
 
 		if ( $this->payment_method->supports( 'vault' ) ) {
 			if ( $this->payment_method->should_use_saved_payment_method() ) {
-				$id             = $this->payment_method->get_saved_payment_method_token_id_from_request( $order );
-				$payment_source = ( new PaymentSource() )
-					->setToken( ( new Token() )->setId( $id )->setType( Token::PAYMENT_METHOD_TOKEN ) );
-				$paypal_order->setPaymentSource( $payment_source );
+				$id = $this->payment_method->get_saved_payment_method_token_id_from_request( $order );
 				$this->payment_method->set_payment_token_id( $id );
-				$order->update_meta_data( Constants::PAYMENT_METHOD_TOKEN, $this->payment_method->get_payment_token_id() );
+				$order->update_meta_data( Constants::PAYMENT_METHOD_TOKEN, $id );
+				$payment_source = $this->factories->paymentSource->from_order();
+				$paypal_order->setPaymentSource( $payment_source );
 			} else {
 				$paypal_order->setPaymentSource( $this->factories->paymentSource->from_checkout() );
 			}
