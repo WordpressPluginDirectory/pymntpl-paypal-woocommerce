@@ -295,10 +295,11 @@ class CartShipping extends AbstractCart {
 			$shipping_methods = [ $shipping_methods ];
 		}
 
-		foreach ( $shipping_methods as $method ) {
+		foreach ( $shipping_methods as $idx => $method ) {
 			// Parse format: "0:flat_rate:1" -> index: 0, id: flat_rate:1
-			if ( preg_match( '/^(?P<index>[\w]+):(?P<id>.+)$/', $method, $matches ) ) {
-				$index                             = $matches['index'];
+			// Or format: "flat_rate:1" -> use $idx as index, id: flat_rate:1
+			if ( preg_match( '/^(?:(?P<index>\d+):)?(?P<id>.+)$/', $method, $matches ) ) {
+				$index                             = $matches['index'] !== '' ? $matches['index'] : $idx;
 				$id                                = $matches['id'];
 				$chosen_shipping_methods[ $index ] = $id;
 			}
