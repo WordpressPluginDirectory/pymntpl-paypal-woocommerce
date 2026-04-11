@@ -32,6 +32,7 @@ class Controller {
 		$this->registry->register( $container->get( WooCommercePayPalCheckoutGateway::class ) );
 		$this->registry->register( $container->get( WooCommercePayPalAngellEYE::class ) );
 		$this->registry->register( $container->get( WooCommercePPCPAngellEYE::class ) );
+		$this->registry->register( $container->get( CheckoutPluginsPayPalWooCommerce::class ) );
 	}
 
 	/**
@@ -58,10 +59,15 @@ class Controller {
 				$container->get( PayPalClient::class )
 			);
 		} );
+		$container->register( CheckoutPluginsPayPalWooCommerce::class, function ( $container ) {
+			return new CheckoutPluginsPayPalWooCommerce(
+				$container->get( PayPalClient::class )
+			);
+		} );
 	}
 
 	/**
-	 * @param array $payment_meta
+	 * @param array     $payment_meta
 	 * @param \WC_Order $subscription
 	 */
 	public function add_subscription_payment_meta( $payment_meta, $subscription ) {
@@ -73,7 +79,7 @@ class Controller {
 	}
 
 	/**
-	 * @param string $payment_method
+	 * @param string    $payment_method
 	 * @param \WC_Order $order
 	 */
 	public function get_payment_method( $payment_method, $order ) {
@@ -86,7 +92,7 @@ class Controller {
 
 	/**
 	 * @param \PaymentPlugins\PayPalSDK\PaymentSource $payment_source
-	 * @param \WC_Order $order
+	 * @param \WC_Order                               $order
 	 */
 	public function get_payment_source_from_order( $payment_source, $order ) {
 		// f the payment source token doesn't have an ID, check the integrations.

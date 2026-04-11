@@ -4,6 +4,7 @@ namespace PaymentPlugins\WooCommerce\PPCP\Payments\Gateways;
 
 use PaymentPlugins\PPCP\WooCommercePreOrders\Traits\PreOrdersTrait;
 use PaymentPlugins\PPCP\WooCommerceSubscriptions\Traits\SubscriptionTrait;
+use PaymentPlugins\WooCommerce\PPCP\ProductSettings;
 use PaymentPlugins\WooCommerce\PPCP\Tokens\CreditCardToken;
 use PaymentPlugins\WooCommerce\PPCP\Traits\CardPaymentNoteTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\ThreeDSecureTrait;
@@ -344,6 +345,7 @@ class ApplePayGateway extends AbstractGateway {
 				'radius' => $this->get_option( 'button_radius', '4' ) . 'px',
 				'height' => $this->get_option( 'button_height', '40' ) . 'px',
 			],
+			'sections'             => $this->get_option( 'sections', [] ),
 			'display_name'         => $this->get_option( 'display_name', get_bloginfo( 'name' ) ),
 			'html'                 => [
 				'button' => $this->template_loader->load_template_html( 'applepay/button.php' )
@@ -393,5 +395,21 @@ class ApplePayGateway extends AbstractGateway {
         </tr>
 		<?php
 		return ob_get_clean();
+	}
+
+	public function is_product_section_enabled( $product ) {
+		$setting = new ProductSettings( $product );
+
+		return \wc_string_to_bool( $setting->get_option( 'applepay_enabled', 'no' ) );
+	}
+
+	public function get_product_form_fields( $fields ) {
+		return array_merge( $fields, [
+			'applepay_enabled' => [
+				'title'   => __( 'Apple Pay Enabled', 'pymntpl-paypal-woocommerce' ),
+				'type'    => 'checkbox',
+				'default' => in_array( 'product', (array) $this->get_option( 'sections', [] ) ) ? 'yes' : 'no'
+			],
+		] );
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace PaymentPlugins\WooCommerce\PPCP;
+namespace PaymentPlugins\WooCommerce\PPCP\Orders;
 
 
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\AdvancedSettings;

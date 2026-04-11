@@ -250,9 +250,15 @@ class PayPalDataTransformer {
 
 		foreach ( $packages as $i => $package ) {
 			foreach ( $package['rates'] as $rate ) {
+				/**
+				 * @var \WC_Shipping_Rate $rate
+				 */
 				$cost        = (float) $rate->get_cost();
 				$price       = $incl_tax ? $cost + (float) $rate->get_shipping_tax() : $cost;
-				$description = $rate->get_description();
+				$description = '';
+				if ( method_exists( $rate, 'get_description' ) ) {
+					$description = $rate->get_description();
+				}
 				if ( ! $description && method_exists( $rate, 'get_delivery_time' ) ) {
 					$description = $rate->get_delivery_time();
 				}
