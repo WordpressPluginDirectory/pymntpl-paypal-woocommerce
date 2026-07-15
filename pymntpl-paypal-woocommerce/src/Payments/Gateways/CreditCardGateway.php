@@ -8,12 +8,14 @@ use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\AdvancedSettings;
 use PaymentPlugins\WooCommerce\PPCP\Tokens\CreditCardToken;
 use PaymentPlugins\WooCommerce\PPCP\Traits\CardPaymentNoteTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\TokenizationTrait;
+use PaymentPlugins\WooCommerce\PPCP\Traits\VaultSetupTokenTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\VaultTokenTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\ThreeDSecureTrait;
 
 class CreditCardGateway extends AbstractGateway {
 
 	use VaultTokenTrait;
+	use VaultSetupTokenTrait;
 	use TokenizationTrait;
 	use ThreeDSecureTrait;
 	use CardPaymentNoteTrait;
@@ -199,7 +201,7 @@ class CreditCardGateway extends AbstractGateway {
 				'type'        => 'checkbox',
 				'default'     => 'no',
 				'value'       => 'yes',
-				'description' => __( 'Available for US PayPal Business accounts. When enabled, Fastlane by PayPal will be available on the checkout page.', 'pymntpl-paypal-woocommerce' )
+				'description' => __( 'When enabled, Fastlane by PayPal will be available on the checkout page.', 'pymntpl-paypal-woocommerce' )
 			],
 			'fastlane_flow'            => [
 				'title'             => __( 'Fastlane Type', 'pymntpl-paypal-woocommerce' ),

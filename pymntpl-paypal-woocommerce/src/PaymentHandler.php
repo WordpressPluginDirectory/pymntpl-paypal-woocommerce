@@ -9,7 +9,6 @@ use PaymentPlugins\PayPalSDK\Order;
 use PaymentPlugins\PayPalSDK\PatchRequest;
 use PaymentPlugins\PayPalSDK\PaymentSource;
 use PaymentPlugins\PayPalSDK\PurchaseUnit;
-use PaymentPlugins\PayPalSDK\ShippingAddress;
 use PaymentPlugins\PayPalSDK\Token;
 use PaymentPlugins\WooCommerce\PPCP\Cache\CacheInterface;
 use PaymentPlugins\WooCommerce\PPCP\Exception\RetryException;
@@ -71,11 +70,20 @@ class PaymentHandler extends LegacyPaymentHandler {
 			if ( ! $paypal_order ) {
 				$needs_update = true;
 				$paypal_order = $this->client->orderMode( $order )->orders->retrieve( $paypal_order_id );
-				$this->validate_paypal_order( $paypal_order, $order );
 			}
 			if ( is_wp_error( $paypal_order ) ) {
+				/**
+				 * @var \WP_Error $paypal_order
+				 */
+				if ( 'INVALID_RESOURCE_ID' === $paypal_order->get_error_code() ) {
+					$this->cache->delete( sprintf( '%s_%s', $this->payment_method->id, Constants::PAYPAL_ORDER_ID ) );
+					throw new RetryException( 'Create new order' );
+				}
 				throw new \Exception( $paypal_order->get_error_message() );
 			}
+
+			$this->validate_paypal_order( $paypal_order, $order );
+
 			$paypal_order_id = $paypal_order->getId();
 
 			if ( ! $paypal_order->isComplete() ) {
@@ -230,23 +238,19 @@ class PaymentHandler extends LegacyPaymentHandler {
 			unset( $purchase_unit->items );
 		}
 
-		if ( $this->payment_method->supports( 'vault' ) ) {
-			if ( $this->payment_method->should_use_saved_payment_method() ) {
-				$id = $this->payment_method->get_saved_payment_method_token_id_from_request( $order );
-				$this->payment_method->set_payment_token_id( $id );
-				$order->update_meta_data( Constants::PAYMENT_METHOD_TOKEN, $id );
-				$payment_source = $this->factories->paymentSource->from_order();
-				$paypal_order->setPaymentSource( $payment_source );
-			} else {
-				$paypal_order->setPaymentSource( $this->factories->paymentSource->from_checkout() );
-			}
+		if ( $this->payment_method->supports( 'vault' ) && $this->payment_method->should_use_saved_payment_method() ) {
+			$id = $this->payment_method->get_saved_payment_method_token_id_from_request( $order );
+			$this->payment_method->set_payment_token_id( $id );
+			$order->update_meta_data( Constants::PAYMENT_METHOD_TOKEN, $id );
+			$payment_source = $this->factories->paymentSource->from_order();
+			$paypal_order->setPaymentSource( $payment_source );
+		} elseif ( $this->use_billing_agreement ) {
+			$id             = $order->get_meta( Constants::BILLING_AGREEMENT_ID );
+			$payment_source = ( new PaymentSource() )
+				->setToken( ( new Token() )->setId( $id )->setType( Token::BILLING_AGREEMENT ) );
+			$paypal_order->setPaymentSource( $payment_source );
 		} else {
-			if ( $this->use_billing_agreement ) {
-				$id             = $order->get_meta( Constants::BILLING_AGREEMENT_ID );
-				$payment_source = ( new PaymentSource() )
-					->setToken( ( new Token() )->setId( $id )->setType( Token::BILLING_AGREEMENT ) );
-				$paypal_order->setPaymentSource( $payment_source );
-			}
+			$paypal_order->setPaymentSource( $this->factories->paymentSource->from_checkout() );
 		}
 
 		return apply_filters( 'wc_ppcp_create_order_params', $paypal_order, $order, $this );
@@ -436,7 +440,7 @@ class PaymentHandler extends LegacyPaymentHandler {
 		return $this->current_status === $status;
 	}
 
-	protected function get_payment_method_token_from_paypal_order( Order $order ) {
+	public function get_payment_method_token_from_paypal_order( Order $order ) {
 		$token = $this->payment_method->get_payment_method_token_instance();
 		$token->initialize_from_paypal_order( $order );
 		if ( ! $token->get_token() && $this->payment_method->supports( 'vault' ) ) {
@@ -460,9 +464,37 @@ class PaymentHandler extends LegacyPaymentHandler {
 	 * @throws \Exception
 	 */
 	private function validate_paypal_order( $paypal_order, $order ) {
-		// Only validate orders with a CREATED status because that means they haven't been approved yet.
-		// An order with an APPROVED status means the customer clicked complete payment in the PayPal popup
-		if ( $paypal_order instanceof Order && ! $paypal_order->isComplete() ) {
+		if ( ! $paypal_order instanceof Order ) {
+			return;
+		}
+		// Validate if this is a COMPLETED PayPal order. If it is, compare the PayPal order's custom_id
+		// to the WooCommerce order ID. If they don't match, reject this request.
+		if ( $paypal_order->isComplete() ) {
+			$ids_match = false;
+			foreach ( $paypal_order->getPurchaseUnits() as $purchase_unit ) {
+				/**
+				 * @var PurchaseUnit $purchase_unit
+				 */
+				$custom_id = $purchase_unit->getCustomId();
+				if ( (int) $custom_id === (int) $order->get_id() ) {
+					$ids_match = true;
+					break;
+				}
+			}
+			// If the custom_id didn't match the WC_Order ID then throw an exception.
+			if ( ! $ids_match ) {
+				throw new \Exception(
+					sprintf(
+						__( 'PayPal order %1$s has already been completed and does not match store order ID %2$s.', 'pymntpl-paypal-woocommerce' ),
+						$paypal_order->getId(),
+						$order->get_id()
+					)
+				);
+			}
+		}
+
+		// Skip gateway validation for already-completed orders; those are handled by the ID check above.
+		if ( ! $paypal_order->isComplete() ) {
 			$this->payment_method->validate_paypal_order( $paypal_order, $order );
 		}
 	}

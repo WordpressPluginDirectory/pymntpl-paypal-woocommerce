@@ -276,6 +276,8 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 				throw new \Exception( __( 'This payment method does not supports vaulting.', 'pymntpl-paypal-woocommerce' ) );
 			}
 
+			do_action( 'wc_ppcp_before_add_payment_method', $this );
+
 			$payment_token_id = $this->get_payment_token_id_from_request();
 
 			if ( ! $payment_token_id ) {
@@ -423,6 +425,14 @@ abstract class AbstractGateway extends \WC_Payment_Gateway {
 
 	public function get_payment_method_type() {
 		return $this->payment_method_type;
+	}
+
+	/**
+	 * Returns the experience_context keys this gateway supports.
+	 * ExperienceContextFactory only builds keys present in this list.
+	 */
+	public function get_experience_context_keys(): array {
+		return [ 'return_url', 'cancel_url' ];
 	}
 
 	public function add_payment_complete_note( \WC_Order $order, PaymentResult $result ) {

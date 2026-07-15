@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '2.0.14.x-dev',
-        'version' => '2.0.14.9999999-dev',
-        'reference' => 'a36cab0b1b1da6f47b9a33744753401b7f60e614',
+        'pretty_version' => '2.0.23.x-dev',
+        'version' => '2.0.23.9999999-dev',
+        'reference' => 'a04d2e6b2308b642b49191d90cd5ae2e7fb978a8',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '2.0.14.x-dev',
-            'version' => '2.0.14.9999999-dev',
-            'reference' => 'a36cab0b1b1da6f47b9a33744753401b7f60e614',
+            'pretty_version' => '2.0.23.x-dev',
+            'version' => '2.0.23.9999999-dev',
+            'reference' => 'a04d2e6b2308b642b49191d90cd5ae2e7fb978a8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'paymentplugins/paypal-php-sdk' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '56757ccf50ce74a13d4cc0083367255951e964db',
+            'reference' => '633eead6e7f487f16d67a0ab0f1c2cad993ab005',
             'type' => 'library',
             'install_path' => __DIR__ . '/../paymentplugins/paypal-php-sdk',
             'aliases' => array(

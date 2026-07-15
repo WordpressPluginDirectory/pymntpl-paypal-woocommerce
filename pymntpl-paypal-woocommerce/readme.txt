@@ -4,7 +4,7 @@ Tags: paypal, paylater, venmo, credit cards
 Requires at least: 4.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.14
+Stable tag: 2.0.23
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,29 @@ Our documentation has a step-by-step guide on how to connect the plugin to your 
 Payment Plugins is the team behind several of the highest reviewed and installed Payment integrations for WooCommerce.
 
 == Changelog ==
+= 2.0.23 - 07/15/26 =
+* [2.0.23 Change Log](https://paymentplugins.com/documentation/paypal/releases/2.0.23/)
+= 2.0.22 - 07/08/26 =
+* [2.0.22 Change Log](https://paymentplugins.com/documentation/paypal/releases/2.0.22/)
+= 2.0.21 - 07/06/26 =
+* [2.0.21 Change Log](https://paymentplugins.com/documentation/paypal/releases/2.0.21/)
+= 2.0.20 - 07/02/26 =
+* [2.0.20 Change Log](https://paymentplugins.com/documentation/paypal/releases/2.0.20/)
+= 2.0.19 - 06/11/26 =
+* Added - reCAPTCHA V3 integration to help mitigate carding attacks and bot related fraud activity. This new feature can be enabled on the Advanced Settings page.
+* Updated - When adding the tracking number on the order details page, shipping carriers can now be filtered by shipping country
+* Updated - CSS for PayPal grouped buttons on cart and checkout block. Depending on the theme, the buttons were appearing without any spacing.
+* Updated - The action wc_ppcp_validate_checkout_fields is now triggered on product and cart pages when express checkout is used. Prior to 2.0.19 it was only triggered on checkout page initiated payments.
+= 2.0.18 - 06/03/26 =
+* Updated - WooCommerce tested up to: 10.8
+= 2.0.17 - 05/12/26 =
+* Fixed - Shipping options were not showing in wallet based payment methods for free trial subscriptions that have a signup fee configured
+= 2.0.16 - 05/07/26 =
+* Fixed - Make sure the core plugin style sheet is loaded if the "Use place order button" option is enabled. [https://wordpress.org/support/topic/use-a-new-payment-method-radio-button-on-checkout/](https://wordpress.org/support/topic/use-a-new-payment-method-radio-button-on-checkout/)
+* Updated - Deprecate the AjaxFrontendHandler class as it's no longer needed.
+= 2.0.15 - 04/29/26 =
+* Added - Support for the new WooCommerce interactivity mini-cart introduced in WooCommerce 10.4. PayPal, Google Pay, and Apple Pay payment buttons are supported.
+* Updated - Reduced JS file sizes on product, cart shortcode, and checkout shortcode by 68% resulting in faster frontend page loads
 = 2.0.14 - 04/10/26 =
 * Updated - WP 7.0
 * Fixed - Added authorization check to the admin webhook registration REST endpoint per security best practices.

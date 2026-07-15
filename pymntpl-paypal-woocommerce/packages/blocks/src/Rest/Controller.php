@@ -17,8 +17,8 @@ class Controller {
 	 */
 	public function update_order_before_create( $order, $request ) {
 		if ( ! empty( $request['address_provided'] ) ) {
-			$context = $order->getApplicationContext();
-			if ( $context->getShippingPreference() === OrderApplicationContext::GET_FROM_FILE ) {
+			$context = $order->getPaymentSource()->getExperienceContext();
+			if ( $context && $context->getShippingPreference() === OrderApplicationContext::GET_FROM_FILE ) {
 				$purchase_unit = $order->getPurchaseUnits()->get( 0 );
 				if ( ! $purchase_unit->getShipping() || ! $purchase_unit->getShipping()->getAddress() ) {
 					$context->setShippingPreference( OrderApplicationContext::NO_SHIPPING );

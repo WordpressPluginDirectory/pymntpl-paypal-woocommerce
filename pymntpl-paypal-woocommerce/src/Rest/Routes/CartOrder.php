@@ -24,10 +24,10 @@ class CartOrder extends AbstractCart {
 	 */
 	private $checkout_validator;
 
-	public function __construct( AdvancedSettings $settings, ...$args ) {
+	public function __construct( AdvancedSettings $settings, CheckoutValidator $checkout_validator, ...$args ) {
 		parent::__construct( ...$args );
 		$this->settings           = $settings;
-		$this->checkout_validator = new CheckoutValidator();
+		$this->checkout_validator = $checkout_validator;
 	}
 
 	public function get_path() {
@@ -57,12 +57,7 @@ class CartOrder extends AbstractCart {
 			$this->update_customer_data( WC()->customer, $request );
 
 			if ( $this->settings->is_shipping_address_disabled() ) {
-				add_action( 'wc_ppcp_get_order_from_cart', function ( Order $order ) {
-					// If the application context is allowing the address to be changed, override that.
-					if ( $order->getApplicationContext()->getShippingPreference() === OrderApplicationContext::GET_FROM_FILE ) {
-						$order->getApplicationContext()->setShippingPreference( OrderApplicationContext::SET_PROVIDED_ADDRESS );
-					}
-				} );
+				$this->factories->experienceContext->set_shipping_preference( 'SET_PROVIDED_ADDRESS' );
 			}
 		}
 		$this->populate_post_data( $request );
@@ -75,17 +70,10 @@ class CartOrder extends AbstractCart {
 				throw new \Exception( __( 'Invalid payment method provided.', 'pymntpl-paypal-woocommerce' ) );
 			}
 
-			if ( $this->is_checkout_initiated( $request ) ) {
-				if ( $this->is_checkout_validation_enabled( $request ) && $request->get_param( 'payment_method' ) === 'ppcp' ) {
-					$this->checkout_validator->validate_checkout( $request );
-				}
-				/**
-				 * 3rd party code can use this action to perform custom validations.
-				 *
-				 * @since 1.0.31
-				 */
-				do_action( 'wc_ppcp_validate_checkout_fields', $request, $this->checkout_validator );
-			}
+			$this->checkout_validator->run(
+				$request,
+				$this->is_checkout_initiated( $request ) && $this->is_checkout_validation_enabled( $request ) && $request->get_param( 'payment_method' ) === 'ppcp'
+			);
 
 			$result = $this->client->orders->create( $order );
 			if ( is_wp_error( $result ) ) {
@@ -98,7 +86,8 @@ class CartOrder extends AbstractCart {
 				throw new \Exception( $result->get_error_message() );
 			}
 			$this->cache->set( sprintf( '%s_%s', $payment_method->id, Constants::PAYPAL_ORDER_ID ), $result->id );
-			$this->cache->set( Constants::SHIPPING_PREFERENCE, $order->getApplicationContext()->getShippingPreference() );
+			$experience_context = $order->getPaymentSource()->getExperienceContext();
+			$this->cache->set( Constants::SHIPPING_PREFERENCE, $experience_context ? $experience_context->getShippingPreference() : null );
 
 			$this->logger->info(
 				sprintf( 'PayPal order created via %s. Args: %s', __METHOD__, print_r( $result->toArray(), true ) ),

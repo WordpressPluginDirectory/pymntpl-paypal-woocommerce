@@ -3,6 +3,7 @@
 
 namespace PaymentPlugins\WooCommerce\PPCP\Payments\Gateways;
 
+use PaymentPlugins\PayPalSDK\Order;
 use PaymentPlugins\PayPalSDK\OrderApplicationContext;
 use PaymentPlugins\PPCP\WooCommercePreOrders\Traits\PreOrdersTrait;
 use PaymentPlugins\PPCP\WooCommerceSubscriptions\Traits\SubscriptionTrait;
@@ -15,7 +16,9 @@ use PaymentPlugins\WooCommerce\PPCP\ProductSettings;
 use PaymentPlugins\WooCommerce\PPCP\Tokens\PayPalToken;
 use PaymentPlugins\WooCommerce\PPCP\Traits\BillingAgreementTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\TokenizationTrait;
+use PaymentPlugins\WooCommerce\PPCP\Traits\VaultSetupTokenTrait;
 use PaymentPlugins\WooCommerce\PPCP\Traits\VaultTokenTrait;
+use PaymentPlugins\WooCommerce\PPCP\Utilities\ShippingUtil;
 use PaymentPlugins\WooCommerce\PPCP\Utils;
 
 /**
@@ -27,6 +30,7 @@ class PayPalGateway extends AbstractGateway {
 
 	use TokenizationTrait;
 	use VaultTokenTrait;
+	use VaultSetupTokenTrait;
 	use BillingAgreementTrait;
 	use SubscriptionTrait;
 	use PreOrdersTrait;
@@ -208,6 +212,24 @@ class PayPalGateway extends AbstractGateway {
 				'value'       => 'yes',
 				'desc_tip'    => true,
 				'description' => __( 'If enabled, only payments which settle immediately will be available.', 'pymntpl-paypal-woocommerce' )
+			],
+			'shipping_options_title'        => [
+				'type'  => 'title',
+				'title' => __( 'Shipping Options', 'pymntpl-paypal-woocommerce' )
+			],
+			'server_side_shipping_callback' => [
+				'title'             => __( 'Server-Side Shipping Callback', 'pymntpl-paypal-woocommerce' ),
+				'type'              => 'checkbox',
+				'default'           => ShippingUtil::is_session_handler_available() ? 'yes' : 'no',
+				'value'             => 'yes',
+				'desc_tip'          => false,
+				'custom_attributes' => ShippingUtil::is_session_handler_available() ? [] : [ 'disabled' => 'disabled' ],
+				'description'       => ShippingUtil::is_session_handler_available()
+					? sprintf(
+						__( 'If enabled, PayPal will use a server-side callback to update shipping options and totals when the customer changes their shipping address or selects a shipping method in the PayPal popup. If disabled, the plugin will use the browser-based onShippingChange event supported by PayPal. Read more about this option %1$shere%2$s.', 'pymntpl-paypal-woocommerce' ),
+						'<a href="https://paymentplugins.com/documentation/paypal/paypal-settings/#shipping-options" target="_blank">', '</a>'
+					)
+					: __( 'Server-side shipping callbacks require WooCommerce 7.7 or higher. Please update WooCommerce to enable this feature.', 'pymntpl-paypal-woocommerce' ),
 			],
 			'button_options'                => [
 				'type'  => 'title',
@@ -428,6 +450,10 @@ class PayPalGateway extends AbstractGateway {
 
 			return [ 'wc-ppcp-checkout-gateway' ];
 		}
+		/**
+		 * Added in 2.0.16 to ensure styling is enqueued even if no JS scripts are needed.
+		 */
+		wp_enqueue_style( 'wc-ppcp-style' );
 
 		return [];
 	}
@@ -489,19 +515,19 @@ class PayPalGateway extends AbstractGateway {
 	 */
 	public function get_payment_method_data( $context ) {
 		$data = [
-			'title'                => $this->get_title(),
-			'sections'             => $this->get_option( 'sections', [] ),
-			'needsSetupToken'      => $context->is_add_payment_method(),
-			'funding'              => array_values( array_filter( $this->get_funding_types(), function ( $source ) {
+			'title'                      => $this->get_title(),
+			'sections'                   => $this->get_option( 'sections', [] ),
+			'needsSetupToken'            => $context->is_add_payment_method(),
+			'funding'                    => array_values( array_filter( $this->get_funding_types(), function ( $source ) {
 				if ( $source === 'paypal' ) {
 					return wc_string_to_bool( $this->get_option( "enabled" ) );
 				}
 
 				return wc_string_to_bool( $this->get_option( "{$source}_enabled" ) );
 			} ) ),
-			'buttons_order'        => $this->get_option( 'buttons_order' ),
-			'buttonPlacement'      => $this->get_option( 'checkout_placement' ),
-			'buttons'              => [
+			'buttons_order'              => $this->get_option( 'buttons_order' ),
+			'buttonPlacement'            => $this->get_option( 'checkout_placement' ),
+			'buttons'                    => [
 				'paypal'   => [
 					'layout' => 'vertical',
 					'label'  => $this->get_option( 'button_label' ),
@@ -530,13 +556,15 @@ class PayPalGateway extends AbstractGateway {
 					'height' => (int) $this->get_option( 'button_height' )
 				]
 			],
-			'paypal_sections'      => array_merge( $this->get_option( 'sections', [] ), [
+			'paypal_sections'            => array_merge( $this->get_option( 'sections', [] ), [
 				'add_payment_method'
 			] ),
-			'paylater_sections'    => $this->get_option( 'paylater_sections', [] ),
-			'credit_card_sections' => $this->get_option( 'credit_card_sections', [] ),
-			'venmo_sections'       => $this->get_option( 'venmo_sections', [] ),
-			'placeOrderEnabled'    => $this->is_place_order_button() && ! $context->is_add_payment_method()
+			'paylater_sections'          => $this->get_option( 'paylater_sections', [] ),
+			'credit_card_sections'       => $this->get_option( 'credit_card_sections', [] ),
+			'venmo_sections'             => $this->get_option( 'venmo_sections', [] ),
+			'placeOrderEnabled'          => $this->is_place_order_button() && ! $context->is_add_payment_method(),
+			'serverSideShippingCallback' => ShippingUtil::is_server_side_callback_supported()
+			                                && \wc_string_to_bool( $this->get_option( 'server_side_shipping_callback', 'yes' ) ),
 		];
 		// If vault is not enabled, make sure checkout is always enabled since that is how it used to work.
 		if ( $context->is_checkout() && $this->supports( 'billing_agreement' ) ) {
@@ -660,7 +688,7 @@ class PayPalGateway extends AbstractGateway {
 
 	/**
 	 * @param \PaymentPlugins\WooCommerce\PPCP\PayPalQueryParams $query_params
-	 * @param \PaymentPlugins\WooCommerce\PPCP\ContextHandler $context
+	 * @param \PaymentPlugins\WooCommerce\PPCP\ContextHandler    $context
 	 */
 	public function add_query_params( PayPalQueryParams $query_params, $context ) {
 		if ( $query_params->flow === 'checkout' ) {
@@ -705,7 +733,7 @@ class PayPalGateway extends AbstractGateway {
 
 	/**
 	 * @param \PaymentPlugins\PayPalSDK\Order $paypal_order
-	 * @param \WC_Order $order
+	 * @param \WC_Order                       $order
 	 *
 	 * @return void
 	 */
@@ -715,7 +743,10 @@ class PayPalGateway extends AbstractGateway {
 		}
 		$factories = wc_ppcp_get_container()->get( CoreFactories::class );
 		$factories->initialize( $order );
-		$cache               = wc_ppcp_get_container()->get( CacheHandler::class );
+		$cache = wc_ppcp_get_container()->get( CacheHandler::class );
+		/**
+		 * @var Order $new_order
+		 */
 		$new_order           = $factories->order->from_order( $this->get_option( 'intent' ) );
 		$shipping_preference = $cache->get( Constants::SHIPPING_PREFERENCE );
 		/**
@@ -724,8 +755,8 @@ class PayPalGateway extends AbstractGateway {
 		 * should be created. This ensures the shipping address can't be edited on the PayPal redirect based payment page.
 		 */
 		if ( $shipping_preference === OrderApplicationContext::GET_FROM_FILE ) {
-			if ( $new_order->getApplicationContext()->getShippingPreference() === OrderApplicationContext::SET_PROVIDED_ADDRESS ) {
-				$cache->delete( sprintf( '%s_%s', $this->payment_method->id, Constants::PAYPAL_ORDER_ID ) );
+			if ( $new_order->getPaymentSource()->getExperienceContext()->getShippingPreference() === OrderApplicationContext::SET_PROVIDED_ADDRESS ) {
+				$cache->delete( sprintf( '%s_%s', $this->id, Constants::PAYPAL_ORDER_ID ) );
 				$cache->delete( Constants::SHIPPING_PREFERENCE );
 				throw new RetryException( 'Create new order' );
 			}
@@ -734,6 +765,25 @@ class PayPalGateway extends AbstractGateway {
 
 	public function is_immediate_payment_required() {
 		return \wc_string_to_bool( $this->get_option( 'immediate_payment', 'no' ) );
+	}
+
+	public function get_experience_context_keys(): array {
+		$keys = [
+			'brand_name',
+			'locale',
+			'shipping_preference',
+			'user_action',
+			'return_url',
+			'cancel_url',
+			'payment_method_preference',
+		];
+		if ( ShippingUtil::is_session_handler_available() ) {
+			if ( \wc_string_to_bool( $this->get_option( 'server_side_shipping_callback', 'yes' ) ) ) {
+				$keys[] = 'order_update_callback_config';
+			}
+		}
+
+		return $keys;
 	}
 
 }

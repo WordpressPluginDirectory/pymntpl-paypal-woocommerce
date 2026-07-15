@@ -17,7 +17,6 @@ use PaymentPlugins\WooCommerce\PPCP\Admin\Update;
 use PaymentPlugins\WooCommerce\PPCP\Assets\AssetDataApi;
 use PaymentPlugins\WooCommerce\PPCP\Assets\AssetDataController;
 use PaymentPlugins\WooCommerce\PPCP\Cache\CacheHandler;
-use PaymentPlugins\WooCommerce\PPCP\Cache\CacheInterface;
 use PaymentPlugins\WooCommerce\PPCP\Factories\CoreFactories;
 use PaymentPlugins\WooCommerce\PPCP\Fastlane\FastlaneController;
 use PaymentPlugins\WooCommerce\PPCP\Integrations\PluginIntegrationsRegistry;
@@ -32,6 +31,7 @@ use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\PayPalGateway;
 use PaymentPlugins\WooCommerce\PPCP\Payments\PaymentGateways;
 use PaymentPlugins\WooCommerce\PPCP\Assets\AssetsApi;
 use PaymentPlugins\WooCommerce\PPCP\Products\ProductDataController;
+use PaymentPlugins\WooCommerce\PPCP\ReCaptcha\ReCaptchaController;
 use PaymentPlugins\WooCommerce\PPCP\Rest\RestController;
 use PaymentPlugins\WooCommerce\PPCP\Shortcodes\CartPayLaterMessage;
 use PaymentPlugins\WooCommerce\PPCP\Shortcodes\CartPaymentButtons;
@@ -98,6 +98,7 @@ class Main {
 		$this->container->get( OrderAttributionController::class )->initialize();
 		$this->container->get( ProductDataController::class )->initialize();
 		$this->container->get( PaymentButtonController::class )->initialize();
+		$this->container->get( ReCaptchaController::class )->initialize();
 		$this->container->get( PaymentGateways::class );
 		$this->container->get( RestApi::class );
 		$this->container->get( OrderStatusController::class );
@@ -107,7 +108,6 @@ class Main {
 		$this->container->get( RefundsManager::class );
 		$this->container->get( PayPalQueryParams::class );
 		$this->container->get( ContextHandler::class );
-		$this->container->get( AjaxFrontendHandler::class );
 		$this->container->get( ShortCodesController::class );
 		$this->container->get( Messages::class );
 		$this->container->get( CustomerController::class );
@@ -129,13 +129,10 @@ class Main {
 	 * These are dependencies only registered when WooCommerce is active.
 	 */
 	public function register_woocommerce_dependencies() {
-		include_once __DIR__ . '/wc-ppcp-functions.php';
 
 		if ( ! $this->is_woocommerce_active() ) {
 			return;
 		}
-
-		$this->container->register( 'VERSION', $this->version() );
 
 		// Settings
 		$this->container->register( APISettings::class, function ( $container ) {
@@ -366,12 +363,25 @@ class Main {
 				$container->get( PaymentMethodRegistry::class ),
 			);
 		} );
+		$this->container->register( CheckoutValidator::class, function () {
+			return new CheckoutValidator();
+		} );
+		$this->container->register( ReCaptchaController::class, function ( $container ) {
+			return new ReCaptchaController(
+				$container->get( PaymentMethodRegistry::class ),
+				$container->get( Logger::class )
+			);
+		} );
 	}
 
 	/**
 	 * These are classes that don't have a dependency on WC.
 	 */
 	public function register() {
+		$this->container->register( 'VERSION', $this->version() );
+
+		include_once __DIR__ . '/wc-ppcp-functions.php';
+
 		$this->container->register( Config::class, function ( $container ) {
 			return new Config( $this->version, dirname( __FILE__ ) );
 		} );

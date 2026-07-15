@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('jquery', 'wc-ppcp-actions', 'wc-ppcp-cart', 'wc-ppcp-context', 'wc-ppcp-controllers', 'wc-ppcp-product', 'wc-ppcp-utils', 'wp-polyfill'), 'version' => '3dea8fe09de09c09921e');
+<?php return array('dependencies' => array('jquery', 'wc-ppcp-actions', 'wc-ppcp-cart', 'wc-ppcp-context', 'wc-ppcp-controllers', 'wc-ppcp-product', 'wc-ppcp-utils'), 'version' => 'bcec65b142cf87c699b9');
